@@ -9,7 +9,7 @@ return [
         /**
          * name: is the name of the application
          */
-        'name' => 'KUMBIAPHP PROJECT',
+        'name' => 'UWPanel',
         /**
          * database: database to use
          */
