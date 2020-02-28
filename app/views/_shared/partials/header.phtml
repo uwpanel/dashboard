@@ -1,0 +1,48 @@
+<?php
+
+/**
+ * Header file for the Twenty Twenty WordPress default theme.
+ *
+ * @link https://developer.wordpress.org/themes/basics/template-files/#template-partials
+ *
+ * @package WordPress
+ * @subpackage Twenty_Twenty
+ * @since 1.0.0
+ */
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset=<?= APP_CHARSET ?>>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>KumbiaPHP Framework</title>
+
+    <!-- Font Awesome Icons -->
+    <?php Tag::css('all.min') ?>
+    <!-- Theme style -->
+    <?php Tag::css('adminlte.min') ?>
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    <?= Html::includeCss() ?>
+
+    <style>
+        /* Always Show Scroll Bar */
+        html {
+            overflow-y: scroll;
+        }
+    </style>
+
+</head>
+
+<body class="hold-transition sidebar-mini">
+
+    <div class="wrapper">
+
+        <?php View::partial('navbar') ?>
+
+        <?php View::partial('sidebar') ?>

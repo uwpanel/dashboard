@@ -1,0 +1,47 @@
+<?php
+
+/**
+ * KumbiaPHP web & app Framework
+ *
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled
+ * with this package in the file LICENSE.
+ * 
+ * "Extended" pager for applications
+ *
+ * Pager parameters:
+ *   page: object obtained by invoking the pager
+ *   url: url for the action performed by the page, by default "module / controller / page /"
+ *        and the page number is sent by parameter
+ *
+ * @category    Kumbia
+ * @package     Partials
+ * @subpackage  Paginators
+ *
+ * @copyright  Copyright (c) 2005 - 2019 KumbiaPHP Team (http://www.kumbiaphp.com)
+ * @license    https://github.com/KumbiaPHP/KumbiaPHP/blob/master/LICENSE   New BSD License
+ */
+
+if (!isset($url)) {
+    extract(Router::get());
+    $url = "$controller/page";
+    if ($module) {
+        $url = "$module/$url";
+    }
+}
+
+$s_item = $page->per_page * ($page->current - 1) + 1;
+$e_item = $s_item + count($page->items) - 1;
+?>
+
+<div class="paginator">
+    <?php if ($page->prev == 1) echo Html::link("$url/", 'Previous', 'title="Go to previous" class="nextprev" rel="prev"'); // Se coloca el link sin número de página para la página 1
+    elseif ($page->prev) echo Html::link("$url/$page->prev/", 'Previous', 'title="Go to previous" class="nextprev" rel="prev"') ?>
+
+    pag. <?= $page->current ?> de <?= $page->total ?>
+    |
+    items <?= $s_item ?>-<?= $e_item ?>
+
+    <?php if ($page->next) echo Html::link("$url/$page->next/", 'Next', 'title="Go to next" class="nextprev" rel="next"') ?>
+</div>

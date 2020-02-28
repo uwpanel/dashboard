@@ -1,0 +1,26 @@
+{
+    "name": "BaseApp Core",
+    "description": "BaseApp Core PHP Framework",
+    "type": "project",
+    "homepage": "https://baseapp.org",
+    "license": "GPL-3.0",
+    "support": {
+        "slack": "https://slack.kumbiaphp.com",
+        "group": "https://groups.google.com/group/kumbia",
+        "forum": "http://foro.kumbiaphp.com/",
+        "wiki": "http://wiki.kumbiaphp.com",
+        "source": "https://github.com/KumbiaPHP/KumbiaPHP"
+    },
+    "require": {
+        "php": ">=7.2"
+    },
+    "require-dev": {
+        "php": ">=7.2",
+        "phpunit/phpunit": ">=4.0",
+        "mockery/mockery": ">=0.9",
+        "maximebf/debugbar": "1.*"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}

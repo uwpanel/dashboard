@@ -1,0 +1,71 @@
+<div id='info'>
+    <?php
+    // Checking if it runs on windows so that the function doesn't work
+    if (PHP_OS == 'WINNT') {
+        echo strftime("%#d from %B of the %Y"), '<br/>';
+    } else {
+        echo strftime("%e from %B of the %Y"), '<br/>';
+    }
+
+
+    /**
+     * Verifying permissions of the temp dir /
+     */
+    if (!is_writable(APP_PATH . 'temp')) {
+        $tmp = "You must give permission to: '" . basename(APP_PATH) . "/temp/'";
+    } else {
+        $tmp = 'Temp directory ... ok';
+    }
+
+    $status = PRODUCTION ? 'Production' : 'Development';
+
+
+    /**
+     * Config of the config.ini
+     */
+    $config = Config::read('config');
+
+    if (isset($config['application']['cache_driver'])) {
+        $cahe_driver = $config['application']['cache_driver'];
+    } else {
+        $cache_driver = 'You have not selected a driver for the cache';
+    }
+
+    $locale = str_replace(';', '<br>', setlocale(LC_ALL, '0'));
+
+    if (!$timezone = date_default_timezone_get()) {
+        $timezone = 'A Timezone was not specified.';
+    }
+    ?>
+    <h2>config.ini <span class='app'> from <?= basename(dirname(APP_PATH)) ?></span></h2>
+    App: <strong><?= basename(dirname(APP_PATH)) ?></strong> (<?= PRODUCTION ? 'Production' : 'Development' ?>)
+
+
+    <div id="conf">
+        <h4>Temp directory/:</h4>
+        <p><?= $tmp ?></p>
+
+        <h4>Current Status of the Framework:<span><?= $status ?></span></h4>
+        <p>See <a href='http://wiki.kumbiaphp.com/KumbiaPHP_Framework_Versi%C3%B3n_1.0_Spirit#Modos_de_una_Aplicaci.C3.B3n'>Modes of Execution</a></p>
+
+        <h4>Database: <span><?= $config['application']['database'] ?></span></h4>
+        <p>Data of the connection to the BD that will be used, see configuration<a href="http://wiki.kumbiaphp.com/KumbiaPHP_Framework_Versi%C3%B3n_1.0_Spirit#databases.ini">databases.ini</a>.</p>
+
+        <h4>Cache Driver: <span><?= $cahe_driver ?></span></h4>
+        <p>Driver to be used to perform cache operations.</p>
+
+        <h4>Charset: <span><?= APP_CHARSET ?></span></h4>
+        <p>Character encoding Recommended UTF-8</p>
+
+        <h2>Server settings</h2>
+        <p>How to change these values<a href=#> ALL links</a></p>
+
+        <h4>TimeZone: <span><?= $timezone ?></span></h4>
+        <p>Time zone that the application will use.</p>
+
+        <h4>Location:</h4>
+        <span><?= $locale ?></span>
+        <p>Location. Feature that depends on the premises installed on the server.</p>
+    </div>
+
+</div>

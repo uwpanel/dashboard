@@ -1,0 +1,52 @@
+<?php $parameters = (array) Router::get('parameters'); //url parameters 
+?>
+<div class="flash error">
+	<h1>Number of Parameters Incorrect</h1>
+	<p><strong>Error: </strong>Wrong number of parameters to execute the action <b><?= $action ?></b> in the controller <b><?= $Controller ?></b>
+</div>
+<div class="flash info">
+	<p><strong>Information: </strong>You are trying to call : <em class="file"><?= $controller, '->', $action, '("', implode('","', $parameters), '");' ?></em> but the method is not receiving the correct amount of parameters.
+</div>
+<div class="flash valid">
+	<h1>Solutions</h1>
+	<ul>
+		<li>
+			Send the correct number of parameters in the request url.
+		</li>
+		<li>
+			Create the correct parameters in the action <em><?= $action ?></em> controller : <b><?= $Controller ?>Controller</b>
+			<pre>
+<?php highlight_string("<?php
+class {$Controller} extends AppController
+{
+    public function {$action}( \$param1, \$param2, ... , \$paramN)
+    {    
+    
+    }	
+}") ?>
+</pre>
+		</li>
+		<li>
+			Set default values to parameters that will not always receive a value per url in action <em class="file"><?= $action ?></em> controller : <b><?= $Controller ?>Controller</b>
+			<pre>
+<?php highlight_string("<?php
+class {$Controller} extends AppController
+{
+    public function {$action}( \$param1 , \$param2 = NULL , \$param3 = 'Valor por Defecto')
+    {    
+    
+    }	
+}") ?>
+</pre>
+		</li>
+		<li>
+			Set the attribute <em>$limit_params</em> in <em>FALSE</em>  controller : <b><?= $Controller ?>Controller</b>
+			<pre>
+<?php highlight_string("<?php
+class {$Controller} extends AppController
+{
+    public \$limit_params = FALSE;	
+}") ?>
+</pre>
+		</li>
+</div>

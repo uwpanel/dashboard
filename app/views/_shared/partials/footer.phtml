@@ -1,0 +1,26 @@
+    <!-- Main Footer -->
+    <footer class="main-footer">
+        <!-- To the right -->
+        <div class="float-right d-none d-sm-inline">
+            <?= 'Executed in ', round((microtime(1) - $_SERVER['REQUEST_TIME_FLOAT']) * 1000, 4), ' ms. using ', number_format(memory_get_usage() / 1048576, 3), ' MB of memory'; ?> </div>
+        <!-- Default to the left -->
+        <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved. <div class="col-12 text-center"> </div>
+    </footer>
+    </div>
+    <!-- ./wrapper -->
+
+    <!-- REQUIRED SCRIPTS -->
+
+
+    <!-- <?php Tag::js('jquery.min') //php is not working 
+            ?> -->
+    <!-- jQuery -->
+    <?= Tag::js('jquery/jquery.min'); ?>
+    <!-- Bootstrap 4 -->
+    <?= Tag::js('bootstrap.bundle.min'); ?>
+    <!-- AdminLTE App -->
+    <?= Tag::js('adminlte.min'); ?>
+
+    </body>
+
+    </html>

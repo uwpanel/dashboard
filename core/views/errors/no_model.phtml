@@ -1,0 +1,19 @@
+<?php
+$model = $e->getMessage(); //the message is the model name
+?>
+<?php $Model = ucwords($model); ?>
+<div class="flash error">
+    <h1>Model not found</h1>
+    <p><strong>Error: </strong>Model not found <em><?= $Model ?></em>. It is necessary to create a class <em><?= $Model ?></em> in the file : <em><?= APP_PATH ?>models/<?= $model ?>.php</em> for this to work correctly.</p>
+</div>
+<div class="flash valid">
+    <h1>Solution</h1>
+    <h4><strong>Create class <em><?= $Model ?></em> from below in the file : <br> <em class="file"><?= APP_PATH ?>models/<?= $model ?>.php</em></strong></h4>
+    <pre>
+<?php highlight_string("<?php
+class {$Model}
+{	
+
+}") ?>
+</pre>
+</div>

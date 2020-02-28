@@ -1,0 +1,22 @@
+DirectoryIndex index.php
+# If mod_rewrite is enabled
+<IfModule mod_rewrite.c>
+    # Activate rewrite mode
+    RewriteEngine On
+
+# Installation directory, may be necessary if
+# the application is located in public_html
+
+    #RewriteBase /
+
+    # Does not allow rewriting if the file or directory exists
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+    # For requests that are not files or directories
+    # Rewrite index.php /
+    #RewriteRule (.*) index.php/$1 [L]
+
+    # Rewrite a index.php?_url=URL
+    #RewriteRule ^(.*)$ index.php?_url=/$1 [QSA,L]
+</IfModule>
