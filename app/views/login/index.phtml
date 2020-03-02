@@ -2,10 +2,15 @@
 <div class="card">
     <div class="card-body login-card-body">
         <p class="login-box-msg">Sign in to start your session</p>
-
-        <form action="../../index3.html" method="post">
+        <p class="text-danger text-center">
+            <?php
+            echo $_SESSION['error_msg'];
+            $_SESSION['error_msg'] = NULL;
+            ?>
+        </p>
+        <form action="login/auth" method="post">
             <div class="input-group mb-3">
-                <input type="username" class="form-control" placeholder="Username">
+                <input type="text" name="user" class="form-control" placeholder="Username">
                 <div class="input-group-append">
                     <div class="input-group-text">
                         <span class="fas fa-user"></span>
@@ -13,7 +18,7 @@
                 </div>
             </div>
             <div class="input-group mb-3">
-                <input type="password" class="form-control" placeholder="Password">
+                <input type="password" name="password" class="form-control" placeholder="Password">
                 <div class="input-group-append">
                     <div class="input-group-text">
                         <span class="fas fa-lock"></span>
@@ -35,6 +40,7 @@
                 </div>
                 <!-- /.col -->
             </div>
+            <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
         </form>
 
         <p class="mb-1">
