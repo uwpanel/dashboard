@@ -126,16 +126,4 @@ class LoginController extends AuthController
             }
         }
     }
-    public function logout()
-    {
-        // Auth::destroy_identity();
-
-        if (!empty($_SESSION['look'])) {
-            unset($_SESSION['look']);
-        } else {
-            session_destroy();
-        }
-        header("Location: /");
-        exit;
-    }
 }
