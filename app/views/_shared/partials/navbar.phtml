@@ -53,26 +53,14 @@
               </li>
               <li class="nav-item dropdown user-menu">
                   <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                      <span class="d-none d-md-inline fas fa-user-circle"> <?= $_SESSION['user'] ?></span>
+                      <span class="d-none d-md-inline fas fa-user">&ensp; <?= $_SESSION['user'] ?></span>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-right">
                       <li>
                           <a href="<?= $_SERVER['REMOTE_HOST'] ?>/logout" class="dropdown-item btn btn-default">Sign out</a>
-
                       </li>
-                      <!-- <li>
-                          <a href="#" class="btn btn-default btn-flat ">Profile</a>
-                      </li>
-                      <li>
-                          <div class="dropdown-divider"></div>
-                          <a href="<? //= $_SERVER['REMOTE_HOST'] 
-                                    ?>/logout" class="btn btn-default btn-flat float-center">Sign out</a>
-                      </li> -->
                   </ul>
               </li>
-              <!-- <li class="nav-item">
-                  <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#"><i class="fas fa-th-large"></i></a>
-              </li> -->
           </ul>
       </nav>
       <!-- /.navbar -->

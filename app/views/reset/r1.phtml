@@ -1,25 +1,27 @@
     <title>Reset Password</title>
 
-    <p class="login-box-msg"><b>Reset Password</b></p>
-    <p class="text-danger text-center">
+    <p class="login-box-msg"><b>Reset Code</b></p>
+    <p class="text-center">
         <?php
         echo $_SESSION['error_msg'];
         $_SESSION['error_msg'] = NULL;
         ?>
     </p>
-    <form action="<?= $_SERVER['REMOTE_HOST'] ?>/reset/r1" method="post">
+    <form action="<?= $_SERVER['REMOTE_HOST'] ?>" method="post">
         <div class="input-group mb-3">
-            <input type="text" name="user" class="form-control" placeholder="Username">
+            <input type="text" name="user" class="form-control" placeholder="Reset code">
             <div class="input-group-append">
                 <div class="input-group-text">
-                    <span class="fas fa-user"></span>
+                    <span class="fas fa-unlock-alt"></span>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-8">
+            <div class="col-12">
+                <p>Password reset code has been sent to your email address</p>
             </div>
             <!-- /.col -->
+
             <!-- /.col -->
         </div>
         <div class="col-12">
