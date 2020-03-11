@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <?
+    echo $_SERVER['REMOTE_ADDR'], "<br>";
+    echo "<pre>", "user/add", "</pre>";
+    echo "<pre>", print_r($data, true), "</pre>";
+
+    ?>
+
+    <title>Add User</title>
+
+
+    <div class="col-6">
+        <p class="login-box-msg"><b>Adding User</b></p>
+        <p class="text-center">
+            <?php
+            echo $_SESSION['error_msg'];
+            $_SESSION['error_msg'] = NULL;
+            ?>
+        </p>
+        <form action="<?= $_SERVER['REMOTE_HOST'] . "/user/add " ?>" method="post">
+            <div class="input-group mb-3">
+                <input type="text" name="user" class="form-control" placeholder="Reset code">
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <span class="fas fa-unlock-alt"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!-- /.col -->
+
+                <!-- /.col -->
+            </div>
+            <div class="col-4">
+                <button type="submit" class="btn btn-primary btn-block">Confirm</button>
+                <a href="<?= $_SERVER['REMOTE_HOST'] ?>/reset" class="btn btn-default btn-block">Back</a>
+            </div>
+            <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
+        </form>
+    </div>
+
+</body>
+
+
+</html>

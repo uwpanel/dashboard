@@ -4,7 +4,7 @@
         <div class="float-right d-none d-sm-inline">
             <?= 'Executed in ', round((microtime(1) - $_SERVER['REQUEST_TIME_FLOAT']) * 1000, 4), ' ms. using ', number_format(memory_get_usage() / 1048576, 3), ' MB of memory'; ?> </div>
         <!-- Default to the left -->
-        <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved. <div class="col-12 text-center"> </div>
+        <strong>Copyright &copy; <?=date("Y");?> <a href="">BaseApp.Core</a>.</strong> All rights reserved. <div class="col-12 text-center"> </div>
     </footer>
     </div>
     <!-- ./wrapper -->

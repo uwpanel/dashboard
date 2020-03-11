@@ -100,11 +100,24 @@ class LoginController extends AuthController
                         // Get user speciefic parameters
                         exec(VESTA_CMD . "v-list-user " . $v_user . " json", $output, $return_var);
                         $data = json_decode(implode('', $output), true);
+                        unset($output);
 
                         // Define session user
                         $_SESSION['user'] = key($data);
                         $v_user = $_SESSION['user'];
 
+                        // Check system configuration
+                        exec(VESTA_CMD . "v-list-sys-config json", $output, $return_var);
+                        $data = json_decode(implode('', $output), true);
+                        unset($output);
+
+                        $sys_arr = $data['config'];
+                        foreach ($sys_arr as $key => $value) {
+                            $_SESSION[$key] = $value;
+                            echo "<br>", print_r($value);
+                        }
+
+                        echo "<pre>", print_r($_SESSION);
 
 
                         // Define language
