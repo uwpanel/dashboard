@@ -24,7 +24,7 @@
             $_SESSION['error_msg'] = NULL;
             ?>
         </p>
-        <form action="<?= $_SERVER['REMOTE_HOST'] . "/user/add " ?>" method="post">
+        <form action="https://<?= $_SERVER['HTTP_HOST'] ?>/user/add" method="post">
             <div class="input-group mb-3">
                 <input type="text" name="user" class="form-control" placeholder="Reset code">
                 <div class="input-group-append">
@@ -40,7 +40,7 @@
             </div>
             <div class="col-4">
                 <button type="submit" class="btn btn-primary btn-block">Confirm</button>
-                <a href="<?= $_SERVER['REMOTE_HOST'] ?>/reset" class="btn btn-default btn-block">Back</a>
+                <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/reset" class="btn btn-default btn-block">Back</a>
             </div>
             <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
         </form>

@@ -7,7 +7,7 @@
     $_SESSION['error_msg'] = NULL;
     ?>
 </p>
-<form action="<?= $_SERVER['REMOTE_HOST'] ?>/login/auth" method="post">
+<form action="https://<?= $_SERVER['HTTP_HOST'] ?>/login/auth" method="post">
     <div class="input-group mb-3">
         <input type="text" name="user" class="form-control" placeholder="Username">
         <div class="input-group-append">
@@ -37,5 +37,5 @@
 </form>
 
 <p class="mb-1">
-    <a href="<?= $_SERVER['REMOTE_HOST'] ?>/reset">I forgot my password</a>
+    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/reset">I forgot my password</a>
 </p>

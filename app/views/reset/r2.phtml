@@ -7,7 +7,7 @@
         $_SESSION['error_msg'] = NULL;
         ?>
     </p>
-    <form action="<?= $_SERVER['REMOTE_HOST'] ?>" method="post">
+    <form action="https://<?= $_SERVER['HTTP_HOST'] ?>/reset/r2" method="post">
         <div class="input-group mb-3">
             <input type="password" name="password" class="form-control" placeholder="New Password">
             <div class="input-group-append">
@@ -33,6 +33,6 @@
         </div>
         <div class="col-12">
             <button type="submit" class="btn btn-primary btn-block">Confirm</button>
-            <a href="<?= $_SERVER['REMOTE_HOST'] ?>/reset" class="btn btn-default btn-block">Back</a>
+            <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/reset/r1" class="btn btn-default btn-block">Back</a>
         </div>
     </form>
