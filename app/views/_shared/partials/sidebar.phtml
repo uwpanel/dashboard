@@ -6,7 +6,6 @@
         <!-- <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> -->
         <span class="brand-text font-weight-light">BaseApp.Core</span>
     </a>
-
     <!-- Sidebar -->
     <div class="sidebar">
 
@@ -16,10 +15,10 @@
                 <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                 <li class="nav-item has-treeview menu-open">
-                    <a href="#" class="nav-link active">
+                    <a href="#" class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/') echo "active"; ?>">
                         <i class="nav-icon fas fa-user"></i>
                         <p>
-                            <?=$_SESSION['user'];?>
+                            <?= $_SESSION['user']; ?>
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
@@ -46,15 +45,15 @@
                     </ul> -->
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="#" class="nav-link active">
+                            <a href="#" class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/myaccount/*') echo "active"; ?>">
                                 <i class="fas fa-home nav-icon"></i>
                                 <p>My Account</p>
                             </a>
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/user" class="nav-link">
+                <li class="nav-item ">
+                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/user" class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/user') echo "active"; ?>">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
                             Users
@@ -63,7 +62,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/web" class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/web') echo "active"; ?>">
                         <i class="nav-icon fas fa-globe"></i>
                         <p>
                             Web
@@ -72,7 +71,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/dns" class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/dns') echo "active"; ?>">
                         <i class="nav-icon fas fa-sitemap"></i>
                         <p>
                             DNS
@@ -81,7 +80,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/mail" class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/mail') echo "active"; ?>">
                         <i class="nav-icon fas fa-envelope"></i>
                         <p>
                             Mail
@@ -90,7 +89,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/db" class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/db') echo "active"; ?>">
                         <i class="nav-icon fas fa-database"></i>
                         <p>
                             Database
@@ -99,7 +98,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/cron" class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/cron') echo "active"; ?>">
                         <i class="nav-icon fas fa-cogs"></i>
                         <p>
                             Cron Jobs
@@ -108,7 +107,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/backup" class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/backup') echo "active"; ?>">
                         <i class="nav-icon fas fa-upload"></i>
                         <p>
                             Backups

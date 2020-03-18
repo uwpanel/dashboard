@@ -18,7 +18,7 @@
  */
 
 /**
- * * Class for API management based on RESTClase para el manejo de API basada en REST
+ * * Class for API management based on REST Class for handling API based on REST
  *
  * @category   Kumbia
  * @package    Controller

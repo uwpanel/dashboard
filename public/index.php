@@ -63,10 +63,10 @@ const PRODUCTION = false;
 /*
  * Uncomment to show errors
  */
-//error_reporting(E_ALL ^ E_STRICT);ini_set('display_errors', 'On');
+// error_reporting(E_ALL ^ E_STRICT);ini_set('display_errors', 'On');
 
 /*
- * Define el APP_PATH
+ * Define the APP_PATH
  *
  * APP_PATH:
  * - Path to the application directory (by default the path to the app directory)

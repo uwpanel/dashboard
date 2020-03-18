@@ -9,14 +9,12 @@
 
 <body>
     <?
-    echo "<pre>", print_r($data, true), "</pre>";
-
+    // echo "<pre>", print_r($data, true), "</pre>";
     ?>
 
     <title>Add User</title>
 
-
-    <div class="col-6">
+    <div class="col-4">
         <p class="login-box-msg"><b>Adding User</b></p>
         <p class="text-center">
             <?php
@@ -26,10 +24,58 @@
         </p>
         <form action="https://<?= $_SERVER['HTTP_HOST'] ?>/user/add" method="post">
             <div class="input-group mb-3">
-                <input type="text" name="user" class="form-control" placeholder="Reset code">
+                <input type="text" name="password" class="form-control" placeholder="Username">
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <span class="fas fa-user"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <input type="password" name="password_confirm" class="form-control" placeholder="Password">
                 <div class="input-group-append">
                     <div class="input-group-text">
                         <span class="fas fa-unlock-alt"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <input type="text" name="password" class="form-control" placeholder="Email">
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <span class="fas fa-envelope"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <select name="package" class="form-control">
+                    <?php
+                    foreach ($data as $key => $value) { ?>
+                        <option value="<?= $key ?>"><?= $key; ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+            <div class="input-group mb-3">
+                <input type="text" name="password" class="form-control" placeholder="First Name">
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <span class="fas fa-envelope"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <input type="text" name="password" class="form-control" placeholder="Last Name">
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <span class="fas fa-envelope"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <input type="text" name="password" class="form-control" placeholder="Send login credentials to this email">
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <span class="fas fa-envelope"></span>
                     </div>
                 </div>
             </div>
@@ -50,3 +96,6 @@
 
 
 </html>
+
+<?php
+echo "<pre>", print_r($data);

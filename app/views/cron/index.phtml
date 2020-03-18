@@ -1,0 +1,56 @@
+<div class="select" style="display:none">
+    <select class="form-control" id="locale">
+        <option value="en-US" selected>en-US</option>
+    </select>
+</div>
+
+<div id="toolbar">
+    <button id="remove" class="btn btn-danger" disabled>
+        <i class="fas fa-trash status-icon red status-icon dim do_delete"></i> Delete
+    </button>
+    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/db/add" id="add" class="btn btn-primary">
+        <i class="fas fa-plus-circle status-icon"></i> Add Cron Job
+    </a>
+</div>
+
+<table id="table" data-toggle="table" data-toolbar="#toolbar" data-search="true" data-show-refresh="true" data-show-toggle="true" data-show-fullscreen="true" data-show-columns="true" data-show-columns-toggle-all="true" data-show-export="true" data-click-to-select="true" data-minimum-count-columns="2" data-show-pagination-switch="true" data-pagination="true" data-id-field="name" data-page-list="[10, 25, 50, 100, all]" data-show-footer="false" data-response-handler="responseHandler">
+    <thead>
+        <tr>
+            <th data-field="state" data-checkbox="true"></th>
+            <th data-field="job" data-filter-control="input" data-sortable="true">Cron Job</th>
+            <th data-field="action" data-filter-control="input" data-sortable="true">Action</th>
+            <th data-field="minute" data-filter-control="input" data-sortable="true">Minute</th>
+            <th data-field="houe" data-filter-control="input" data-sortable="true">Hour</th>
+            <th data-field="day" data-filter-control="input" data-sortable="true">Day</th>
+            <th data-field="month" data-filter-control="input" data-sortable="true">Month</th>
+            <th data-field="weekday" data-filter-control="input" data-sortable="true">Day of week</i></th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        foreach ($data as $key => $each) {
+        ?>
+            <tr>
+                <td class="bs-checkbox "><input data-index="0" name="btSelectItem" type="checkbox"></td>
+                <td> <b><? echo $each['CMD'] ?></b></td>
+                <td> <a class="like" href="javascript:void(0)" title="Edit">
+                        <i class="fas fa-edit"></i>
+                    </a></td>
+                <td><? echo $each['MIN'] ?></td>
+                <td><? echo $each['HOUR'] ?></td>
+                <td><? echo $each['DAY'] ?></td>
+                <td><? echo $each['MONTH'] ?></td>
+                <td><? echo $each['WDAY'] ?></td>
+            </tr>
+        <?php
+        }
+        ?>
+    </tbody>
+</table>
+
+</div>
+
+
+<?php
+//echo "<pre>", print_r($data, true);
+?>

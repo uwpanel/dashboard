@@ -43,8 +43,8 @@ return [
          */
         'namespace_auth' => 'default',
         /**
-     * routes: uncomment to activate routes on routes.php
-     */
-        //'routes' => '1',
+         * routes: uncomment to activate routes on routes.php
+         */
+        'routes' => '1',
     ],
 ];

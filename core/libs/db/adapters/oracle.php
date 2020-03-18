@@ -132,7 +132,7 @@ class DbOracle extends DbBase implements DbBaseInterface
 
         if ($this->id_connection = oci_pconnect($config['username'], $config['password'], "{$config['host']}/{$config['name']}", $config['charset'])) {
             /*
-             * Cambio el formato de fecha al estandar YYYY-MM-DD
+             * Change the date format to standard YYYY-MM-DD
              */
             $this->query("alter session set nls_date_format = 'YYYY-MM-DD'");
 
@@ -480,7 +480,7 @@ class DbOracle extends DbBase implements DbBaseInterface
     }
 
     /**
-     * Listado de Tablas.
+     * List of Tables.
      *
      * @return bool
      */

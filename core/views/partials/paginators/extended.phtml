@@ -36,7 +36,7 @@ $e_item = $s_item + count($page->items) - 1;
 ?>
 
 <div class="paginator">
-    <?php if ($page->prev == 1) echo Html::link("$url/", 'Previous', 'title="Go to previous" class="nextprev" rel="prev"'); // Se coloca el link sin número de página para la página 1
+    <?php if ($page->prev == 1) echo Html::link("$url/", 'Previous', 'title="Go to previous" class="nextprev" rel="prev"'); // The link without page number is placed for page 1
     elseif ($page->prev) echo Html::link("$url/$page->prev/", 'Previous', 'title="Go to previous" class="nextprev" rel="prev"') ?>
 
     pag. <?= $page->current ?> de <?= $page->total ?>
