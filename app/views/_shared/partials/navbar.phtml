@@ -53,11 +53,37 @@
               </li>
               <li class="nav-item dropdown user-menu">
                   <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                      <span class="d-none d-md-inline fas fa-user">&ensp; <?= $_SESSION['user'] ?></span>
+                      <?= Html::img('user2-160x160.jpg', 'User Image', 'class="user-image img-circle elevation-2"') ?>
+                      <span class="d-none d-md-inline"><?= $_SESSION['user'] ?></span>
                   </a>
-                  <ul class="dropdown-menu dropdown-menu-right">
-                      <li>
-                          <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/logout" class="dropdown-item btn btn-default">Sign out</a>
+                  <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                      <!-- User image -->
+                      <li class="user-header bg-primary">
+                          <?= Html::img('user2-160x160.jpg', 'User Image', 'class="user-image img-circle elevation-2"') ?>
+                          <p>
+                              <?= $_SESSION['user'] ?>
+                              <!-- <small>Member since Nov. 2012</small> -->
+                          </p>
+                      </li>
+                      <!-- Menu Body -->
+                      <li class="user-body">
+                          <div class="row">
+                              <div class="col-4 text-center">
+                                  <a href="#">Followers</a>
+                              </div>
+                              <div class="col-4 text-center">
+                                  <a href="#">Sales</a>
+                              </div>
+                              <div class="col-4 text-center">
+                                  <a href="#">Friends</a>
+                              </div>
+                          </div>
+                          <!-- /.row -->
+                      </li>
+                      <!-- Menu Footer-->
+                      <li class="user-footer">
+                          <a href="#" class="btn btn-default btn-flat">Profile</a>
+                          <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/logout" class="btn btn-default btn-flat float-right">Sign out</a>
                       </li>
                   </ul>
               </li>
