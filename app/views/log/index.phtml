@@ -1,0 +1,41 @@
+<div class="select" style="display:none">
+    <select class="form-control" id="locale">
+        <option value="en-US" selected>en-US</option>
+    </select>
+</div>
+
+<table id="table" data-sortable="false" data-toggle="table" data-toolbar="#toolbar" data-search="true" data-show-refresh="true" data-show-fullscreen="true" data-show-columns="true" data-show-columns-toggle-all="true" data-show-export="true" data-click-to-select="true" data-minimum-count-columns="2" data-show-pagination-switch="true" data-pagination="true" data-id-field="name" data-page-list="[10, 25, 50, 100, all]" data-show-footer="false" data-response-handler="responseHandler">
+    <thead>
+        <tr>
+            <!-- <th data-field="state" data-checkbox="true"></th> -->
+            <th data-field="id" data-filter-control="input">Sr No.</th>
+            <th data-field="date" data-filter-control="input" data-sortable="true">Date</th>
+            <th data-field="time" data-filter-control="input">Time</th>
+            <th data-field="cmd" data-filter-control="input">Log</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        foreach ($data as $key => $each) {
+        ?>
+            <tr>
+                <td><? echo $key + 1 ?></td>
+
+                <!-- <td class="bs-checkbox "><input data-index="0" name="btSelectItem" type="checkbox"></td> -->
+                <td><? echo translate_date($each['DATE']) ?></td>
+                <!-- <td><? // echo $each['DATE'] 
+                            ?></td> -->
+                <td><? echo $each['TIME'] ?></td>
+                <td><? echo $each['CMD'] ?></td>
+            </tr>
+        <?php
+        }
+        ?>
+    </tbody>
+</table>
+
+</div>
+
+<?php
+// echo "<pre>", print_r($data,true);
+?>

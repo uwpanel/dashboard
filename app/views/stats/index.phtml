@@ -1,0 +1,53 @@
+<div class="select" style="display:none">
+    <select class="form-control" id="locale">
+        <option value="en-US" selected>en-US</option>
+    </select>
+</div>
+
+
+<table id="table" data-toggle="table" data-toolbar="#toolbar" data-search="true" data-show-refresh="true" data-show-toggle="true" data-show-fullscreen="true" data-show-columns="true" data-show-columns-toggle-all="true" data-show-export="true" data-click-to-select="true" data-minimum-count-columns="2" data-show-pagination-switch="true" data-pagination="true" data-id-field="name" data-page-list="[10, 25, 50, 100, all]" data-show-footer="false" data-response-handler="responseHandler">
+    <thead>
+        <tr>
+            <th data-field="state"></th>
+            <th data-field="name" data-filter-control="input" data-sortable="true">Date</th>
+            <th data-field="package" data-filter-control="input" data-sortable="true">Package</th>
+            <th data-field="ip" data-filter-control="input" data-sortable="true">IP</th>
+            <th data-field="disk" data-filter-control="input" data-sortable="true" title="Disk"><i class="fas fa-hdd"></i></th>
+            <th data-field="bandwidth" data-filter-control="input" data-sortable="true" title="Bandwidth"><i class="fas fa-exchange-alt"></i></th>
+            <th data-field="web" data-filter-control="input" data-sortable="true" title="Web"><i class="fas fa-globe"></i></th>
+            <th data-field="mail" data-filter-control="input" data-sortable="true" title="Mail"><i class="fas fa-mail-bulk"></i></th>
+            <th data-field="dns" data-filter-control="input" data-sortable="true" title="DNS Records"><i class="nav-icon fas fa-sitemap"></i></th>
+            <th data-field="db" data-filter-control="input" data-sortable="true" title="Databases"><i class="nav-icon fas fa-database"></i></th>
+            <th data-field="cron" data-filter-control="input" data-sortable="true" title="Cron"><i class="nav-icon fas fa-cogs"></i></th>
+            <th data-field="backup" data-filter-control="input" data-sortable="true" title="Backup"><i class="nav-icon fas fa-upload"></i></th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        foreach ($data as $key => $each) {
+        ?>
+            <tr>
+                <td> <i class="fa fa-calendar-alt"></i> </td>
+                <td> <b><? echo $key ?></td>
+                <td><? echo $each['PACKAGE'] ?></td>
+                <td><? echo $each['IP_OWNED'] ?></td>
+                <td><? echo $each['DISK_QUOTA'] ?> MB</td>
+                <td><? echo $each['U_BANDWIDTH'] ?> MB</td>
+                <td><? echo $each['U_WEB_DOMAINS'] ?></td>
+                <td><? echo $each['U_DISK_MAIL'] ?></td>
+                <td><? echo $each['U_DNS_RECORDS'] ?></td>
+                <td><? echo $each['U_DATABASES'] ?></td>
+                <td><? echo $each['U_CRON_JOBS'] ?></td>
+                <td><? echo $each['U_BACKUPS'] ?></td>
+            </tr>
+        <?php
+        }
+        ?>
+    </tbody>
+</table>
+
+</div>
+
+<?php
+// echo "<pre>", print_r($data, true);
+?>
