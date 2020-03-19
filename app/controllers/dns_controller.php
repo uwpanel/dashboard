@@ -9,7 +9,7 @@ class DnsController extends AppController
     public function index()
     {
         error_reporting(NULL);
-        $TAB = 'DNS';
+        $_SESSION['title'] = 'DNS';
 
         // Main include
         include(APP_PATH . 'libs/inc/main.php');

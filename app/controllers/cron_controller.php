@@ -9,7 +9,7 @@ class CronController extends AppController
     public function index()
     {
         error_reporting(NULL);
-        $TAB = 'CRON';
+        $_SESSION['title'] = 'CRON';
 
         // Main include
         include(APP_PATH . 'libs/inc/main.php');

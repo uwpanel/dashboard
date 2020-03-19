@@ -9,7 +9,7 @@ class DbController extends AppController
     public function index()
     {
         error_reporting(NULL);
-        $TAB = 'DB';
+        $_SESSION['title'] = 'DB';
 
         // Main include
         include(APP_PATH . 'libs/inc/main.php');

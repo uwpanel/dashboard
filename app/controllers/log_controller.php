@@ -10,7 +10,7 @@ class LogController extends AppController
     public function index()
     {
         error_reporting(NULL);
-        $TAB = 'LOG';
+        $_SESSION['title'] = 'LOG';
 
         // Main include
         include(APP_PATH . 'libs/inc/main.php');

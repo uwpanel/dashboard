@@ -10,7 +10,7 @@ class UserController extends AppController
     public function index()
     {
         error_reporting(NULL);
-        $TAB = 'USER';
+        $_SESSION['title'] = 'USER';
 
         // Main include
         include(APP_PATH . 'libs/inc/main.php');

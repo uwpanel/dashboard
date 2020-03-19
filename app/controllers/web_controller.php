@@ -9,7 +9,7 @@ class WebController extends AppController
     public function index()
     {
         error_reporting(NULL);
-        $TAB = 'WEB';
+        $_SESSION['title'] = 'WEB';
 
         // Main include
         include(APP_PATH . 'libs/inc/main.php');

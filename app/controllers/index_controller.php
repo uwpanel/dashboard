@@ -9,5 +9,6 @@ class IndexController extends AppController
 
     public function index()
     {
+        $_SESSION['title'] = "Home";
     }
 }

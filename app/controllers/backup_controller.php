@@ -9,7 +9,7 @@ class BackupController extends AppController
     public function index()
     {
         error_reporting(NULL);
-        $TAB = 'BACKUP';
+        $_SESSION['title'] = 'BACKUP';
 
         // Main include
         include(APP_PATH . 'libs/inc/main.php');

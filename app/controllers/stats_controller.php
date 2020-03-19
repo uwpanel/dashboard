@@ -11,7 +11,7 @@ class StatsController extends AppController
     {
 
         error_reporting(NULL);
-        $TAB = 'STATS';
+        $_SESSION['title'] = 'STATS';
 
         // Main include
         include(APP_PATH . 'libs/inc/main.php');
