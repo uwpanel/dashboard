@@ -9,7 +9,7 @@ class LogoutController extends AuthController
         } else {
             session_destroy();
         }
-        header("Location: /");
+        header("Location: /user");
         exit;
     }
 }

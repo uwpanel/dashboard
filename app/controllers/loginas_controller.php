@@ -2,28 +2,27 @@
 
 class LoginasController extends AuthController
 {
-    public function index()
+    public function index($var)
     {
         // Main include
         include(APP_PATH . 'libs/inc/main.php');
 
 
+        $uri = explode('/', $_SERVER['REQUEST_URI']);
+
 
         // Login as someone else
         if (isset($_SESSION['user'])) {
-            if ($_SESSION['user'] == 'admin') { // && !empty($_GET['loginas'])) {
-                // exec(VESTA_CMD . "v-list-user " . escapeshellarg($_GET['loginas']) . " json", $output, $return_var);
-                // if ($return_var == 0) {
-                // $_SESSION['look'] = $_GET['loginas'];
-                // $data = json_decode(implode('', $output), true);
-                // print_r(key($data));
-                // die();
-                // reset($data);
-                $_SESSION['look'] = 'php'; //key($data);
-                $_SESSION['look_alert'] = 'yes';
-                // }
+            if ($_SESSION['user'] == 'admin' && !empty($uri[3])) {
+                exec(VESTA_CMD . "v-list-user " . escapeshellarg($uri[3]) . " json", $output, $return_var);
+                if ($return_var == 0) {
+                    $data = json_decode(implode('', $output), true);
+                    reset($data);
+                    $_SESSION['look'] = key($data);
+                    $_SESSION['look_alert'] = 'yes';
+                }
             }
-            header("Location: / ");
+            header("Location: /user ");
             exit;
         }
     }

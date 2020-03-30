@@ -39,9 +39,13 @@
                 <td class="bs-checkbox "><input data-index="0" name="btSelectItem" type="checkbox"></td>
                 <td> <b><? echo $key ?></b><br>Email:<? echo $each['CONTACT'] ?></td>
                 <td>
-                    <a class="login" href="https://<?= $_SERVER['HTTP_HOST'] ?>/loginas" title="Login">
-                        <i class="fas fa-sign-in-alt status-icon green status-icon dim icon-large"></i>
-                    </a>
+                    <?php if (!isset($_SESSION['look'])) { ?>
+                        <a class="login" href="https://<?= $_SERVER['HTTP_HOST'] ?>/loginas/index/<?= $key ?>" title="Login">
+                            <i class="fas fa-sign-in-alt status-icon green status-icon dim icon-large"></i>
+                        </a>
+                    <?
+                    }
+                    ?>
                     <a class="edit" href="javascript:void(0)" title="Edit">
                         <i class="fas fa-pencil-alt status-icon orange status-icon dim"></i>
                     </a>
@@ -73,7 +77,4 @@
 
 <?php
 //echo "<pre>", print_r($data,true);
-echo "<pre>",print_r($_SESSION['look'],true);
-echo "<pre>",print_r($_SESSION['user'],true);
-echo $user;
 ?>
