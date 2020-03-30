@@ -15,7 +15,7 @@ class UserController extends AppController
         // Main include
         include(APP_PATH . 'libs/inc/main.php');
         // Data
-        $user = $_SESSION['user'];
+        // $user = $_SESSION['user'];
         if ($user == 'admin') {
             exec(VESTA_CMD . "v-list-users json", $output, $return_var);
         } else {
