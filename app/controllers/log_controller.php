@@ -25,9 +25,4 @@ class LogController extends AppController
         // Render page
         render_page($user, $TAB, 'list_log');
     }
-    function translate_date($date)
-    {
-        $date = strtotime($date);
-        return strftime("%d &nbsp;", $date) . __(strftime("%b", $date)) . strftime(" &nbsp;%Y", $date);
-    }
 }

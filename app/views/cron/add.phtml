@@ -1,2 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <?
+    // echo "<pre>", print_r($data, true), "</pre>";
+    ?>
+
+    <title>Add User</title>
+
+    <div class="col-10">
+        <p class="login-box-msg"><b>Adding CronJob</b></p>
+        <p class="text-center">
+            <?php
+            echo $_SESSION['error_msg'];
+            $_SESSION['error_msg'] = NULL;
+            ?>
+        </p>
+        <form name="v_add_user" action="https://<?= $_SERVER['HTTP_HOST'] ?>/user/add" method="post">
+            <div class="input-group mb-3">
+                <input type="text" name="v_cmd" class="form-control" placeholder="Command">
+            </div>
+            <table style="width: 200px;">
+                <div class="input-group mb-3">
+                    <input type="text" name="v_min" class="form-control" placeholder="Minutes">
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" name="v_hour" class="form-control" placeholder="Hour">
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" name="v_day" class="form-control" placeholder="Day">
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" name="v_month" class="form-control" placeholder="Month">
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" name="v_wday" class="form-control" placeholder="Day of week">
+                </div>
+            </table>
+            <div class="row">
+                <!-- /.col -->
+
+                <!-- /.col -->
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Confirm</button>
+            <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/reset" class="btn btn-default btn-block">Back</a>
+            <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
+        </form>
+    </div>
+
+</body>
+
+
+</html>
+
 <?php
-echo "db/add","<pre>",print_r($data,true);
+// echo "<pre>", print_r($data);

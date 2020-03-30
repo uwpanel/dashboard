@@ -118,10 +118,31 @@
             })
         }
 
+        // $(function() {
+        //     initTable()
+
+        //     $('#locale').change(initTable)
+
+        //     $('#toolbar').find('select').change(function() {
+        //         $table.bootstrapTable('destroy').bootstrapTable({
+        //             exportDataType: $(this).val(),
+        //             exportTypes: ['csv', 'txt', 'excel']
+        //         })
+        //     }).trigger('change')
+        // })
+
         $(function() {
+
             initTable()
 
             $('#locale').change(initTable)
+
+            $('#toolbar').find('select').change(function() {
+                // $table.bootstrapTable('destroy').bootstrapTable({
+                //     exportDataType: $(this).val(),
+                //     exportTypes: ['csv', 'txt', 'excel'],
+                // })
+            }).trigger('change')
         })
     </script>
 

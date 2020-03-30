@@ -28,6 +28,7 @@ class WebController extends AppController
     }
     public function add()
     {
+        
     }
     public function edit()
     {

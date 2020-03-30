@@ -1,2 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <?
+    // echo "<pre>", print_r($data, true), "</pre>";
+    ?>
+
+    <title>Add User</title>
+
+    <div class="col-4">
+        <p class="login-box-msg"><b>Adding Mail</b></p>
+        <p class="text-center">
+            <?php
+            echo $_SESSION['error_msg'];
+            $_SESSION['error_msg'] = NULL;
+            ?>
+        </p>
+
+        <form name="v_add_user" action="https://<?= $_SERVER['HTTP_HOST'] ?>/user/add" method="post">
+            <div class="input-group mb-3">
+                <input type="text" name="v_username" class="form-control" placeholder="Domain">
+            </div>
+            <div class="input-group form-control mb-3">
+                <input type="checkbox" name="antispam" id="antispam">
+                <label for="antispam"> &nbsp; AntiSpam Support </label>
+            </div>
+            <div class="input-group form-control mb-3">
+                <input type="checkbox" name="antivirus" id="antivirus">
+                <label for="antivirus"> &nbsp; AntiVirus Support </label>
+            </div>
+            <div class="input-group form-control mb-3">
+                <input type="checkbox" name="dkim" id="dkim">
+                <label for="dkim"> &nbsp; DKIM Support </label>
+            </div>
+            <div class="row">
+                <!-- /.col -->
+                <!-- /.col -->
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Confirm</button>
+            <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/reset" class="btn btn-default btn-block">Back</a>
+            <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
+        </form>
+    </div>
+
+</body>
+
+
+</html>
+
 <?php
-echo "mail/add", "<pre>", print_r($data, true);
+// echo "mail/add", "<pre>", print_r($data, true);

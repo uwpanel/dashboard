@@ -9,7 +9,14 @@
     <!-- Sidebar -->
     <div class="sidebar">
 
+        <?php
+        include(APP_PATH . 'libs/stats.php');
+        $active = explode('/',$_SERVER['REQUEST_URI']);
+        ?>
         <!-- Sidebar Menu -->
+        <?php
+        //foreach ($result as $key => $each) {
+        ?>
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
@@ -53,70 +60,80 @@
                     </ul>
                 </li>
                 <li class="nav-item ">
-                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/user" class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/user') echo "active"; ?>">
+                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/user" class="nav-link <?php if ($active[1] == 'user') echo "active"; ?>">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
                             Users
-                            <span class="right badge badge-danger">New</span>
+                            <span class="right badge badge-danger"><? // echo $each['U_USERS']  
+                                                                    ?></span>
                         </p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/web" class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/web') echo "active"; ?>">
+                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/web" class="nav-link <?php if ($active[1] == 'web') echo "active"; ?>">
                         <i class="nav-icon fas fa-globe"></i>
                         <p>
                             Web
-                            <span class="right badge badge-danger">New</span>
+                            <span class="right badge badge-danger"><? // echo $each['U_WEB_DOMAINS']  
+                                                                    ?></span>
                         </p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/dns" class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/dns') echo "active"; ?>">
+                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/dns" class="nav-link <?php if ($active[1] == 'dns') echo "active"; ?>">
                         <i class="nav-icon fas fa-sitemap"></i>
                         <p>
                             DNS
-                            <span class="right badge badge-danger">New</span>
+                            <span class="right badge badge-danger"><? // echo $each['U_DNS_RECORDS']  
+                                                                    ?></span>
                         </p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/mail" class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/mail') echo "active"; ?>">
+                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/mail" class="nav-link <?php if ($active[1] == 'mail') echo "active"; ?>">
                         <i class="nav-icon fas fa-envelope"></i>
                         <p>
                             Mail
-                            <span class="right badge badge-danger">New</span>
+                            <span class="right badge badge-danger"><? // echo $each['U_MAIL_DOMAINS']  
+                                                                    ?></span>
                         </p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/db" class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/db') echo "active"; ?>">
+                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/db" class="nav-link <?php if ($active[1] == 'db') echo "active"; ?>">
                         <i class="nav-icon fas fa-database"></i>
                         <p>
                             Database
-                            <span class="right badge badge-danger">New</span>
+                            <span class="right badge badge-danger"><? // echo $each['U_DATABASES']  
+                                                                    ?></span>
                         </p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/cron" class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/cron') echo "active"; ?>">
+                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/cron" class="nav-link <?php if ($active[1] == 'cron') echo "active"; ?>">
                         <i class="nav-icon fas fa-cogs"></i>
                         <p>
                             Cron Jobs
-                            <span class="right badge badge-danger">New</span>
+                            <span class="right badge badge-danger"><? // echo $each['U_CRON_JOBS']  
+                                                                    ?></span>
                         </p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/backup" class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/backup') echo "active"; ?>">
+                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/backup" class="nav-link <?php if ($active[1] == 'backup') echo "active"; ?>">
                         <i class="nav-icon fas fa-upload"></i>
                         <p>
                             Backups
-                            <span class="right badge badge-danger">New</span>
+                            <span class="right badge badge-danger"><? // echo $each['U_BACKUPS']  
+                                                                    ?></span>
                         </p>
                     </a>
                 </li>
             </ul>
         </nav>
+        <?php
+        //   }
+        ?>
         <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->

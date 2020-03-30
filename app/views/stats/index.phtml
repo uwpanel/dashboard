@@ -4,8 +4,7 @@
     </select>
 </div>
 
-
-<table id="table" data-toggle="table" data-toolbar="#toolbar" data-search="true" data-show-refresh="true" data-show-toggle="true" data-show-fullscreen="true" data-show-columns="true" data-show-columns-toggle-all="true" data-show-export="true" data-click-to-select="true" data-minimum-count-columns="2" data-show-pagination-switch="true" data-pagination="true" data-id-field="name" data-page-list="[10, 25, 50, 100, all]" data-show-footer="false" data-response-handler="responseHandler">
+<table id="table" data-toggle="table" data-toolbar="#toolbar" data-search="true" data-show-refresh="true" data-show-toggle="false" data-show-fullscreen="true" data-show-columns="true" data-show-columns-toggle-all="true" data-show-export="true" data-click-to-select="true" data-minimum-count-columns="2" data-show-pagination-switch="true" data-pagination="true" data-id-field="name" data-page-list="[10, 25, 50, 100, all]" data-show-footer="false" data-response-handler="responseHandler">
     <thead>
         <tr>
             <th data-field="state"></th>
@@ -28,7 +27,7 @@
         ?>
             <tr>
                 <td> <i class="fa fa-calendar-alt"></i> </td>
-                <td> <b><? echo $key ?></td>
+                <td> <b><? echo translate_date($key) ?></td>
                 <td><? echo $each['PACKAGE'] ?></td>
                 <td><? echo $each['IP_OWNED'] ?></td>
                 <td><? echo $each['DISK_QUOTA'] ?> MB</td>
@@ -49,5 +48,5 @@
 </div>
 
 <?php
-// echo "<pre>", print_r($data, true);
+echo "<pre>", print_r($data, true);
 ?>

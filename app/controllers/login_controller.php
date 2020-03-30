@@ -20,20 +20,6 @@ class LoginController extends AuthController
         define('VESTA_CMD', '/usr/bin/sudo /usr/local/vesta/bin/');
         define('JS_LATEST_UPDATE', '1491697868');
 
-        // Login as someone else
-        if (isset($_SESSION['user'])) {
-            if ($_SESSION['user'] == 'admin' && !empty($_GET['loginas'])) {
-                exec(VESTA_CMD . "v-list-user " . escapeshellarg($_GET['loginas']) . " json", $output, $return_var);
-                if ($return_var == 0) {
-                    $data = json_decode(implode('', $output), true);
-                    reset($data);
-                    $_SESSION['look'] = key($data);
-                    $_SESSION['look_alert'] = 'yes';
-                }
-            }
-            header("Location: /");
-            exit;
-        }
 
         // Basic auth
 
@@ -49,8 +35,6 @@ class LoginController extends AuthController
                 $pam = json_decode(implode('', $output), true);
 
                 if ($return_var > 0) {
-                    // var_dump($return_var, $_POST['token'], $_SESSION['token']);
-                    // die();
                     $_SESSION['error_msg'] = "Invalid Credentials";
                 } else {
 
@@ -89,8 +73,6 @@ class LoginController extends AuthController
 
 
                     if ($return_var > 0) {
-                        // var_dump($return_var, $_POST['token'], $_SESSION['token']);
-                        // die();
                         $_SESSION['error_msg'] = "Invalid Credentials";
                     } else {
 

@@ -9,7 +9,6 @@ class StatsController extends AppController
 
     public function index()
     {
-
         error_reporting(NULL);
         $_SESSION['title'] = 'STATS';
 
@@ -41,6 +40,8 @@ class StatsController extends AppController
             $this->data = array_reverse($data, true);
             unset($output);
         }
+
+        // echo "<pre>",print_r($this->data);die();
 
         // Render page
         render_page($user, $TAB, 'list_stats');
