@@ -4,14 +4,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
 </head>
 
 <body>
-    <? echo "<pre>", print_r($data);
-
+    <?
+    // echo "<pre>", print_r($data, true), "</pre>";
     ?>
+
+    <title>Edit User</title>
+
+    <div class="col-4">
+        <p class="login-box-msg"><b>Editing User Account</b></p>
+        <p class="text-center">
+            <?php
+            echo $_SESSION['error_msg'];
+            $_SESSION['error_msg'] = NULL;
+            $value = $data[array_keys($data)[0]];
+            // echo "<pre>", $v_ns1, print_r($_SESSION), print_r($shells);
+
+            ?>
+        </p>
+
+        <form name="v_add_user" action="https://<?= $_SERVER['HTTP_HOST'] ?>/user/edit/<?= array_keys($data)[0] ?>" method="post">
+            <div class="input-group mb-3">
+                <input type="text" name="v_user" class="form-control" placeholder="Username" value="<?= array_keys($data)[0] ?>" disabled>
+                <input type="hidden" name="v_user" class="form-control" placeholder="Domain" value="<?= array_keys($data)[0] ?>">
+            </div>
+            <div class="input-group mb-3">
+                <input type="password" name="v_password" class="form-control" placeholder="Password">
+            </div>
+            <div class="input-group mb-3">
+                <input type="text" name="v_email" class="form-control" placeholder="Email" value="<?= $value['CONTACT'] ?>">
+            </div>
+            <div class="input-group mb-3">
+                <select name="v_package" class="form-control">
+                    <?php
+                    foreach ($packages as $key => $package) { ?>
+                        <option value="<?= $key ?>" <?php if ($key == 'default') {
+                                                        echo 'selected';
+                                                    } ?>><?= $key; ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+            <div class="input-group mb-3">
+                <select name="v_language" class="form-control">
+                    <?php
+                    foreach ($languages as $key => $language) { ?>
+                        <option value="<?= $value ?>" <?php if (($language == $_SESSION['LANGUAGE']) && (empty($v_language))) {
+                                                            echo 'selected';
+                                                        }
+                                                        if (isset($v_language)) {
+                                                            echo 'selected';
+                                                        }    ?>><?= $language; ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+
+            <div class="input-group mb-3">
+                <input type="text" name="v_fname" class="form-control" placeholder="First Name" value="<?= $value['FNAME'] ?>">
+            </div>
+            <div class="input-group mb-3">
+                <input type="text" name="v_lname" class="form-control" placeholder="Last Name" value="<?= $value['LNAME'] ?>">
+            </div>
+
+            <div class="input-group mb-3">
+                <select name="v_language" class="form-control">
+                    <?php
+                    foreach ($shells as $key => $shell) { ?>
+                        <option value="<?= $shell ?>" <?php if (($shell == $value['SHELL']) && (empty($v_shell))) {
+                                                            echo 'selected';
+                                                        }
+                                                        if (isset($v_shell)) {
+                                                            echo 'selected';
+                                                        }    ?>><?= $shell; ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+            <div class="input-group mb-3">
+                <input type="text" name="v_ns1" class="form-control" placeholder="Name Server 1" value="<?= $v_ns1 ?>">
+            </div>
+            <div class="input-group mb-3">
+                <input type="text" name="v_ns2" class="form-control" placeholder="Name Server 2" value="<?= $v_ns2 ?>">
+            </div>
+
+            <div class="row">
+                <!-- /.col -->
+
+                <!-- /.col -->
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Confirm</button>
+            <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/reset" class="btn btn-default btn-block">Back</a>
+            <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
+            <input type="hidden" name="save" value="save">
+        </form>
+    </div>
 
 </body>
 
 </html>
+
+<?php
+echo "<pre>", print_r($data, true);

@@ -34,11 +34,14 @@ class BackupController extends AppController
         // Back uri
         $_SESSION['back'] = $_SERVER['REQUEST_URI'];
     }
+
     public function add()
     {
-        // echo "Hello";
+        // Main include
+        include(APP_PATH . 'libs/inc/main.php');
     }
     public function edit()
     {
+        
     }
 }

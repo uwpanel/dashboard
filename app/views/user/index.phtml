@@ -43,16 +43,25 @@
                         <a class="login" href="https://<?= $_SERVER['HTTP_HOST'] ?>/loginas/index/<?= $key ?>" title="Login">
                             <i class="fas fa-sign-in-alt status-icon green status-icon dim icon-large"></i>
                         </a>
-                    <?
+                    <?php
                     }
                     ?>
-                    <a class="edit" href="javascript:void(0)" title="Edit">
+                    <a class="edit" href="https://<?= $_SERVER['HTTP_HOST'] ?>/user/edit/<?= $key ?>" title="Edit">
                         <i class="fas fa-pencil-alt status-icon orange status-icon dim"></i>
                     </a>
-                    <a class="suspend" href="javascript:void(0)" title="Suspend">
-                        <i class="fas fa-pause status-icon highlight status-icon dim do_suspend"></i>
-                    </a>
-                    <a class="remove" href="javascript:void(0)" title="Remove">
+                    <?php if ($_SESSION['user'] == 'admin') {
+
+                        if ($each['SUSPENDED'] != 'yes') { ?>
+                            <a class="suspend" href="https://<?= $_SERVER['HTTP_HOST'] ?>/user/suspend/<?= $key ?>/<?= $_SESSION['token']; ?>" title="Suspend">
+                                <i class="fas fa-pause status-icon highlight status-icon dim do_suspend"></i>
+                            </a>
+                        <?php } else { ?>
+                            <a class="suspend" href="https://<?= $_SERVER['HTTP_HOST'] ?>/user/unsuspend/<?= $key ?>/<?= $_SESSION['token']; ?>" title="Unsuspend">
+                                <i class="fas fa-play status-icon highlight status-icon dim do_suspend"></i>
+                            </a>
+                    <?php }
+                    } ?>
+                    <a class="remove" href="https://<?= $_SERVER['HTTP_HOST'] ?>/user/delete/<?= $key ?>/<?= $_SESSION['token']; ?>" title="Remove">
                         <i class="fa fa-trash"></i>
                     </a>
                 </td>
@@ -76,5 +85,5 @@
 </div>
 
 <?php
-//echo "<pre>", print_r($data,true);
+echo "<pre>", print_r($data, true);
 ?>

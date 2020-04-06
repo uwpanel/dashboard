@@ -23,20 +23,20 @@
             ?>
         </p>
 
-        <form name="v_add_user" action="https://<?= $_SERVER['HTTP_HOST'] ?>/user/add" method="post">
+        <form name="v_add_user" action="https://<?= $_SERVER['HTTP_HOST'] ?>/mail/addmaildomain" method="post">
             <div class="input-group mb-3">
-                <input type="text" name="v_username" class="form-control" placeholder="Domain">
+                <input type="text" name="v_domain" class="form-control" placeholder="Domain">
             </div>
             <div class="input-group form-control mb-3">
-                <input type="checkbox" name="antispam" id="antispam">
+                <input type="checkbox" name="v_antispam" id="antispam" checked="yes">
                 <label for="antispam"> &nbsp; AntiSpam Support </label>
             </div>
             <div class="input-group form-control mb-3">
-                <input type="checkbox" name="antivirus" id="antivirus">
+                <input type="checkbox" name="v_antivirus" id="antivirus" checked="yes">
                 <label for="antivirus"> &nbsp; AntiVirus Support </label>
             </div>
             <div class="input-group form-control mb-3">
-                <input type="checkbox" name="dkim" id="dkim">
+                <input type="checkbox" name="v_dkim" id="dkim">
                 <label for="dkim"> &nbsp; DKIM Support </label>
             </div>
             <div class="row">
@@ -47,6 +47,8 @@
             <button type="submit" class="btn btn-primary btn-block">Confirm</button>
             <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/reset" class="btn btn-default btn-block">Back</a>
             <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
+            <input type="hidden" name="ok" value="Add">
+
         </form>
     </div>
 

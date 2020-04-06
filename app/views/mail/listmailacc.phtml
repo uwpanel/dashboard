@@ -1,0 +1,52 @@
+<div class="select" style="display:none">
+    <select class="form-control" id="locale">
+        <option value="en-US" selected>en-US</option>
+    </select>
+</div>
+
+<div id="toolbar">
+</div>
+
+<table id="table" data-toggle="table" data-toolbar="#toolbar" data-search="true" data-show-refresh="true" data-show-toggle="false" data-show-fullscreen="true" data-show-columns="true" data-show-columns-toggle-all="true" data-show-export="true" data-click-to-select="true" data-minimum-count-columns="2" data-show-pagination-switch="true" data-pagination="true" data-id-field="name" data-page-list="[10, 25, 50, 100, all]" data-show-footer="false" data-response-handler="responseHandler">
+    <thead>
+        <tr>
+            <th data-field="state" data-checkbox="true"></th>
+            <th data-field="account" data-filter-control="input" data-sortable="true">Account</th>
+            <th data-field="action" data-filter-control="input" data-sortable="true">Action</th>
+            <th data-field="disk" data-filter-control="input" data-sortable="true">Disk</th>
+            <th data-field="quota" data-filter-control="input" data-sortable="true">Quota</th>
+            <th data-field="forward" data-filter-control="input" data-sortable="true">Forward to</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        foreach ($data as $key => $each) {
+        ?>
+            <tr>
+                <td class="bs-checkbox "><input data-index="0" name="btSelectItem" type="checkbox"></td>
+                <td> <b><? echo $key, "@", $domain; ?></b></td>
+                <td>
+                    <a class="edit" href="https://<?= $_SERVER['HTTP_HOST'] ?>/mail/edit" title="Edit Mail Domain" title="Edit">
+                        <i class="fas fa-pencil-alt status-icon orange status-icon dim"></i>
+                    </a>
+                    <a class="suspend" href="" title="Suspend">
+                        <i class="fas fa-pause status-icon highlight status-icon dim do_suspend"></i>
+                    </a>
+                    <a class="remove" href="" title="Delete">
+                        <i class="fa fa-trash"></i>
+                    </a>
+                </td>
+                <td><? echo $each['U_DISK'] ?></td>
+                <td><? echo $each['QUOTA'] ?></td>
+                <td><? echo $each['FWD'] ?></td>
+            </tr>
+        <?php
+        }
+        ?>
+    </tbody>
+</table>
+
+</div>
+
+<?php
+//echo "<pre>", print_r($data);

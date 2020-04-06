@@ -34,17 +34,33 @@ class UserController extends AppController
     {
         error_reporting(NULL);
         ob_start();
-        $TAB = 'USER';
 
         // Main include
         include(APP_PATH . 'libs/inc/main.php');
 
         // Check user
         if ($_SESSION['user'] != 'admin') {
-            header("Location: /list/user");
+            header("Location: /user");
             exit;
         }
+        // List hosting packages
+        exec(VESTA_CMD . "v-list-user-packages json", $output, $return_var);
+        check_error($return_var);
+        $this->data = json_decode(implode('', $output), true);
+        unset($output);
 
+        // List languages
+        exec(VESTA_CMD . "v-list-sys-languages json", $output, $return_var);
+        $this->languages = json_decode(implode('', $output), true);
+        unset($output);
+    }
+
+    public function adduser()
+    {
+        include(APP_PATH . 'libs/inc/main.php');
+        // echo "<pre>", print_r($_POST,true);
+        // echo "<pre>", print_r($_SESSION,true);
+        // die();
         // Check POST request
         if (!empty($_POST['ok'])) {
 
@@ -61,6 +77,7 @@ class UserController extends AppController
             if (empty($_POST['v_email'])) $errors[] = __('email');
             if (empty($_POST['v_fname'])) $errors[] = __('first name');
             if (empty($_POST['v_lname'])) $errors[] = __('last name');
+
             if (!empty($errors[0])) {
                 foreach ($errors as $i => $error) {
                     if ($i == 0) {
@@ -95,11 +112,16 @@ class UserController extends AppController
 
             // Add user
             if (empty($_SESSION['error_msg'])) {
+                echo "<pre>", print_r($_POST);
+                echo "<pre>", print_r($_SESSION['token']);
+                // echo $_SESSION['error_msg'];
                 $v_password = tempnam("/tmp", "vst");
                 $fp = fopen($v_password, "w");
                 fwrite($fp, $_POST['v_password'] . "\n");
                 fclose($fp);
                 exec(VESTA_CMD . "v-add-user " . $v_username . " " . $v_password . " " . $v_email . " " . $v_package . " " . $v_fname . " " . $v_lname, $output, $return_var);
+                // echo print_r($output), $return_var;
+                // die();
                 check_return_code($return_var, $output);
                 unset($output);
                 unlink($v_password);
@@ -142,45 +164,30 @@ class UserController extends AppController
             }
         }
 
-
-        // List hosting packages
-        exec(VESTA_CMD . "v-list-user-packages json", $output, $return_var);
-        check_error($return_var);
-        $this->data = json_decode(implode('', $output), true);
-        unset($output);
-
-        // List languages
-        exec(VESTA_CMD . "v-list-sys-languages json", $output, $return_var);
-        $this->languages = json_decode(implode('', $output), true);
-        unset($output);
-
-        // Render page
-        render_page($user, $TAB, 'add_user');
-
         // Flush session messages
         unset($_SESSION['error_msg']);
         unset($_SESSION['ok_msg']);
+
+        header("Location: /user");
     }
-    public function edit()
+
+    public function edit($param)
     {
         error_reporting(NULL);
         ob_start();
-        $TAB = 'USER';
 
         // Main include
         include(APP_PATH . 'libs/inc/main.php');
 
-
         // Check user argument
-        // if (empty($_GET['user'])) {
-        //     header("Location: /list/user/");
-        //     exit;
-        // }
+        if (empty($param)) {
+            header("Location: /user");
+            exit;
+        }
 
         // Edit as someone else?
-        if (($_SESSION['user'] == 'admin') && (!empty($_GET['user']))) {
-            $user = $_GET['user'];
-            $v_username = $_GET['user'];
+        if (($_SESSION['user'] == 'admin') && (!empty($param))) {
+            $v_username = $param;
         } else {
             $user = $_SESSION['user'];
             $v_username = $_SESSION['user'];
@@ -194,45 +201,46 @@ class UserController extends AppController
 
         // Parse user
         $v_password = "";
-        $v_email = $data[$v_username]['CONTACT'];
-        $v_package = $data[$v_username]['PACKAGE'];
-        $v_language = $data[$v_username]['LANGUAGE'];
-        $v_fname = $data[$v_username]['FNAME'];
-        $v_lname = $data[$v_username]['LNAME'];
-        $v_shell = $data[$v_username]['SHELL'];
-        $v_ns = $data[$v_username]['NS'];
-        $nameservers = explode(",", $v_ns);
-        $v_ns1 = $nameservers[0];
-        $v_ns2 = $nameservers[1];
-        $v_ns3 = $nameservers[2];
-        $v_ns4 = $nameservers[3];
-        $v_ns5 = $nameservers[4];
-        $v_ns6 = $nameservers[5];
-        $v_ns7 = $nameservers[6];
-        $v_ns8 = $nameservers[7];
+        $v_email = $this->data[$v_username]['CONTACT'];
+        $v_package = $this->data[$v_username]['PACKAGE'];
+        $v_language = $this->data[$v_username]['LANGUAGE'];
+        $v_fname = $this->data[$v_username]['FNAME'];
+        $v_lname = $this->data[$v_username]['LNAME'];
+        $v_shell = $this->data[$v_username]['SHELL'];
+        $v_ns = $this->data[$v_username]['NS'];
 
-        $v_suspended = $data[$v_username]['SUSPENDED'];
+        $nameservers = explode(",", $v_ns);
+        $this->v_ns1 = $nameservers[0];
+        $this->v_ns2 = $nameservers[1];
+        $this->v_ns3 = $nameservers[2];
+        $this->v_ns4 = $nameservers[3];
+        $this->v_ns5 = $nameservers[4];
+        $this->v_ns6 = $nameservers[5];
+        $this->v_ns7 = $nameservers[6];
+        $this->v_ns8 = $nameservers[7];
+
+        $v_suspended = $this->data[$v_username]['SUSPENDED'];
         if ($v_suspended == 'yes') {
             $v_status =  'suspended';
         } else {
             $v_status =  'active';
         }
-        $v_time = $data[$v_username]['TIME'];
-        $v_date = $data[$v_username]['DATE'];
+        $v_time = $this->data[$v_username]['TIME'];
+        $v_date = $this->data[$v_username]['DATE'];
 
         // List packages
         exec(VESTA_CMD . "v-list-user-packages json", $output, $return_var);
-        $packages = json_decode(implode('', $output), true);
+        $this->packages = json_decode(implode('', $output), true);
         unset($output);
 
         // List languages
         exec(VESTA_CMD . "v-list-sys-languages json", $output, $return_var);
-        $languages = json_decode(implode('', $output), true);
+        $this->languages = json_decode(implode('', $output), true);
         unset($output);
 
         // List shells
         exec(VESTA_CMD . "v-list-sys-shells json", $output, $return_var);
-        $shells = json_decode(implode('', $output), true);
+        $this->shells = json_decode(implode('', $output), true);
         unset($output);
 
         // Are you admin?
@@ -273,7 +281,7 @@ class UserController extends AppController
                 exec(VESTA_CMD . "v-change-user-language " . escapeshellarg($v_username) . " " . $v_language, $output, $return_var);
                 check_return_code($return_var, $output);
                 if (empty($_SESSION['error_msg'])) {
-                    if ((empty($_GET['user'])) || ($_GET['user'] == $_SESSION['user'])) $_SESSION['language'] = $_POST['v_language'];
+                    if ((empty($param)) || ($param == $_SESSION['user'])) $_SESSION['language'] = $_POST['v_language'];
                 }
                 unset($output);
             }
@@ -348,11 +356,121 @@ class UserController extends AppController
             }
         }
 
-        // Render page
-        render_page($user, $TAB, 'edit_user');
-
         // Flush session messages
         unset($_SESSION['error_msg']);
         unset($_SESSION['ok_msg']);
+    }
+    public function suspend($param, $token)
+    {
+        error_reporting(NULL);
+        ob_start();
+
+        // Main include
+        include(APP_PATH . 'libs/inc/main.php');
+
+        // Check token
+        if ((!isset($token)) || ($_SESSION['token'] != $token)) {
+            header('location: /login');
+            exit();
+        }
+
+        // Check user
+        if ($_SESSION['user'] != 'admin') {
+            header("Location: /user");
+            exit;
+        }
+
+        if (!empty($param)) {
+            $v_username = escapeshellarg($param);
+            exec(VESTA_CMD . "v-suspend-user " . $v_username, $output, $return_var);
+        }
+        check_return_code($return_var, $output);
+        unset($output);
+
+        $back = $_SESSION['back'];
+        if (!empty($back)) {
+            header("Location: " . $back);
+            exit;
+        }
+
+        header("Location: /user");
+        exit;
+    }
+    public function unsuspend($param, $token)
+    {
+        error_reporting(NULL);
+        ob_start();
+
+        // Main include
+        include(APP_PATH . 'libs/inc/main.php');
+
+        // Check token
+        if ((!isset($token)) || ($_SESSION['token'] != $token)) {
+            header('location: /login');
+            exit();
+        }
+
+        // Check user
+        if ($_SESSION['user'] != 'admin') {
+            header("Location: /user");
+            exit;
+        }
+
+        if (!empty($param)) {
+            $v_username = escapeshellarg($param);
+            exec(VESTA_CMD . "v-unsuspend-user " . $v_username, $output, $return_var);
+        }
+        check_return_code($return_var, $output);
+        unset($output);
+
+        $back = $_SESSION['back'];
+        if (!empty($back)) {
+            header("Location: " . $back);
+            exit;
+        }
+
+        header("Location: /user");
+        exit;
+    }
+    public function delete($param, $token)
+    {
+        error_reporting(NULL);
+        ob_start();
+
+        // Main include
+        include(APP_PATH . 'libs/inc/main.php');
+
+        // Check token
+        if ((!isset($token)) || ($_SESSION['token'] != $token)) {
+            header('location: /login');
+            exit();
+        }
+
+        // Check user
+        if ($_SESSION['user'] == 'admin') {
+            if (!empty($param)) {
+                $v_username = escapeshellarg($param);
+                exec(VESTA_CMD . "v-delete-user " . $v_username, $output, $return_var);
+            }
+            check_return_code($return_var, $output);
+            unset($_SESSION['look']);
+            unset($output);
+        }
+
+        if (!empty($param)) {
+            $v_username = escapeshellarg($param);
+            exec(VESTA_CMD . "v-unsuspend-user " . $v_username, $output, $return_var);
+        }
+        check_return_code($return_var, $output);
+        unset($output);
+
+        $back = $_SESSION['back'];
+        if (!empty($back)) {
+            header("Location: " . $back);
+            exit;
+        }
+
+        header("Location: /user");
+        exit;
     }
 }

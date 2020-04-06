@@ -22,7 +22,7 @@
             $_SESSION['error_msg'] = NULL;
             ?>
         </p>
-        <form name="v_add_user" action="https://<?= $_SERVER['HTTP_HOST'] ?>/user/add" method="post">
+        <form name="v_add_user" action="https://<?= $_SERVER['HTTP_HOST'] ?>/user/adduser" method="post">
             <div class="input-group mb-3">
                 <input type="text" name="v_username" class="form-control" placeholder="Username">
             </div>
@@ -36,10 +36,26 @@
                 <select name="v_package" class="form-control">
                     <?php
                     foreach ($data as $key => $value) { ?>
-                        <option value="<?= $key ?>"><?= $key; ?></option>
+                        <option value="<?= $key ?>" <?php if ($key == 'default') {
+                                                        echo 'selected';
+                                                    } ?>><?= $key; ?></option>
                     <?php } ?>
                 </select>
             </div>
+            <div class="input-group mb-3">
+                <select name="v_language" class="form-control">
+                    <?php
+                    foreach ($languages as $key => $value) { ?>
+                        <option value="<?= $value ?>" <?php if (($value == $_SESSION['LANGUAGE']) && (empty($v_language))) {
+                                                            echo 'selected';
+                                                        }
+                                                        if (isset($v_language)) {
+                                                            echo 'selected';
+                                                        }    ?>><?= $value; ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+
             <div class="input-group mb-3">
                 <input type="text" name="v_fname" class="form-control" placeholder="First Name">
             </div>
@@ -55,9 +71,10 @@
                 <!-- /.col -->
             </div>
 
-                    <button type="submit" class="btn btn-primary btn-block">Confirm</button>
-                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/reset" class="btn btn-default btn-block">Back</a>
+            <button type="submit" class="btn btn-primary btn-block">Confirm</button>
+            <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/user" class="btn btn-default btn-block">Back</a>
             <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
+            <input type="hidden" name="ok" value="Add">
         </form>
     </div>
 

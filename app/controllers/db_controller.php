@@ -28,8 +28,12 @@ class DbController extends AppController
     }
     public function add()
     {
+        // Main include
+        include(APP_PATH . 'libs/inc/main.php');
     }
     public function edit()
     {
+        // Main include
+        include(APP_PATH . 'libs/inc/main.php');
     }
 }

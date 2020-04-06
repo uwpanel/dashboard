@@ -34,14 +34,14 @@
                 <td class="bs-checkbox "><input data-index="0" name="btSelectItem" type="checkbox"></td>
                 <td> <b><? echo $key ?></b></td>
                 <td>
-                    <a class="like" href="http://<?= $key ?>">
-                        <i class="fas fa-external-link-square-alt status-icon lightblue status-icon dim"></i>
+                    <a class="like" href="https://<?= $_SERVER['HTTP_HOST'] ?>/mail/listmailacc/<?= $key ?>" title="List Mail Acoounts">
+                        <i class="fas fa-list status-icon lightblue status-icon dim"></i>
                     </a>
-                    <a class="like" href="https://<?= $_SERVER['HTTP_HOST'] ?>/web/edit" title="Edit Web Domain">
+                    <a class="like" href="https://<?= $_SERVER['HTTP_HOST'] ?>/mail/addmailacc/<?= $key ?>" title="Add Mail Account">
+                        <i class="fas fa-plus-circle status-icon"></i>
+                    </a>
+                    <a class="like" href="https://<?= $_SERVER['HTTP_HOST'] ?>/mail/edit" title="Edit Mail Domain" title="Edit">
                         <i class="fas fa-pencil-alt status-icon orange status-icon dim"></i>
-                    </a>
-                    <a class="like" href="" title="Access Log">
-                        <i class="fas fa-binoculars status-icon purple status-icon dim"></i>
                     </a>
                     <a class="like" href="" title="Suspend">
                         <i class="fas fa-pause status-icon highlight status-icon dim do_suspend"></i>
@@ -65,5 +65,5 @@
 </div>
 
 <?php
-echo "<pre>", print_r($data, true);
+// echo "<pre>", print_r($data, true);
 ?>

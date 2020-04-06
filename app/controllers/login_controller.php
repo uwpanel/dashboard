@@ -22,6 +22,10 @@ class LoginController extends AuthController
         
         // Basic auth
 
+        // echo "<pre>",print_r($_POST);
+        // die();
+
+
         if (isset($_POST['user']) && isset($_POST['password'])) {
 
             if (isset($_SESSION['token']) && isset($_POST['token']) && $_POST['token'] == $_SESSION['token']) {
