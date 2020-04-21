@@ -3,14 +3,33 @@
         <option value="en-US" selected>en-US</option>
     </select>
 </div>
-
+<p class="text-center">
+    <?php
+    echo $_SESSION['error_msg'];
+    $_SESSION['error_msg'] = NULL;
+    ?>
+</p>
 <div id="toolbar">
     <button id="remove" class="btn btn-danger" disabled>
         <i class="fas fa-trash status-icon red status-icon dim do_delete"></i> Delete
     </button>
-    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/dns/add" id="add" class="btn btn-primary">
-        <i class="fas fa-plus-circle status-icon"></i> Add DNS Zone
-    </a>
+
+    <?php
+    $uri = explode('/', $_SERVER['REQUEST_URI']);
+    ?>
+    <?php
+    if (isset($uri[3])) { ?>
+        <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/dns/addrecord/<?= $uri[3] ?>" id="add" class="btn btn-primary">
+            <i class="fas fa-plus-circle status-icon"></i> Add DNS Record
+        </a>&nbsp;
+    <?php } else {
+    ?>
+        <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/dns/add" id="add" class="btn btn-primary">
+            <i class="fas fa-plus-circle status-icon"></i> Add DNS Domain
+        </a>&nbsp;
+    <?php
+    }
+    ?>
 </div>
 
 <table id="table" data-toggle="table" data-toolbar="#toolbar" data-search="true" data-show-refresh="true" data-show-toggle="false" data-show-fullscreen="true" data-show-columns="true" data-show-columns-toggle-all="true" data-show-export="true" data-click-to-select="true" data-minimum-count-columns="2" data-show-pagination-switch="true" data-pagination="true" data-id-field="name" data-page-list="[10, 25, 50, 100, all]" data-show-footer="false" data-response-handler="responseHandler">
@@ -33,9 +52,21 @@
             <tr>
                 <td class="bs-checkbox "><input data-index="0" name="btSelectItem" type="checkbox"></td>
                 <td> <b><? echo $key ?></b></td>
-                <td> <a class="like" href="javascript:void(0)" title="Edit">
+                <td style="text-align:center">
+                    <a class="like" href="javascript:void(0)" title="Edit">
                         <i class="fas fa-pencil-alt status-icon orange status-icon dim"></i>
-                    </a></td>
+                    </a>&nbsp;
+                    <a class="like" href="https://<?= $_SERVER['HTTP_HOST'] ?>/dns/listrecord/<?= $key ?>" title="List DNS">
+                        <i class="fas fa-list-alt status-icon orange status-icon dim"></i>
+                    </a>&nbsp;
+                    <a class="like" href="https://<?= $_SERVER['HTTP_HOST'] ?>/dns/deletedomain/<?php if (isset($_SESSION['look'])) {
+                                                                                                    echo $_SESSION['look'];
+                                                                                                } else {
+                                                                                                    echo $_SESSION['user'];
+                                                                                                } ?>/<?= $key ?>/<?= $_SESSION['token'] ?>" title="Delete">
+                        <i class="fas fa-trash status-icon orange status-icon dim"></i>
+                    </a>
+                </td>
                 <td><? echo $each['RECORDS'] ?></td>
                 <td><? echo $each['TPL'] ?></td>
                 <td><? echo $each['TTL'] ?></td>
@@ -51,5 +82,5 @@
 </div>
 
 <?php
-//echo "<pre>", print_r($data, true);
+// echo "<pre>", print_r($data, true);
 ?>

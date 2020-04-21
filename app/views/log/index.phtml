@@ -3,7 +3,12 @@
         <option value="en-US" selected>en-US</option>
     </select>
 </div>
-
+<p class="text-center">
+    <?php
+    echo $_SESSION['error_msg'];
+    $_SESSION['error_msg'] = NULL;
+    ?>
+</p>
 <table id="table" data-sortable="false" data-toggle="table" data-toolbar="#toolbar" data-search="true" data-show-refresh="true" data-show-fullscreen="true" data-show-columns="true" data-show-columns-toggle-all="true" data-show-export="true" data-click-to-select="true" data-minimum-count-columns="2" data-show-pagination-switch="true" data-pagination="true" data-id-field="name" data-page-list="[10, 25, 50, 100, all]" data-show-footer="false" data-response-handler="responseHandler">
     <thead>
         <tr>

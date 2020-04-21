@@ -1,0 +1,165 @@
+<div class="select" style="display:none">
+    <select class="form-control" id="locale">
+        <option value="en-US" selected>en-US</option>
+    </select>
+</div>
+<p class="text-center">
+    <?php
+    echo $_SESSION['error_msg'];
+    $_SESSION['error_msg'] = NULL;
+
+    $uri = explode('/', $_SERVER['REQUEST_URI']);
+    $backup_uri = $uri[3];
+
+    ?>
+</p>
+<div id="toolbar">
+    <button id="remove" class="btn btn-danger" disabled>
+        <i class="fas fa-trash status-icon red status-icon dim do_delete"></i> Delete
+    </button>
+    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/back/add" id="add" class="btn btn-primary">
+        <i class="fas fa-plus-circle status-icon"></i> Create Backup
+    </a>
+</div>
+
+<table id="table" data-toggle="table" data-toolbar="#toolbar" data-search="true" data-show-refresh="true" data-show-toggle="false" data-show-fullscreen="true" data-show-columns="true" data-show-columns-toggle-all="true" data-show-export="true" data-click-to-select="true" data-minimum-count-columns="2" data-show-pagination-switch="true" data-pagination="true" data-id-field="name" data-page-list="[10, 25, 50, 100, all]" data-show-footer="false" data-response-handler="responseHandler">
+    <thead>
+        <tr>
+            <th data-field="state" data-checkbox="true"></th>
+            <th></th>
+            <th data-field="job" data-filter-control="input" data-sortable="true">Backup Info</th>
+            <th data-field="action" data-filter-control="input" data-sortable="true">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        foreach ($web as $key) {
+            if (!empty($key)) {
+                ++$i;
+        ?>
+                <tr>
+                    <td class="bs-checkbox "><input data-index="0" name="btSelectItem" type="checkbox"></td>
+                    <td>Web DOMAIN</td>
+                    <td> <b>&emsp;<? echo $key ?></b></td>
+                    <td>
+                        <a class="like" href="https://<?= $_SERVER['HTTP_HOST'] ?>/back/restore/<?= $backup_uri ?>/<?= $key ?>/web" title="Restore">
+                            <i class="fas fa-file-export"></i> &nbsp;Restore
+                        </a>
+                    </td>
+                </tr>
+        <?php
+            }
+        }
+        ?>
+
+        <?php
+
+        foreach ($mail as $key) {
+            if (!empty($key)) {
+                ++$i;
+        ?>
+                <tr>
+                    <td class="bs-checkbox "><input data-index="0" name="btSelectItem" type="checkbox"></td>
+                    <td>MAIL DOMAIN</td>
+                    <td> <b>&emsp;<? echo $key ?></b></td>
+                    <td>
+                        <a class="like" href="https://<?= $_SERVER['HTTP_HOST'] ?>/back/restore/<?= $backup_uri ?>/<?= $key ?>/mail" title="Restore">
+                            <i class="fas fa-file-export"></i> &nbsp;Restore
+                        </a>
+                    </td>
+                </tr>
+        <?php
+            }
+        }
+        ?>
+
+        <?php
+        foreach ($dns as $key) {
+            if (!empty($key)) {
+                ++$i;
+        ?>
+                <tr>
+                    <td class="bs-checkbox "><input data-index="0" name="btSelectItem" type="checkbox"></td>
+                    <td>DNS DOMAIN</td>
+                    <td> <b>&emsp;<? echo $key ?></b></td>
+                    <td>
+                        <a class="like" href="https://<?= $_SERVER['HTTP_HOST'] ?>/back/restore/<?= $backup_uri ?>/<?= $key ?>/dns" title="Restore">
+                            <i class="fas fa-file-export"></i> &nbsp;Restore
+                        </a>
+                    </td>
+                </tr>
+        <?php
+            }
+        }
+        ?>
+
+        <?php
+        foreach ($db as $key) {
+            if (!empty($key)) {
+                ++$i;
+        ?>
+                <tr>
+                    <td class="bs-checkbox "><input data-index="0" name="btSelectItem" type="checkbox"></td>
+                    <td>DATABASE</td>
+                    <td> <b>&emsp;<? echo $key ?></b></td>
+                    <td>
+                        <a class="like" href="https://<?= $_SERVER['HTTP_HOST'] ?>/back/restore/<?= $backup_uri ?>/<?= $key ?>/db" title="Restore">
+                            <i class="fas fa-file-export"></i> &nbsp;Restore
+                        </a>
+                    </td>
+                </tr>
+        <?php
+            }
+        }
+        ?>
+
+        <?php
+        foreach ($backup as $key) {
+            if (!empty($key)) {
+                ++$i;
+        ?>
+                <tr>
+                    <td class="bs-checkbox "><input data-index="0" name="btSelectItem" type="checkbox"></td>
+                    <td>BACKUP</td>
+                    <td> <b>&emsp;<? echo $key ?></b></td>
+                    <td>
+                        <a class="like" href="https://<?= $_SERVER['HTTP_HOST'] ?>/back/restore/<?= $backup_uri ?>/<?= $key ?>/backup" title="Restore">
+                            <i class="fas fa-file-export"></i> &nbsp;Restore
+                        </a>
+                    </td>
+                </tr>
+        <?php
+            }
+        }
+        ?>
+
+        <?php
+        foreach ($udir as $key) {
+            if (!empty($key)) {
+                ++$i;
+        ?>
+                <tr>
+                    <td class="bs-checkbox "><input data-index="0" name="btSelectItem" type="checkbox"></td>
+                    <td>UDIR DIR</td>
+                    <td><b>&emsp;<? echo $key ?></b></td>
+                    <td>
+                        <a class="like" href="https://<?= $_SERVER['HTTP_HOST'] ?>/back/restore/<?= $backup_uri ?>/.<?= $key ?>/udir" title="Restore">
+                            <i class="fas fa-file-export"></i> &nbsp;Restore
+                        </a>
+                    </td>
+                </tr>
+        <?php
+            }
+        }
+        ?>
+    </tbody>
+</table>
+
+</div>
+
+<?php
+// echo "<pre>", print_r($data, true);
+
+
+
+?>

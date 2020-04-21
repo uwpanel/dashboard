@@ -1,3 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <title>Edit User</title>
+
+    <div class="col-4">
+        <p class="login-box-msg"><b>Editing Database</b></p>
+        <p class="text-center">
+            <?php
+            echo $_SESSION['error_msg'];
+            $_SESSION['error_msg'] = NULL;
+            ?>
+        </p>
+
+        <form name="v_edit_db" action="https://<?= $_SERVER['HTTP_HOST'] ?>/db/edit/<?= trim($v_database, "'") ?>/<?= trim($v_dbuser, "'") ?>" method="post">
+            <label for="v_database">Database</label>
+            <div class="input-group mb-3">
+                <input type="text" name="v_database" class="form-control" value="<?= trim($v_database, "'") ?>" placeholder="Database" disabled>
+            </div>
+
+            <!-- <p>maximum 16 characters length, including prefix</p> -->
+            <label for="v_dbuser">Username</label>
+            <div class="input-group mb-3">
+                <input type="text" name="v_dbuser" class="form-control" value="<?= trim($v_dbuser, "'") ?>" placeholder="Username">
+            </div>
+
+            <label for="v_password">Password</label>
+            <div class="input-group mb-3">
+                <input type="password" name="v_password" class="form-control" placeholder="Password">
+            </div>
+
+            <label for="v_type">Type</label>
+            <div class="input-group mb-3">
+                <input type="text" name="v_type" class="form-control" value="<?= trim($v_type, "'") ?>" placeholder="Database" disabled>
+            </div>
+
+            <label for="v_host">Host</label>
+            <div class="input-group mb-3">
+                <input type="text" name="v_host" class="form-control" value="<?= trim($v_host, "'") ?>" placeholder="Database" disabled>
+            </div>
+
+            <label for="v_charset">Charset</label>
+            <div class="input-group mb-3">
+                <input type="text" name="v_charset" class="form-control" value="<?= trim($v_charset, "'") ?>" placeholder="Database" disabled>
+            </div>
+
+            <div class="row">
+                <!-- /.col -->
+
+                <!-- /.col -->
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Confirm</button>
+            <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/db" class="btn btn-default btn-block">Back</a>
+
+            <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
+            <input type="hidden" name="save" value="save">
+        </form>
+    </div>
+
+</body>
+
+</html>
 <?php
-echo "db/edit","<pre>",print_r($data,true);
-?>
+echo "<pre>", print_r($data, true);

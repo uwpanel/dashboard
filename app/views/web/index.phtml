@@ -3,7 +3,12 @@
         <option value="en-US" selected>en-US</option>
     </select>
 </div>
-
+<p class="text-center">
+    <?php
+    echo $_SESSION['error_msg'];
+    $_SESSION['error_msg'] = NULL;
+    ?>
+</p>
 <div id="toolbar">
     <button id="remove" class="btn btn-danger" disabled>
         <i class="fas fa-trash status-icon red status-icon dim do_delete"></i> Delete
@@ -36,19 +41,47 @@
                 <td>
                     <a class="like" href="http://<?= $key ?>">
                         <i class="fas fa-external-link-square-alt status-icon lightblue status-icon dim"></i>
-                    </a>
-                    <a class="like" href="https://<?= $_SERVER['HTTP_HOST'] ?>/web/edit" title="Edit Web Domain">
+                    </a>&nbsp;
+                    <a class="like" href="https://<?= $_SERVER['HTTP_HOST'] ?>/web/edit/<?php if (isset($_SESSION['look'])) {
+                                                                                            echo $_SESSION['look'];
+                                                                                        } else {
+                                                                                            echo $_SESSION['user'];
+                                                                                        } ?>/<?= $key ?>" title="Edit Web Domain">
                         <i class="fas fa-pencil-alt status-icon orange status-icon dim"></i>
-                    </a>
-                    <a class="like" href="" title="Access Log">
+                    </a>&nbsp;
+                    <a class="like" href="https://<?= $_SERVER['HTTP_HOST'] ?>/weblog/index/<?= $key ?>/access" title="Access Log">
                         <i class="fas fa-binoculars status-icon purple status-icon dim"></i>
-                    </a>
-                    <a class="like" href="" title="Suspend">
-                        <i class="fas fa-pause status-icon highlight status-icon dim do_suspend"></i>
-                    </a>
-                    <a class="remove" href="" title="Delete">
+                    </a>&nbsp;
+                    <a class="like" href="https://<?= $_SERVER['HTTP_HOST'] ?>/weblog/index/<?= $key ?>/error" title="Error Log">
+                        <i class="fa fa-exclamation" aria-hidden="true"></i>
+                    </a>&nbsp;
+                    <?php if ($_SESSION['user'] == 'admin') {
+
+                        if ($each['SUSPENDED'] != 'yes') { ?>
+                            <a class="like" href="https://<?= $_SERVER['HTTP_HOST'] ?>/web/suspend/<?php if (isset($_SESSION['look'])) {
+                                                                                                        echo $_SESSION['look'];
+                                                                                                    } else {
+                                                                                                        echo $_SESSION['user'];
+                                                                                                    } ?>/<?= $key ?>/<?= $_SESSION['token'] ?>"" title=" Suspend">
+                                <i class="fas fa-pause status-icon highlight status-icon dim do_suspend"></i>
+                            </a>&nbsp;
+                        <?php } else { ?>
+                            <a class="like" href="https://<?= $_SERVER['HTTP_HOST'] ?>/web/unsuspend/<?php if (isset($_SESSION['look'])) {
+                                                                                                            echo $_SESSION['look'];
+                                                                                                        } else {
+                                                                                                            echo $_SESSION['user'];
+                                                                                                        } ?>/<?= $key ?>/<?= $_SESSION['token'] ?>"" title=" Unsuspend">
+                                <i class="fas fa-play status-icon highlight status-icon dim do_suspend"></i>
+                            </a>&nbsp;
+                    <?php }
+                    } ?>
+                    <a class="remove" href="https://<?= $_SERVER['HTTP_HOST'] ?>/web/delete/<?php if (isset($_SESSION['look'])) {
+                                                                                                echo $_SESSION['look'];
+                                                                                            } else {
+                                                                                                echo $_SESSION['user'];
+                                                                                            } ?>/<?= $key ?>/<?= $_SESSION['token'] ?>" title="Delete">
                         <i class="fa fa-trash"></i>
-                    </a>
+                    </a>&nbsp;
                 </td>
                 <td><? echo $each['IP'] ?></td>
                 <td><? echo $each['DISK_QUOTA'] ?> MB</td>
@@ -65,5 +98,5 @@
 </div>
 
 <?php
-//echo "<pre>", print_r($data, true);
+// echo "<pre>", print_r($data, true);
 ?>

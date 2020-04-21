@@ -3,12 +3,17 @@
         <option value="en-US" selected>en-US</option>
     </select>
 </div>
-
+<p class="text-center">
+    <?php
+    echo $_SESSION['error_msg'];
+    $_SESSION['error_msg'] = NULL;
+    ?>
+</p>
 <div id="toolbar">
     <button id="remove" class="btn btn-danger" disabled>
         <i class="fas fa-trash status-icon red status-icon dim do_delete"></i> Delete
     </button>
-    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/backup/add" id="add" class="btn btn-primary">
+    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/back/add" id="add" class="btn btn-primary">
         <i class="fas fa-plus-circle status-icon"></i> Create Backup
     </a>
 </div>
@@ -34,8 +39,24 @@
                 <td class="bs-checkbox "><input data-index="0" name="btSelectItem" type="checkbox"></td>
                 <td> <b><? echo $key ?></b></td>
                 <td>
-                    <a class="like" href="javascript:void(0)" title="Edit">
+                    <a class="like" href="https://<?= $_SERVER['HTTP_HOST'] ?>/back/download/<?= $key ?>" title="Download">
+                        <i class="fas fa-download"></i>
+                    </a>
+                    &nbsp;
+                    <a class="like" href="https://<?= $_SERVER['HTTP_HOST'] ?>/back/listbackup/<?= $key ?>" title="Configure Restore Settings">
+                        <i class="fas fa-cloud-download-alt"></i>
+                    </a>
+                    &nbsp;
+                    <a class="like" href="https://<?= $_SERVER['HTTP_HOST'] ?>/back/edit" title="Edit">
                         <i class="fas fa-edit"></i>
+                    </a>
+                    &nbsp;
+                    <a class="like" href="https://<?= $_SERVER['HTTP_HOST'] ?>/back/delete/<?php if (isset($_SESSION['look'])) {
+                                                                                                echo $_SESSION['look'];
+                                                                                            } else {
+                                                                                                echo $_SESSION['user'];
+                                                                                            } ?>/<?= $key ?>/<?= $_SESSION['token'] ?>" title="Delete">
+                        <i class="fas fa-trash"></i>
                     </a>
                 </td>
                 <td><? echo $each['SIZE'] ?></td>

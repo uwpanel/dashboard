@@ -52,7 +52,11 @@
                     </ul> -->
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="#" class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/myaccount/*') echo "active"; ?>">
+                            <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/user/edit/<?php if (isset($_SESSION['look'])) {
+                                                                                        echo $_SESSION['look'];
+                                                                                    } else {
+                                                                                        echo $_SESSION['user'];
+                                                                                    } ?>" class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/myaccount/*') echo "active"; ?>">
                                 <i class="fas fa-home nav-icon"></i>
                                 <p>My Account</p>
                             </a>
@@ -70,7 +74,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/web" class="nav-link <?php if ($active[1] == 'web') echo "active"; ?>">
+                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/web" class="nav-link <?php if ($active[1] == 'web' || $active[1] == 'weblog') echo "active"; ?>">
                         <i class="nav-icon fas fa-globe"></i>
                         <p>
                             Web
@@ -120,7 +124,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/backup" class="nav-link <?php if ($active[1] == 'backup') echo "active"; ?>">
+                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/back" class="nav-link <?php if ($active[1] == 'back') echo "active"; ?>">
                         <i class="nav-icon fas fa-upload"></i>
                         <p>
                             Backups

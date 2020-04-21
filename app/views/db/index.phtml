@@ -3,7 +3,12 @@
         <option value="en-US" selected>en-US</option>
     </select>
 </div>
-
+<p class="text-center">
+    <?php
+    echo $_SESSION['error_msg'];
+    $_SESSION['error_msg'] = NULL;
+    ?>
+</p>
 <div id="toolbar">
     <button id="remove" class="btn btn-danger" disabled>
         <i class="fas fa-trash status-icon red status-icon dim do_delete"></i> Delete
@@ -33,9 +38,40 @@
             <tr>
                 <td class="bs-checkbox "><input data-index="0" name="btSelectItem" type="checkbox"></td>
                 <td> <b><? echo $key ?></b></td>
-                <td> <a class="like" href="javascript:void(0)" title="Edit">
-                        <i class="fas fa-edit"></i>
-                    </a></td>
+                <td>
+                    <a class="like" href="https://<?= $_SERVER['HTTP_HOST'] ?>/db/edit/<?php if (isset($_SESSION['look'])) {
+                                                                                            echo $_SESSION['look'];
+                                                                                        } else {
+                                                                                            echo $_SESSION['user'];
+                                                                                        } ?>/<?= $key ?>" title="Delete">
+                        <i class="fas fa-pencil-alt"></i>
+                    </a>&nbsp;
+                    <?php if ($each['SUSPENDED'] != 'yes') { ?>
+                        <a class="like" href="https://<?= $_SERVER['HTTP_HOST'] ?>/db/suspend/<?php if (isset($_SESSION['look'])) {
+                                                                                                    echo $_SESSION['look'];
+                                                                                                } else {
+                                                                                                    echo $_SESSION['user'];
+                                                                                                } ?>/<?= $key ?>/<?= $_SESSION['token'] ?>" title="Suspend">
+                            <i class="fas fa-pause"></i>
+                        </a>
+                    <?php } else { ?>
+                        <a class="like" href="https://<?= $_SERVER['HTTP_HOST'] ?>/db/unsuspend/<?php if (isset($_SESSION['look'])) {
+                                                                                                    echo $_SESSION['look'];
+                                                                                                } else {
+                                                                                                    echo $_SESSION['user'];
+                                                                                                } ?>/<?= $key ?>/<?= $_SESSION['token'] ?>" title="Unsuspend">
+                            <i class="fas fa-play"></i>
+                        </a>
+                    <?php } ?>
+                    &nbsp;
+                    <a class="like" href="https://<?= $_SERVER['HTTP_HOST'] ?>/db/delete/<?php if (isset($_SESSION['look'])) {
+                                                                                                echo $_SESSION['look'];
+                                                                                            } else {
+                                                                                                echo $_SESSION['user'];
+                                                                                            } ?>/<?= $key ?>/<?= $_SESSION['token'] ?>" title="Delete">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                </td>
                 <td><? echo $each['TYPE'] ?></td>
                 <td><? echo $each['DBUSER'] ?></td>
                 <td><? echo $each['HOST'] ?></td>
@@ -52,5 +88,5 @@
 
 
 <?php
-//echo "<pre>", print_r($data, true);
+// echo "<pre>", print_r($data, true);
 ?>

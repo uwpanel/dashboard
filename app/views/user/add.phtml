@@ -23,15 +23,19 @@
             ?>
         </p>
         <form name="v_add_user" action="https://<?= $_SERVER['HTTP_HOST'] ?>/user/adduser" method="post">
+            <label for="v_username">Username</label>
             <div class="input-group mb-3">
                 <input type="text" name="v_username" class="form-control" placeholder="Username">
             </div>
+            <label for="v_password">Password </label>
             <div class="input-group mb-3">
                 <input type="password" name="v_password" class="form-control" placeholder="Password">
             </div>
+            <label for="v_email">Email</label>
             <div class="input-group mb-3">
                 <input type="text" name="v_email" class="form-control" placeholder="Email">
             </div>
+            <label for="v_package">Package</label>
             <div class="input-group mb-3">
                 <select name="v_package" class="form-control">
                     <?php
@@ -42,6 +46,7 @@
                     <?php } ?>
                 </select>
             </div>
+            <label for="v_language">Language</label>
             <div class="input-group mb-3">
                 <select name="v_language" class="form-control">
                     <?php
@@ -55,13 +60,15 @@
                     <?php } ?>
                 </select>
             </div>
-
+            <label for="v_fname">First Name</label>
             <div class="input-group mb-3">
                 <input type="text" name="v_fname" class="form-control" placeholder="First Name">
             </div>
+            <label for="v_lname">Last Name</label>
             <div class="input-group mb-3">
                 <input type="text" name="v_lname" class="form-control" placeholder="Last Name">
             </div>
+            <label for="v_notify">Send login credentials to email address</label>
             <div class="input-group mb-3">
                 <input type="text" name="v_notify" class="form-control" placeholder="Send login credentials to this email">
             </div>

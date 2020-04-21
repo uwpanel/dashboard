@@ -8,9 +8,6 @@
     </head>
 
     <body>
-        <?
-        // echo "<pre>", print_r($data, true), "</pre>";
-        ?>
 
         <title>Add User</title>
 
@@ -22,27 +19,17 @@
                 $_SESSION['error_msg'] = NULL;
                 ?>
             </p>
-            <form name="v_add_user" action="https://<?= $_SERVER['HTTP_HOST'] ?>/web/addweb" method="post">
+            <form name="v_add_web" action="https://<?= $_SERVER['HTTP_HOST'] ?>/web/addweb" method="post">
+                <label for="v_domain">Domain</label>
                 <div class="input-group mb-3">
                     <input type="text" name="v_domain" class="form-control" placeholder="Domain">
                 </div>
+                <label for="v_ip">IP Address</label>
                 <div class="input-group mb-3">
                     <select name="v_ip" class="form-control">
-                        <!-- <?php
-                                //foreach ($data as $key => $value) { 
-                                ?>
-                            <option value="<? //= $key 
-                                            ?>"><? //= $key; 
-                                                ?></option>
-                        <? //php } 
-                        ?> -->
-                        <?php
-                        foreach ($ips as $ip => $value) {
-                            $display_ip = htmlentities(empty($value['NAT']) ? $ip : "{$value['NAT']}");
-                            $ip_selected = (!empty($v_ip) && $ip == $_POST['v_ip']) ? 'selected' : '';
-                            echo "\t\t\t\t<option value=\"{$ip}\" {$ip_selected}>{$display_ip}</option>\n";
-                        }
-                        ?>
+                        <?php foreach ($ips as $ip => $value) { ?>
+                            <option value="<?= $value['NAT'] ?>"><?= $value['NAT']  ?></option>
+                        <?php } ?>
 
                     </select>
                 </div>

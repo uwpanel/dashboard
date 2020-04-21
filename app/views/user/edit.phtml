@@ -8,7 +8,7 @@
 
 <body>
     <?
-    // echo "<pre>", print_r($data, true), "</pre>";
+    // echo "<pre>", print_r($languages, true), "</pre>";
     ?>
 
     <title>Edit User</title>
@@ -25,64 +25,74 @@
             ?>
         </p>
 
-        <form name="v_add_user" action="https://<?= $_SERVER['HTTP_HOST'] ?>/user/edit/<?= array_keys($data)[0] ?>" method="post">
+        <form name="v_edit_user" action="https://<?= $_SERVER['HTTP_HOST'] ?>/user/edit/<?= $v_username ?>/<?= $_SESSION['token'] ?>" method="post">
+            <label for="v_user">Username</label>
             <div class="input-group mb-3">
-                <input type="text" name="v_user" class="form-control" placeholder="Username" value="<?= array_keys($data)[0] ?>" disabled>
-                <input type="hidden" name="v_user" class="form-control" placeholder="Domain" value="<?= array_keys($data)[0] ?>">
+                <input type="text" name="v_user" class="form-control" placeholder="Username" value="<?= htmlentities(trim($v_username, "'")) ?>" disabled>
+                <input type="hidden" name="v_user" class="form-control" placeholder="Domain" value="<?= htmlentities(trim($v_username, "'")) ?>">
             </div>
+            <label for="v_password">Password </label>
             <div class="input-group mb-3">
-                <input type="password" name="v_password" class="form-control" placeholder="Password">
+                <input type="password" name="v_password" class="form-control" placeholder="Password" value="<?= htmlentities(trim($v_password, "'")) ?>">
             </div>
+            <label for="v_email">Email</label>
             <div class="input-group mb-3">
-                <input type="text" name="v_email" class="form-control" placeholder="Email" value="<?= $value['CONTACT'] ?>">
+                <input type="text" name="v_email" class="form-control" placeholder="Email" value="<?= htmlentities(trim($v_email, "'")) ?>">
             </div>
+            <label for="v_package">Package</label>
             <div class="input-group mb-3">
                 <select name="v_package" class="form-control">
                     <?php
                     foreach ($packages as $key => $package) { ?>
-                        <option value="<?= $key ?>" <?php if ($key == 'default') {
+                        <option value="<?= $key ?>" <?php if ($key == $v_package) {
                                                         echo 'selected';
                                                     } ?>><?= $key; ?></option>
                     <?php } ?>
                 </select>
             </div>
+
+            <label for="v_language">Language</label>
             <div class="input-group mb-3">
                 <select name="v_language" class="form-control">
                     <?php
                     foreach ($languages as $key => $language) { ?>
-                        <option value="<?= $value ?>" <?php if (($language == $_SESSION['LANGUAGE']) && (empty($v_language))) {
-                                                            echo 'selected';
-                                                        }
-                                                        if (isset($v_language)) {
-                                                            echo 'selected';
-                                                        }    ?>><?= $language; ?></option>
+                        <option value="<?= $language ?>" <?php if ($language == $v_language) {
+                                                                echo 'selected';
+                                                            } ?>><?= $language; ?></option>
+                        <?= $language; ?>
+                        </option>
                     <?php } ?>
                 </select>
             </div>
 
+            <label for="v_fname">First Name</label>
             <div class="input-group mb-3">
                 <input type="text" name="v_fname" class="form-control" placeholder="First Name" value="<?= $value['FNAME'] ?>">
             </div>
+            <label for="v_lname">Last Name</label>
             <div class="input-group mb-3">
                 <input type="text" name="v_lname" class="form-control" placeholder="Last Name" value="<?= $value['LNAME'] ?>">
             </div>
-
+            <label for="v_shell">SSH Access</label>
             <div class="input-group mb-3">
-                <select name="v_language" class="form-control">
+                <select name="v_shell" class="form-control">
                     <?php
                     foreach ($shells as $key => $shell) { ?>
-                        <option value="<?= $shell ?>" <?php if (($shell == $value['SHELL']) && (empty($v_shell))) {
+                        <option value="<?= $shell ?>" <?php
+                                                        if ($shell == $v_shell) {
                                                             echo 'selected';
                                                         }
-                                                        if (isset($v_shell)) {
-                                                            echo 'selected';
-                                                        }    ?>><?= $shell; ?></option>
+                                                        ?>>
+                            <?= htmlentities(trim($shell)); ?>
+                        </option>
                     <?php } ?>
                 </select>
             </div>
+            <label for="">Default Name Servers</label>
             <div class="input-group mb-3">
                 <input type="text" name="v_ns1" class="form-control" placeholder="Name Server 1" value="<?= $v_ns1 ?>">
             </div>
+
             <div class="input-group mb-3">
                 <input type="text" name="v_ns2" class="form-control" placeholder="Name Server 2" value="<?= $v_ns2 ?>">
             </div>
@@ -99,10 +109,9 @@
             <input type="hidden" name="save" value="save">
         </form>
     </div>
-
 </body>
 
 </html>
 
 <?php
-echo "<pre>", print_r($data, true);
+// echo "<pre>", print_r($data, true);

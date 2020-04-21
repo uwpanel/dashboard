@@ -26,12 +26,18 @@
                 <td class="bs-checkbox "><input data-index="0" name="btSelectItem" type="checkbox"></td>
                 <td> <b><? echo $key, "@", $domain; ?></b></td>
                 <td>
-                    <a class="edit" href="https://<?= $_SERVER['HTTP_HOST'] ?>/mail/edit" title="Edit Mail Domain" title="Edit">
+                    <a class="edit" href="https://<?= $_SERVER['HTTP_HOST'] ?>/mail/editmailacc/<?php if (isset($_SESSION['look'])) {
+                                                                                                    echo $_SESSION['look'];
+                                                                                                } else {
+                                                                                                    echo $_SESSION['user'];
+                                                                                                } ?>/<?= $domain ?>/<?= $key ?>/" title="Edit Mail Domain" title="Edit">
                         <i class="fas fa-pencil-alt status-icon orange status-icon dim"></i>
                     </a>
+                    &nbsp;
                     <a class="suspend" href="" title="Suspend">
                         <i class="fas fa-pause status-icon highlight status-icon dim do_suspend"></i>
                     </a>
+                    &nbsp;
                     <a class="remove" href="" title="Delete">
                         <i class="fa fa-trash"></i>
                     </a>

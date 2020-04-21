@@ -17,27 +17,33 @@
         <p class="login-box-msg"><b>Adding CronJob</b></p>
         <p class="text-center">
             <?php
-            echo $_SESSION['error_msg'];
+            echo $_SESSION['error_msg'], $_SESSION['ok_msg'];
             $_SESSION['error_msg'] = NULL;
             ?>
         </p>
-        <form name="v_add_user" action="https://<?= $_SERVER['HTTP_HOST'] ?>/user/add" method="post">
+        <form name="v_add_user" action="https://<?= $_SERVER['HTTP_HOST'] ?>/cron/add" method="post">
+            <label for="v_cmd">Command</label>
             <div class="input-group mb-3">
                 <input type="text" name="v_cmd" class="form-control" placeholder="Command">
             </div>
             <table style="width: 200px;">
+                <label for="v_min">Minutes</label>
                 <div class="input-group mb-3">
                     <input type="text" name="v_min" class="form-control" placeholder="Minutes">
                 </div>
+                <label for="v_hour">Hour</label>
                 <div class="input-group mb-3">
                     <input type="text" name="v_hour" class="form-control" placeholder="Hour">
                 </div>
+                <label for="v_day">Day</label>
                 <div class="input-group mb-3">
                     <input type="text" name="v_day" class="form-control" placeholder="Day">
                 </div>
+                <label for="v_month">Month</label>
                 <div class="input-group mb-3">
                     <input type="text" name="v_month" class="form-control" placeholder="Month">
                 </div>
+                <label for="v_wday">Day of week</label>
                 <div class="input-group mb-3">
                     <input type="text" name="v_wday" class="form-control" placeholder="Day of week">
                 </div>
@@ -51,6 +57,7 @@
             <button type="submit" class="btn btn-primary btn-block">Confirm</button>
             <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/reset" class="btn btn-default btn-block">Back</a>
             <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
+            <input type="hidden" name="ok" value="Add">
         </form>
     </div>
 

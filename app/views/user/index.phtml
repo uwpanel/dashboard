@@ -3,14 +3,30 @@
         <option value="en-US" selected>en-US</option>
     </select>
 </div>
-
+<p class="text-center">
+    <?php
+    echo $_SESSION['error_msg'];
+    $_SESSION['error_msg'] = NULL;
+    ?>
+</p>
 <div id="toolbar">
     <button id="remove" class="btn btn-danger" disabled>
         <i class="fas fa-trash status-icon red status-icon dim do_delete"></i> Delete
     </button>
-    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/user/add" id="add" class="btn btn-primary">
-        <i class="fas fa-plus-circle status-icon"></i> Add user
-    </a>
+    <?php if ($_SESSION['user'] == 'admin' && empty($_SESSION['look'])) { ?>
+        <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/user/add" id="add" class="btn btn-primary">
+            <i class="fas fa-plus-circle status-icon"></i> Add user
+        </a>
+    <?php } ?>
+
+    <!-- <select>
+        <option>option 1</option>
+        <option>option 2</option>
+        <option>option 3</option>
+        <option>option 4</option>
+        <option>option 5</option>
+    </select> -->
+
 </div>
 
 <table id="table" data-toggle="table" data-toolbar="#toolbar" data-search="true" data-show-refresh="true" data-show-toggle="false" data-show-fullscreen="true" data-show-columns="true" data-show-columns-toggle-all="true" data-show-export="true" data-click-to-select="true" data-minimum-count-columns="2" data-show-pagination-switch="true" data-pagination="true" data-id-field="name" data-page-list="[10, 25, 50, 100, all]" data-show-footer="false" data-response-handler="responseHandler">
@@ -42,23 +58,23 @@
                     <?php if (!isset($_SESSION['look'])) { ?>
                         <a class="login" href="https://<?= $_SERVER['HTTP_HOST'] ?>/loginas/index/<?= $key ?>" title="Login">
                             <i class="fas fa-sign-in-alt status-icon green status-icon dim icon-large"></i>
-                        </a>
+                        </a>&nbsp;
                     <?php
                     }
                     ?>
                     <a class="edit" href="https://<?= $_SERVER['HTTP_HOST'] ?>/user/edit/<?= $key ?>" title="Edit">
                         <i class="fas fa-pencil-alt status-icon orange status-icon dim"></i>
-                    </a>
+                    </a>&nbsp;
                     <?php if ($_SESSION['user'] == 'admin') {
 
                         if ($each['SUSPENDED'] != 'yes') { ?>
                             <a class="suspend" href="https://<?= $_SERVER['HTTP_HOST'] ?>/user/suspend/<?= $key ?>/<?= $_SESSION['token']; ?>" title="Suspend">
                                 <i class="fas fa-pause status-icon highlight status-icon dim do_suspend"></i>
-                            </a>
+                            </a>&nbsp;
                         <?php } else { ?>
                             <a class="suspend" href="https://<?= $_SERVER['HTTP_HOST'] ?>/user/unsuspend/<?= $key ?>/<?= $_SESSION['token']; ?>" title="Unsuspend">
                                 <i class="fas fa-play status-icon highlight status-icon dim do_suspend"></i>
-                            </a>
+                            </a>&nbsp;
                     <?php }
                     } ?>
                     <a class="remove" href="https://<?= $_SERVER['HTTP_HOST'] ?>/user/delete/<?= $key ?>/<?= $_SESSION['token']; ?>" title="Remove">
@@ -85,5 +101,6 @@
 </div>
 
 <?php
-echo "<pre>", print_r($data, true);
+top_panel($panel,'USER');
+echo "<pre>", print_r($panel, true);
 ?>

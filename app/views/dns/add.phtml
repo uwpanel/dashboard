@@ -25,10 +25,11 @@
 
             <form name="v_add_user" action="https://<?= $_SERVER['HTTP_HOST'] ?>/dns/add" method="post">
 
+                <label for="v_domain">Domain</label>
                 <div class="input-group mb-3">
                     <input type="text" name="v_domain" class="form-control" placeholder="Domain">
                 </div>
-
+                <label for="v_ip">IP</label>
                 <div class="input-group mb-3">
                     <input type="text" name="v_ip" class="form-control" placeholder="IP">
                 </div>
@@ -143,9 +144,6 @@
         </div>
 
     </body>
-
-
-    </html>
 
     <?php
     // echo "<pre>", print_r($data);

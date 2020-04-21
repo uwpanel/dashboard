@@ -1,21 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-
 <body>
     <?
     // echo "<pre>", print_r($data, true), "</pre>";
     ?>
 
-    <title>Add Mail Account</title>
+    <title>Add User</title>
 
     <div class="col-4">
-        <p class="login-box-msg"><b>Adding Mail Account</b></p>
+        <p class="login-box-msg"><b>Editing Mail Account</b></p>
         <p class="text-center">
             <?php
             echo $_SESSION['error_msg'];
@@ -23,20 +14,18 @@
             ?>
         </p>
 
-        <form name="v_add_mail_account" action="https://<?= $_SERVER['HTTP_HOST'] ?>/mail/addmailaccount" method="post">
-            <label for="v_domain">Domain</label>
+        <form name="v_add_user" action="https://<?= $_SERVER['HTTP_HOST'] ?>/mail/editmailacc" method="post">
             <div class="input-group mb-3">
                 <input type="text" name="v_domain" class="form-control" placeholder="Domain" value="<?= $domain ?>" disabled>
                 <input type="hidden" name="v_domain" class="form-control" placeholder="Domain" value="<?= $domain ?>">
             </div>
-            <label for="v_account">Account</label>
             <div class="input-group mb-3">
                 <input type="text" name="v_account" class="form-control" placeholder="Account">
             </div>
-            <label for="v_password">Password </label>
             <div class="input-group mb-3">
                 <input type="text" name="v_password" class="form-control" placeholder="Password">
             </div>
+
             <div class="input-group mb-3">
                 <b><u><a href="javascript:elementHideShow('advtable');" style="text-decoration: none;color : #000;">Advanced options</a></u></b>
             </div>
@@ -81,7 +70,6 @@
                 </tr>
             </table>
 
-            <label for="v_send_email">Send login credentials to email address</label>
             <div class="input-group mb-3">
                 <input type="text" name="v_send_email" class="form-control" placeholder="Send Login credentials to this email">
             </div>
@@ -100,9 +88,6 @@
     </div>
 
 </body>
-
-
-</html>
 
 <?php
 // echo "mail/add", "<pre>", print_r($data, true);

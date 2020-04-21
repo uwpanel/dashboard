@@ -1,3 +1,69 @@
+<body>
+    <?
+    echo "<pre>", print_r($test_var, true), "</pre>";
+    ?>
+
+    <title>Edit Web</title>
+
+    <div class="col-4">
+        <p class="login-box-msg"><b>Editing Web</b></p>
+        <p class="text-center">
+            <?php
+            echo $_SESSION['error_msg'];
+            $_SESSION['error_msg'] = NULL;
+            ?>
+        </p>
+        <form name="v_edit_web" action="https://<?= $_SERVER['HTTP_HOST'] ?>/web/edit/<?php if (isset($_SESSION['look'])) {
+                                                                                            echo $_SESSION['look'];
+                                                                                        } else {
+                                                                                            echo $_SESSION['user'];
+                                                                                        } ?>/<?= $v_domain ?>" method="post">
+            <label for="v_domain">Domain</label>
+            <div class="input-group mb-3">
+                <input type="text" name="v_domain" class="form-control" placeholder="Domain" value="<?= $v_domain ?>" disabled>
+                <input type="hidden" name="v_domain" value="<?= $v_domain ?>">
+            </div>
+            <label for="v_ip">IP Address</label>
+            <div class="input-group mb-3">
+                <select name="v_ip" class="form-control">
+                    <?php foreach ($ips as $ip => $value) { ?>
+                        <option value="<?= $value['NAT'] ?>"><?= $value['NAT']  ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+            <label for="v_aliases">Aliases</label>
+            <div class="input-group mb-3">
+                <textarea name="v_aliases" class="form-control" value="<?= $v_aliases ?>" placeholder="Aliases" row=10 col=3></textarea>
+            </div>
+            <div class="input-group form-control mb-3">
+                <input type="checkbox" name="v_ssl" id="ssl" <?php if ($v_ssl == "yes") echo "checked" ?>>
+                <label class="" for="dns"> &nbsp; SSL Support</label>
+            </div>
+            <label for="v_stats"> Web Template </label>&emsp;<?= strtoupper($_SESSION['WEB_SYSTEM']) ?>
+            <div class="input-group mb-3">
+                <select class="form-control" name="v_stats">
+                    <?php foreach ($templates as $template) { ?>
+                        <option value="<?= $template ?>" <?php
+                                                            if ((!empty($v_template)) && ($template == $v_template) || ($template == $v_template)) {
+                                                                echo ' selected';
+                                                            } ?>>
+                            <?= $template ?>
+                        </option>
+                    <?php } ?>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Confirm</button>
+            <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/reset" class="btn btn-default btn-block">Back</a>
+            <!-- <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/reset" class="btn btn-default btn-block">Back</a> -->
+            <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
+            <input type="hidden" name="save" value="save">
+        </form>
+    </div>
+</body>
+
+
+</html>
+
 <?php
-echo "web/edit","<pre>",print_r($data,true);
-?>
+    // echo "<pre>", print_r($data);
