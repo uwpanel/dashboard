@@ -14,15 +14,21 @@
         <p class="login-box-msg"><b>Editing Database</b></p>
         <p class="text-center">
             <?php
-            echo $_SESSION['error_msg'];
+            echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
             $_SESSION['error_msg'] = NULL;
+            $_SESSION['ok_msg'] = NULL;
             ?>
         </p>
 
-        <form name="v_edit_db" action="https://<?= $_SERVER['HTTP_HOST'] ?>/db/edit/<?= trim($v_database, "'") ?>/<?= trim($v_dbuser, "'") ?>" method="post">
+        <form name="v_edit_db" action="https://<?= $_SERVER['HTTP_HOST'] ?>/db/edit/<?php if (isset($_SESSION['look'])) {
+                                                                                                echo $_SESSION['look'];
+                                                                                            } else {
+                                                                                                echo $_SESSION['user'];
+                                                                                            } ?>/<?= trim($v_database, "'") ?>" method="post">
             <label for="v_database">Database</label>
             <div class="input-group mb-3">
                 <input type="text" name="v_database" class="form-control" value="<?= trim($v_database, "'") ?>" placeholder="Database" disabled>
+                <input type="hidden" name="v_database" value="<?= trim($v_database, "'") ?>">
             </div>
 
             <!-- <p>maximum 16 characters length, including prefix</p> -->
@@ -38,17 +44,20 @@
 
             <label for="v_type">Type</label>
             <div class="input-group mb-3">
-                <input type="text" name="v_type" class="form-control" value="<?= trim($v_type, "'") ?>" placeholder="Database" disabled>
+                <input type="text" name="v_type" class="form-control" value="<?= trim($v_type, "'") ?>" disabled>
+                <input type="hidden" name="v_type" value="<?= trim($v_type, "'") ?>" >
             </div>
 
             <label for="v_host">Host</label>
             <div class="input-group mb-3">
-                <input type="text" name="v_host" class="form-control" value="<?= trim($v_host, "'") ?>" placeholder="Database" disabled>
+                <input type="text" name="v_host" class="form-control" value="<?= trim($v_host, "'") ?>"  disabled>
+                <input type="hidden" name="v_host" value="<?= trim($v_host, "'") ?>">
             </div>
 
             <label for="v_charset">Charset</label>
             <div class="input-group mb-3">
-                <input type="text" name="v_charset" class="form-control" value="<?= trim($v_charset, "'") ?>" placeholder="Database" disabled>
+                <input type="text" name="v_charset" class="form-control" value="<?= trim($v_charset, "'") ?>"  disabled>
+                <input type="hidden" name="v_charset" value="<?= trim($v_charset, "'") ?>">
             </div>
 
             <div class="row">

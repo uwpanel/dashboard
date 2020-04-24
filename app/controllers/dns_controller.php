@@ -208,16 +208,224 @@ class DnsController extends AppController
         $v_ns8 = str_replace("'", "", $v_ns8);
     }
 
-    public function edit()
+    public function edit($param_user, $param_domain)
     {
+        error_reporting(NULL);
+        ob_start();
+        $TAB = 'DNS';
+
         // Main include
         include(APP_PATH . 'libs/inc/main.php');
+
+        // Check domain name
+        if (empty($param_domain)) {
+            header("Location: /dns");
+            exit;
+        }
+
+        // Edit as someone else?
+        if (($_SESSION['user'] == 'admin') && (!empty($param_domain))) {
+            $user = escapeshellarg($param_user);
+        }
+
+        // List dns domain
+        if ((!empty($param_domain)) && (empty($param_record_id))) {
+            $v_domain = escapeshellarg($param_domain);
+            exec(VESTA_CMD . "v-list-dns-domain " . $user . " " . $v_domain . " json", $output, $return_var);
+            check_return_code($return_var, $output);
+            $data = json_decode(implode('', $output), true);
+            unset($output);
+
+            // Parse dns domain
+            $v_username = $user;
+            $this->v_domain = $param_domain;
+            $this->v_ip = $data[$this->v_domain]['IP'];
+            $this->v_template = $data[$this->v_domain]['TPL'];
+            $this->v_ttl = $data[$this->v_domain]['TTL'];
+            $this->v_exp = $data[$this->v_domain]['EXP'];
+            $this->v_soa = $data[$this->v_domain]['SOA'];
+            $this->v_date = $data[$this->v_domain]['DATE'];
+            $this->v_time = $data[$this->v_domain]['TIME'];
+            $v_suspended = $data[$this->v_domain]['SUSPENDED'];
+            if ($v_suspended == 'yes') {
+                $this->v_status =  'suspended';
+            } else {
+                $this->v_status =  'active';
+            }
+
+            // List dns templates
+            exec(VESTA_CMD . "v-list-dns-templates json", $output, $return_var);
+            $this->templates = json_decode(implode('', $output), true);
+            unset($output);
+        }
+
+        // Check POST request for dns domain
+        if ((!empty($_POST['save'])) && (!empty($param_domain)) && (empty($param_record_id))) {
+            $v_domain = escapeshellarg($_POST['v_domain']);
+
+            // Check token
+            if ((!isset($_POST['token'])) || ($_SESSION['token'] != $_POST['token'])) {
+                header('location: /login/');
+                exit();
+            }
+
+            // Change domain IP
+            if (($v_ip != $_POST['v_ip']) && (empty($_SESSION['error_msg']))) {
+                $v_ip = escapeshellarg($_POST['v_ip']);
+                exec(VESTA_CMD . "v-change-dns-domain-ip " . $v_username . " " . $v_domain . " " . $v_ip . " no", $output, $return_var);
+                check_return_code($return_var, $output);
+                $restart_dns = 'yes';
+                unset($output);
+            }
+
+            // Change domain template
+            if (($v_template != $_POST['v_template']) && (empty($_SESSION['error_msg']))) {
+                $v_template = escapeshellarg($_POST['v_template']);
+                exec(VESTA_CMD . "v-change-dns-domain-tpl " . $v_username . " " . $v_domain . " " . $v_template . " no", $output, $return_var);
+                check_return_code($return_var, $output);
+                unset($output);
+                $restart_dns = 'yes';
+            }
+
+            // Change SOA record
+            if (($v_soa != $_POST['v_soa']) && (empty($_SESSION['error_msg']))) {
+                $v_soa = escapeshellarg($_POST['v_soa']);
+                exec(VESTA_CMD . "v-change-dns-domain-soa " . $v_username . " " . $v_domain . " " . $v_soa . " no", $output, $return_var);
+                check_return_code($return_var, $output);
+                unset($output);
+                $restart_dns = 'yes';
+            }
+
+            // Change expiriation date
+            if (($v_exp != $_POST['v_exp']) && (empty($_SESSION['error_msg']))) {
+                $v_exp = escapeshellarg($_POST['v_exp']);
+                exec(VESTA_CMD . "v-change-dns-domain-exp " . $v_username . " " . $v_domain . " " . $v_exp . " no", $output, $return_var);
+                check_return_code($return_var, $output);
+                unset($output);
+            }
+
+            // Change domain ttl
+            if (($v_ttl != $_POST['v_ttl']) && (empty($_SESSION['error_msg']))) {
+                $v_ttl = escapeshellarg($_POST['v_ttl']);
+                exec(VESTA_CMD . "v-change-dns-domain-ttl " . $v_username . " " . $v_domain . " " . $v_ttl . " no", $output, $return_var);
+                check_return_code($return_var, $output);
+                unset($output);
+                $restart_dns = 'yes';
+            }
+
+            // Restart dns server
+            if (!empty($restart_dns) && (empty($_SESSION['error_msg']))) {
+                exec(VESTA_CMD . "v-restart-dns", $output, $return_var);
+                check_return_code($return_var, $output);
+                unset($output);
+            }
+
+            // Set success message
+            if (empty($_SESSION['error_msg'])) {
+                $_SESSION['ok_msg'] = __('Changes has been saved.');
+            }
+            header('Location: /dns');
+        }
     }
 
-    public function editrecord()
+    public function editrecord($param_user, $param_domain, $param_record_id)
     {
+        error_reporting(NULL);
+        ob_start();
+        $TAB = 'DNS';
+
         // Main include
         include(APP_PATH . 'libs/inc/main.php');
+
+        // Check domain name
+        if (empty($param_domain)) {
+            header("Location: /dns");
+            exit;
+        }
+
+        // Edit as someone else?
+        if (($_SESSION['user'] == 'admin') && (!empty($param_domain))) {
+            $user = escapeshellarg($param_user);
+        }
+
+        // List dns record
+        if ((!empty($param_domain)) && (!empty($param_record_id))) {
+            $v_domain = escapeshellarg($param_domain);
+            $v_record_id = escapeshellarg($param_record_id);
+            exec(VESTA_CMD . "v-list-dns-records " . $user . " " . $v_domain . " json", $output, $return_var);
+            check_return_code($return_var, $output);
+            $data = json_decode(implode('', $output), true);
+            unset($output);
+
+            // Parse dns record
+            $v_username = $user;
+            $this->v_domain = $param_domain;
+            $this->v_record_id = $param_record_id;
+            $this->v_rec = $data[$this->v_record_id]['RECORD'];
+            $this->v_type = $data[$this->v_record_id]['TYPE'];
+            $this->v_val = $data[$this->v_record_id]['VALUE'];
+            $this->v_priority = $data[$this->v_record_id]['PRIORITY'];
+            $this->v_suspended = $data[$this->v_record_id]['SUSPENDED'];
+            if ($v_suspended == 'yes') {
+                $this->v_status =  'suspended';
+            } else {
+                $this->v_status =  'active';
+            }
+            $this->v_date = $data[$this->v_record_id]['DATE'];
+            $this->v_time = $data[$this->v_record_id]['TIME'];
+        }
+
+        // Check POST request for dns record
+        if ((!empty($_POST['save'])) && (!empty($param_domain)) && (!empty($param_record_id))) {
+
+            // Check token
+            if ((!isset($_POST['token'])) || ($_SESSION['token'] != $_POST['token'])) {
+                header('location: /login/');
+                exit();
+            }
+
+            // Protect input
+            $v_domain = escapeshellarg($_POST['v_domain']);
+            $v_record_id = escapeshellarg($_POST['v_record_id']);
+
+            // Change dns record
+            if (($v_val != $_POST['v_val']) || ($v_priority != $_POST['v_priority']) && (empty($_SESSION['error_msg']))) {
+                $v_val = escapeshellarg($_POST['v_val']);
+                $v_priority = escapeshellarg($_POST['v_priority']);
+                exec(VESTA_CMD . "v-change-dns-record " . $v_username . " " . $v_domain . " " . $v_record_id . " " . $v_val . " " . $v_priority, $output, $return_var);
+                check_return_code($return_var, $output);
+                $v_val = $_POST['v_val'];
+                unset($output);
+                $restart_dns = 'yes';
+            }
+
+            // Change dns record id
+            if (($param_record_id != $_POST['v_record_id']) && (empty($_SESSION['error_msg']))) {
+                $v_old_record_id = escapeshellarg($param_record_id);
+                exec(VESTA_CMD . "v-change-dns-record-id " . $v_username . " " . $v_domain . " " . $v_old_record_id . " " . $v_record_id, $output, $return_var);
+                check_return_code($return_var, $output);
+                unset($output);
+                $restart_dns = 'yes';
+            }
+
+            // Restart dns server
+            if (!empty($restart_dns) && (empty($_SESSION['error_msg']))) {
+                exec(VESTA_CMD . "v-restart-dns", $output, $return_var);
+                check_return_code($return_var, $output);
+                unset($output);
+            }
+
+            // Set success message
+            if (empty($_SESSION['error_msg'])) {
+                $_SESSION['ok_msg'] = __('Changes has been saved.');
+            }
+
+            // Change url if record id was changed
+            if ((empty($_SESSION['error_msg'])) && ($param_record_id != $_POST['v_record_id'])) {
+                header("Location: /edit/dns/" . $param_domain . "/" . $_POST['v_record_id']);
+                exit;
+            }
+        }
     }
 
     public function deletedomain($param_user, $param_domain, $param_token)
@@ -284,7 +492,7 @@ class DnsController extends AppController
                 header("Location: " . $back);
                 exit;
             }
-            header('location: /dns/listrecord/' . $param_domain);
+            header('Location: /dns/listrecord/' . $param_domain);
             exit;
         }
     }

@@ -5,8 +5,9 @@
 </div>
 <p class="text-center">
     <?php
-    echo $_SESSION['error_msg'];
+    echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
     $_SESSION['error_msg'] = NULL;
+    $_SESSION['ok_msg'] = NULL;
     ?>
 </p>
 <div id="toolbar">
@@ -53,7 +54,11 @@
                 <td class="bs-checkbox "><input data-index="0" name="btSelectItem" type="checkbox"></td>
                 <td> <b><? echo $key ?></b></td>
                 <td style="text-align:center">
-                    <a class="like" href="javascript:void(0)" title="Edit">
+                    <a class="like" href="https://<?= $_SERVER['HTTP_HOST'] ?>/dns/edit/<?php if (isset($_SESSION['look'])) {
+                                                                                            echo $_SESSION['look'];
+                                                                                        } else {
+                                                                                            echo $_SESSION['user'];
+                                                                                        } ?>/<?= $key ?>" title="Edit">
                         <i class="fas fa-pencil-alt status-icon orange status-icon dim"></i>
                     </a>&nbsp;
                     <a class="like" href="https://<?= $_SERVER['HTTP_HOST'] ?>/dns/listrecord/<?= $key ?>" title="List DNS">

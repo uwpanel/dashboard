@@ -178,7 +178,7 @@ class DbController extends AppController
 
         // Check database id
         if (empty($param_db)) {
-            header("Location: /list/db/");
+            header("Location: /db");
             exit;
         }
 
@@ -193,6 +193,8 @@ class DbController extends AppController
         check_return_code($return_var, $output);
         $data = json_decode(implode('', $output), true);
         unset($output);
+
+        // echo $param_user,$param_db, $v_database;
 
         // Parse database
         $v_username = $user;
@@ -222,7 +224,8 @@ class DbController extends AppController
                 header('location: /login/');
                 exit();
             }
-
+            // echo "<pre>", $return_var, "<br>", print_r($output);
+            // die();
             // Change database user
             if (($v_dbuser != $_POST['v_dbuser']) && (empty($_SESSION['error_msg']))) {
                 $v_dbuser = preg_replace("/^" . $user . "_/", "", $_POST['v_dbuser']);
@@ -250,6 +253,7 @@ class DbController extends AppController
             if (empty($_SESSION['error_msg'])) {
                 $_SESSION['ok_msg'] = __('Changes has been saved.');
             }
+            header("Location: /db");
         }
 
         // Render page
@@ -273,7 +277,7 @@ class DbController extends AppController
 
         // Check user
         if ($_SESSION['user'] != 'admin') {
-            header("Location: /list/user");
+            header("Location: /user");
             exit;
         }
 
@@ -296,7 +300,7 @@ class DbController extends AppController
             exit;
         }
 
-        header("Location: /list/db/");
+        header("Location: /db");
         exit;
     }
 
@@ -313,7 +317,7 @@ class DbController extends AppController
 
         // Check user
         if ($_SESSION['user'] != 'admin') {
-            header("Location: /list/user");
+            header("Location: /user");
             exit;
         }
 
@@ -336,7 +340,7 @@ class DbController extends AppController
             exit;
         }
 
-        header("Location: /list/db/");
+        header("Location: /db");
         exit;
     }
 

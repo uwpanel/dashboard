@@ -420,7 +420,6 @@ class WebController extends AppController
         $v_domain = escapeshellarg($param_domain);
         exec(VESTA_CMD . "v-list-web-domain " . $user . " " . $v_domain . " json", $output, $return_var);
         $data = json_decode(implode('', $output), true);
-        $this->test_var = json_decode(implode('', $output), true);
         unset($output);
 
         // Parse domain
@@ -429,12 +428,12 @@ class WebController extends AppController
         $this->v_ip = $data[$this->v_domain]['IP'];
         $this->v_template = $data[$this->v_domain]['TPL'];
         $this->v_aliases = str_replace(',', "\n", $data[$this->v_domain]['ALIAS']);
-        $this->valiases = explode(",", $data[$this->v_domain]['ALIAS']);
-        $this->v_tpl = $data[$this->v_domain]['IP'];
-        $this->v_cgi = $data[$this->v_domain]['CGI'];
-        $this->v_elog = $data[$this->v_domain]['ELOG'];
+        $valiases = explode(",", $data[$this->v_domain]['ALIAS']);
+        $v_tpl = $data[$this->v_domain]['IP'];
+        $v_cgi = $data[$this->v_domain]['CGI'];
+        $v_elog = $data[$this->v_domain]['ELOG'];
         $this->v_ssl = $data[$this->v_domain]['SSL'];
-        if (!empty($v_ssl)) {
+        if (!empty($this->v_ssl)) {
             exec(VESTA_CMD . "v-list-web-domain-ssl " . $user . " " . escapeshellarg($this->v_domain) . " json", $output, $return_var);
             $ssl_str = json_decode(implode('', $output), true);
             unset($output);
@@ -451,13 +450,13 @@ class WebController extends AppController
         }
         $v_letsencrypt = $data[$this->v_domain]['LETSENCRYPT'];
         if (empty($v_letsencrypt)) $v_letsencrypt = 'no';
-        $this->v_ssl_home = $data[$this->v_domain]['SSL_HOME'];
-        $this->v_backend_template = $data[$this->v_domain]['BACKEND'];
-        $this->v_proxy_template = $data[$this->v_domain]['PROXY'];
-        $this->v_proxy = $data[$this->v_domain]['PROXY'];
-        $this->v_proxy_ext = str_replace(',', ', ', $data[$vthis->_domain]['PROXY_EXT']);
-        $this->v_stats = $data[$this->v_domain]['STATS'];
-        $this->v_stats_user = $data[$this->v_domain]['STATS_USER'];
+        $v_ssl_home = $data[$this->v_domain]['SSL_HOME'];
+        $v_backend_template = $data[$this->v_domain]['BACKEND'];
+        $v_proxy = $data[$this->v_domain]['PROXY'];
+        $v_proxy_template = $data[$this->v_domain]['PROXY'];
+        $v_proxy_ext = str_replace(',', ', ', $data[$this->v_domain]['PROXY_EXT']);
+        $v_stats = $data[$this->v_domain]['STATS'];
+        $v_stats_user = $data[$this->v_domain]['STATS_USER'];
         if (!empty($v_stats_user)) $v_stats_password = "";
         $v_ftp_user = $data[$this->v_domain]['FTP_USER'];
         $v_ftp_path = $data[$this->v_domain]['FTP_PATH'];
@@ -487,27 +486,25 @@ class WebController extends AppController
         // List backend templates
         if (!empty($_SESSION['WEB_BACKEND'])) {
             exec(VESTA_CMD . "v-list-web-templates-backend json", $output, $return_var);
-            $backend_templates = json_decode(implode('', $output), true);
+            $this->backend_templates = json_decode(implode('', $output), true);
             unset($output);
         }
 
         // List proxy templates
         if (!empty($_SESSION['PROXY_SYSTEM'])) {
             exec(VESTA_CMD . "v-list-web-templates-proxy json", $output, $return_var);
-            $proxy_templates = json_decode(implode('', $output), true);
+            $this->proxy_templates = json_decode(implode('', $output), true);
             unset($output);
         }
 
         // List web stat engines
         exec(VESTA_CMD . "v-list-web-stats json", $output, $return_var);
-        $stats = json_decode(implode('', $output), true);
+        $this->stats = json_decode(implode('', $output), true);
         unset($output);
 
         // Check POST request
         if (!empty($_POST['save'])) {
-            // echo "<pre>", print_r($_POST);
-            // die();
-            $v_domain = escapeshellarg($_POST['v_domain']);
+            $this->v_domain = escapeshellarg($_POST['v_domain']);
 
             // Check token
             if ((!isset($_POST['token'])) || ($_SESSION['token'] != $_POST['token'])) {
@@ -517,8 +514,8 @@ class WebController extends AppController
 
             // Change web domain IP
             if (($this->v_ip != $_POST['v_ip']) && (empty($_SESSION['error_msg']))) {
-                $v_ip = escapeshellarg($_POST['v_ip']);
-                exec(VESTA_CMD . "v-change-web-domain-ip " . $v_username . " " . $v_domain . " " . $v_ip . " no", $output, $return_var);
+                $this->v_ip = escapeshellarg($_POST['v_ip']);
+                exec(VESTA_CMD . "v-change-web-domain-ip " . $this->v_username . " " . $this->v_domain . " " . $this->v_ip . " no", $output, $return_var);
                 check_return_code($return_var, $output);
                 $restart_web = 'yes';
                 $restart_proxy = 'yes';
@@ -527,11 +524,11 @@ class WebController extends AppController
 
             // Chane dns domain IP
             if (($this->v_ip != $_POST['v_ip']) && (empty($_SESSION['error_msg']))) {
-                exec(VESTA_CMD . "v-list-dns-domain " . $v_username . " " . $v_domain . " json", $output, $return_var);
+                exec(VESTA_CMD . "v-list-dns-domain " . $this->v_username . " " . $this->v_domain . " json", $output, $return_var);
                 unset($output);
                 if ($return_var == 0) {
-                    $v_ip = escapeshellarg($_POST['v_ip']);
-                    exec(VESTA_CMD . "v-change-dns-domain-ip " . $v_username . " " . $v_domain . " " . $v_ip . " no", $output, $return_var);
+                    $this->v_ip = escapeshellarg($_POST['v_ip']);
+                    exec(VESTA_CMD . "v-change-dns-domain-ip " . $this->v_username . " " . $this->v_domain . " " . $this->v_ip . " no", $output, $return_var);
                     check_return_code($return_var, $output);
                     unset($output);
                     $restart_dns = 'yes';
@@ -539,14 +536,14 @@ class WebController extends AppController
             }
 
             // Change dns ip for each alias
-            if (($v_ip != $_POST['v_ip']) && (empty($_SESSION['error_msg']))) {
+            if (($this->v_ip != $_POST['v_ip']) && (empty($_SESSION['error_msg']))) {
                 foreach ($valiases as $v_alias) {
                     $v_alias = escapeshellarg($v_alias);
-                    exec(VESTA_CMD . "v-list-dns-domain " . $v_username . " " . $v_alias . " json", $output, $return_var);
+                    exec(VESTA_CMD . "v-list-dns-domain " . $this->v_username . " " . $v_alias . " json", $output, $return_var);
                     unset($output);
                     if ($return_var == 0) {
-                        $v_ip = escapeshellarg($_POST['v_ip']);
-                        exec(VESTA_CMD . "v-change-dns-domain-ip " . $v_username . " " . $v_alias . " " . $v_ip, $output, $return_var);
+                        $this->v_ip = escapeshellarg($_POST['v_ip']);
+                        exec(VESTA_CMD . "v-change-dns-domain-ip " . $this->v_username . " " . $v_alias . " " . $this->v_ip, $output, $return_var);
                         check_return_code($return_var, $output);
                         unset($output);
                         $restart_dns = 'yes';
@@ -555,9 +552,9 @@ class WebController extends AppController
             }
 
             // Change template (admin only)
-            if (($v_template != $_POST['v_template']) && ($_SESSION['user'] == 'admin') && (empty($_SESSION['error_msg']))) {
-                $v_template = escapeshellarg($_POST['v_template']);
-                exec(VESTA_CMD . "v-change-web-domain-tpl " . $v_username . " " . $v_domain . " " . $v_template . " no", $output, $return_var);
+            if (($this->v_template != $_POST['v_template']) && ($_SESSION['user'] == 'admin') && (empty($_SESSION['error_msg']))) {
+                $this->v_template = escapeshellarg($_POST['v_template']);
+                exec(VESTA_CMD . "v-change-web-domain-tpl " . $this->v_username . " " . $this->v_domain . " " . $this->v_template . " no", $output, $return_var);
                 check_return_code($return_var, $output);
                 unset($output);
                 $restart_web = 'yes';
@@ -570,23 +567,23 @@ class WebController extends AppController
                 $waliases = preg_replace('/\s+/', ' ', $waliases);
                 $waliases = trim($waliases);
                 $aliases = explode(" ", $waliases);
-                $v_aliases = str_replace(' ', "\n", $waliases);
+                $this->v_aliases = str_replace(' ', "\n", $waliases);
                 $result = array_diff($valiases, $aliases);
                 foreach ($result as $alias) {
                     if ((empty($_SESSION['error_msg'])) && (!empty($alias))) {
                         $restart_web = 'yes';
                         $restart_proxy = 'yes';
-                        $v_template = escapeshellarg($_POST['v_template']);
+                        $this->v_template = escapeshellarg($_POST['v_template']);
                         $alias = escapeshellarg($alias);
-                        exec(VESTA_CMD . "v-delete-web-domain-alias " . $v_username . " " . $v_domain . " " . $alias . " no", $output, $return_var);
+                        exec(VESTA_CMD . "v-delete-web-domain-alias " . $this->v_username . " " . $this->v_domain . " " . $alias . " no", $output, $return_var);
                         check_return_code($return_var, $output);
                         unset($output);
 
                         if (empty($_SESSION['error_msg'])) {
-                            exec(VESTA_CMD . "v-list-dns-domain " . $v_username . " " . $v_domain, $output, $return_var);
+                            exec(VESTA_CMD . "v-list-dns-domain " . $this->v_username . " " . $this->v_domain, $output, $return_var);
                             unset($output);
                             if ($return_var == 0) {
-                                exec(VESTA_CMD . "v-delete-dns-on-web-alias " . $v_username . " " . $v_domain . " " . $alias . " no", $output, $return_var);
+                                exec(VESTA_CMD . "v-delete-dns-on-web-alias " . $this->v_username . " " . $this->v_domain . " " . $alias . " no", $output, $return_var);
                                 check_return_code($return_var, $output);
                                 unset($output);
                                 $restart_dns = 'yes';
@@ -600,16 +597,16 @@ class WebController extends AppController
                     if ((empty($_SESSION['error_msg'])) && (!empty($alias))) {
                         $restart_web = 'yes';
                         $restart_proxy = 'yes';
-                        $v_template = escapeshellarg($_POST['v_template']);
+                        $this->v_template = escapeshellarg($_POST['v_template']);
                         $alias = escapeshellarg($alias);
-                        exec(VESTA_CMD . "v-add-web-domain-alias " . $v_username . " " . $v_domain . " " . $alias . " no", $output, $return_var);
+                        exec(VESTA_CMD . "v-add-web-domain-alias " . $this->v_username . " " . $this->v_domain . " " . $alias . " no", $output, $return_var);
                         check_return_code($return_var, $output);
                         unset($output);
                         if (empty($_SESSION['error_msg'])) {
-                            exec(VESTA_CMD . "v-list-dns-domain " . $v_username . " " . $v_domain, $output, $return_var);
+                            exec(VESTA_CMD . "v-list-dns-domain " . $this->v_username . " " . $this->v_domain, $output, $return_var);
                             unset($output);
                             if ($return_var == 0) {
-                                exec(VESTA_CMD . "v-add-dns-on-web-alias " . $v_username . " " . $alias . " " . $v_ip . " no", $output, $return_var);
+                                exec(VESTA_CMD . "v-add-dns-on-web-alias " . $this->v_username . " " . $alias . " " . $this->v_ip . " no", $output, $return_var);
                                 check_return_code($return_var, $output);
                                 unset($output);
                                 $restart_dns = 'yes';
@@ -622,14 +619,14 @@ class WebController extends AppController
             // Change backend template
             if ((!empty($_SESSION['WEB_BACKEND'])) && ($v_backend_template != $_POST['v_backend_template']) && ($_SESSION['user'] == 'admin') && (empty($_SESSION['error_msg']))) {
                 $v_backend_template = $_POST['v_backend_template'];
-                exec(VESTA_CMD . "v-change-web-domain-backend-tpl " . $v_username . " " . $v_domain . " " . escapeshellarg($v_backend_template), $output, $return_var);
+                exec(VESTA_CMD . "v-change-web-domain-backend-tpl " . $this->v_username . " " . $this->v_domain . " " . escapeshellarg($v_backend_template), $output, $return_var);
                 check_return_code($return_var, $output);
                 unset($output);
             }
 
             // Delete proxy support
             if ((!empty($_SESSION['PROXY_SYSTEM'])) && (!empty($v_proxy)) && (empty($_POST['v_proxy'])) && (empty($_SESSION['error_msg']))) {
-                exec(VESTA_CMD . "v-delete-web-domain-proxy " . $v_username . " " . $v_domain . " no", $output, $return_var);
+                exec(VESTA_CMD . "v-delete-web-domain-proxy " . $this->v_username . " " . $this->v_domain . " no", $output, $return_var);
                 check_return_code($return_var, $output);
                 unset($output);
                 unset($v_proxy);
@@ -646,7 +643,7 @@ class WebController extends AppController
                 if (($v_proxy_template != $_POST['v_proxy_template']) || ($v_proxy_ext != $ext)) {
                     $ext = str_replace(', ', ",", $ext);
                     if (!empty($_POST['v_proxy_template'])) $v_proxy_template = $_POST['v_proxy_template'];
-                    exec(VESTA_CMD . "v-change-web-domain-proxy-tpl " . $v_username . " " . $v_domain . " " . escapeshellarg($v_proxy_template) . " " . escapeshellarg($ext) . " no", $output, $return_var);
+                    exec(VESTA_CMD . "v-change-web-domain-proxy-tpl " . $this->v_username . " " . $this->v_domain . " " . escapeshellarg($v_proxy_template) . " " . escapeshellarg($ext) . " no", $output, $return_var);
                     check_return_code($return_var, $output);
                     $v_proxy_ext = str_replace(',', ', ', $ext);
                     unset($output);
@@ -665,17 +662,17 @@ class WebController extends AppController
                     $ext = str_replace(' ', ",", $ext);
                     $v_proxy_ext = str_replace(',', ', ', $ext);
                 }
-                exec(VESTA_CMD . "v-add-web-domain-proxy " . $v_username . " " . $v_domain . " " . escapeshellarg($v_proxy_template) . " " . escapeshellarg($ext) . " no", $output, $return_var);
+                exec(VESTA_CMD . "v-add-web-domain-proxy " . $this->v_username . " " . $this->v_domain . " " . escapeshellarg($v_proxy_template) . " " . escapeshellarg($ext) . " no", $output, $return_var);
                 check_return_code($return_var, $output);
                 unset($output);
                 $restart_proxy = 'yes';
             }
 
             // Change document root for ssl domain
-            if (($v_ssl == 'yes') && (!empty($_POST['v_ssl'])) && (empty($_SESSION['error_msg']))) {
+            if (($this->v_ssl == 'yes') && (!empty($_POST['v_ssl'])) && (empty($_SESSION['error_msg']))) {
                 if ($v_ssl_home != $_POST['v_ssl_home']) {
                     $v_ssl_home = escapeshellarg($_POST['v_ssl_home']);
-                    exec(VESTA_CMD . "v-change-web-domain-sslhome " . $user . " " . $v_domain . " " . $v_ssl_home . " no", $output, $return_var);
+                    exec(VESTA_CMD . "v-change-web-domain-sslhome " . $user . " " . $this->v_domain . " " . $v_ssl_home . " no", $output, $return_var);
                     check_return_code($return_var, $output);
                     $v_ssl_home = $_POST['v_ssl_home'];
                     $restart_web = 'yes';
@@ -685,7 +682,7 @@ class WebController extends AppController
             }
 
             // Change SSL certificate
-            if (($v_letsencrypt == 'no') && (empty($_POST['v_letsencrypt'])) && ($v_ssl == 'yes') && (!empty($_POST['v_ssl'])) && (empty($_SESSION['error_msg']))) {
+            if (($v_letsencrypt == 'no') && (empty($_POST['v_letsencrypt'])) && ($this->v_ssl == 'yes') && (!empty($_POST['v_ssl'])) && (empty($_SESSION['error_msg']))) {
                 if (($v_ssl_crt != str_replace("\r\n", "\n",  $_POST['v_ssl_crt'])) || ($v_ssl_key != str_replace("\r\n", "\n",  $_POST['v_ssl_key'])) || ($v_ssl_ca != str_replace("\r\n", "\n",  $_POST['v_ssl_ca']))) {
                     exec('mktemp -d', $mktemp_output, $return_var);
                     $tmpdir = $mktemp_output[0];
@@ -714,25 +711,25 @@ class WebController extends AppController
                         fclose($fp);
                     }
 
-                    exec(VESTA_CMD . "v-change-web-domain-sslcert " . $user . " " . $v_domain . " " . $tmpdir . " no", $output, $return_var);
+                    exec(VESTA_CMD . "v-change-web-domain-sslcert " . $user . " " . $this->v_domain . " " . $tmpdir . " no", $output, $return_var);
                     check_return_code($return_var, $output);
                     unset($output);
                     $restart_web = 'yes';
                     $restart_proxy = 'yes';
 
-                    exec(VESTA_CMD . "v-list-web-domain-ssl " . $user . " " . $v_domain . " json", $output, $return_var);
+                    exec(VESTA_CMD . "v-list-web-domain-ssl " . $user . " " . $this->v_domain . " json", $output, $return_var);
                     $ssl_str = json_decode(implode('', $output), true);
                     unset($output);
-                    $v_ssl_crt = $ssl_str[$v_domain]['CRT'];
-                    $v_ssl_key = $ssl_str[$v_domain]['KEY'];
-                    $v_ssl_ca = $ssl_str[$v_domain]['CA'];
-                    $v_ssl_subject = $ssl_str[$v_domain]['SUBJECT'];
-                    $v_ssl_aliases = $ssl_str[$v_domain]['ALIASES'];
-                    $v_ssl_not_before = $ssl_str[$v_domain]['NOT_BEFORE'];
-                    $v_ssl_not_after = $ssl_str[$v_domain]['NOT_AFTER'];
-                    $v_ssl_signature = $ssl_str[$v_domain]['SIGNATURE'];
-                    $v_ssl_pub_key = $ssl_str[$v_domain]['PUB_KEY'];
-                    $v_ssl_issuer = $ssl_str[$v_domain]['ISSUER'];
+                    $v_ssl_crt = $ssl_str[$this->v_domain]['CRT'];
+                    $v_ssl_key = $ssl_str[$this->v_domain]['KEY'];
+                    $v_ssl_ca = $ssl_str[$this->v_domain]['CA'];
+                    $v_ssl_subject = $ssl_str[$this->v_domain]['SUBJECT'];
+                    $v_ssl_aliases = $ssl_str[$this->v_domain]['ALIASES'];
+                    $v_ssl_not_before = $ssl_str[$this->v_domain]['NOT_BEFORE'];
+                    $v_ssl_not_after = $ssl_str[$this->v_domain]['NOT_AFTER'];
+                    $v_ssl_signature = $ssl_str[$this->v_domain]['SIGNATURE'];
+                    $v_ssl_pub_key = $ssl_str[$this->v_domain]['PUB_KEY'];
+                    $v_ssl_issuer = $ssl_str[$this->v_domain]['ISSUER'];
 
                     // Cleanup certificate tempfiles
                     if (!empty($_POST['v_ssl_crt'])) unlink($tmpdir . "/" . $_POST['v_domain'] . ".crt");
@@ -744,7 +741,7 @@ class WebController extends AppController
 
             // Delete Lets Encrypt support
             if (($v_letsencrypt == 'yes') && (empty($_POST['v_letsencrypt'])) && (empty($_SESSION['error_msg']))) {
-                exec(VESTA_CMD . "v-delete-letsencrypt-domain " . $user . " " . $v_domain . " no", $output, $return_var);
+                exec(VESTA_CMD . "v-delete-letsencrypt-domain " . $user . " " . $this->v_domain . " no", $output, $return_var);
                 check_return_code($return_var, $output);
                 unset($output);
                 $v_ssl_crt = '';
@@ -752,38 +749,38 @@ class WebController extends AppController
                 $v_ssl_ca = '';
                 $v_letsencrypt = 'no';
                 $v_letsencrypt_deleted = 'yes';
-                $v_ssl = 'no';
+                $this->v_ssl = 'no';
                 $restart_web = 'yes';
                 $restart_proxy = 'yes';
             }
 
             // Delete SSL certificate
-            if (($v_ssl == 'yes') && (empty($_POST['v_ssl'])) && (empty($_SESSION['error_msg']))) {
-                exec(VESTA_CMD . "v-delete-web-domain-ssl " . $v_username . " " . $v_domain . " no", $output, $return_var);
+            if (($this->v_ssl == 'yes') && (empty($_POST['v_ssl'])) && (empty($_SESSION['error_msg']))) {
+                exec(VESTA_CMD . "v-delete-web-domain-ssl " . $this->v_username . " " . $this->v_domain . " no", $output, $return_var);
                 check_return_code($return_var, $output);
                 unset($output);
                 $v_ssl_crt = '';
                 $v_ssl_key = '';
                 $v_ssl_ca = '';
-                $v_ssl = 'no';
+                $this->v_ssl = 'no';
                 $restart_web = 'yes';
                 $restart_proxy = 'yes';
             }
 
             // Add Lets Encrypt support
             if ((!empty($_POST['v_ssl'])) && ($v_letsencrypt == 'no') && (!empty($_POST['v_letsencrypt'])) && empty($_SESSION['error_msg'])) {
-                $l_aliases = str_replace("\n", ',', $v_aliases);
-                exec(VESTA_CMD . "v-add-letsencrypt-domain " . $user . " " . $v_domain . " " . escapeshellarg($l_aliases) . " no", $output, $return_var);
+                $l_aliases = str_replace("\n", ',', $this->v_aliases);
+                exec(VESTA_CMD . "v-add-letsencrypt-domain " . $user . " " . $this->v_domain . " " . escapeshellarg($l_aliases) . " no", $output, $return_var);
                 check_return_code($return_var, $output);
                 unset($output);
                 $v_letsencrypt = 'yes';
-                $v_ssl = 'yes';
+                $this->v_ssl = 'yes';
                 $restart_web = 'yes';
                 $restart_proxy = 'yes';
             }
 
             // Add SSL certificate
-            if (($v_ssl == 'no') && (!empty($_POST['v_ssl']))  && (empty($v_letsencrypt_deleted)) && (empty($_SESSION['error_msg']))) {
+            if (($this->v_ssl == 'no') && (!empty($_POST['v_ssl']))  && (empty($v_letsencrypt_deleted)) && (empty($_SESSION['error_msg']))) {
                 if (empty($_POST['v_ssl_crt'])) $errors[] = 'ssl certificate';
                 if (empty($_POST['v_ssl_key'])) $errors[] = 'ssl key';
                 if (empty($_POST['v_ssl_home'])) $errors[] = 'ssl home';
@@ -821,14 +818,14 @@ class WebController extends AppController
                         fwrite($fp, str_replace("\r\n", "\n", $_POST['v_ssl_ca']));
                         fclose($fp);
                     }
-                    exec(VESTA_CMD . "v-add-web-domain-ssl " . $user . " " . $v_domain . " " . $tmpdir . " " . $v_ssl_home . " no", $output, $return_var);
+                    exec(VESTA_CMD . "v-add-web-domain-ssl " . $user . " " . $this->v_domain . " " . $tmpdir . " " . $v_ssl_home . " no", $output, $return_var);
                     check_return_code($return_var, $output);
                     unset($output);
-                    $v_ssl = 'yes';
+                    $this->v_ssl = 'yes';
                     $restart_web = 'yes';
                     $restart_proxy = 'yes';
 
-                    exec(VESTA_CMD . "v-list-web-domain-ssl " . $user . " " . $v_domain . " json", $output, $return_var);
+                    exec(VESTA_CMD . "v-list-web-domain-ssl " . $user . " " . $this->v_domain . " json", $output, $return_var);
                     $ssl_str = json_decode(implode('', $output), true);
                     unset($output);
                     $v_ssl_crt = $ssl_str[$_POST['v_domain']]['CRT'];
@@ -854,7 +851,7 @@ class WebController extends AppController
 
             // Delete web stats
             if ((!empty($v_stats)) && ($_POST['v_stats'] == 'none') && (empty($_SESSION['error_msg']))) {
-                exec(VESTA_CMD . "v-delete-web-domain-stats " . $v_username . " " . $v_domain, $output, $return_var);
+                exec(VESTA_CMD . "v-delete-web-domain-stats " . $this->v_username . " " . $this->v_domain, $output, $return_var);
                 check_return_code($return_var, $output);
                 unset($output);
                 $v_stats = '';
@@ -863,7 +860,7 @@ class WebController extends AppController
             // Change web stats engine
             if ((!empty($v_stats)) && ($_POST['v_stats'] != $v_stats) && (empty($_SESSION['error_msg']))) {
                 $v_stats = escapeshellarg($_POST['v_stats']);
-                exec(VESTA_CMD . "v-change-web-domain-stats " . $v_username . " " . $v_domain . " " . $v_stats, $output, $return_var);
+                exec(VESTA_CMD . "v-change-web-domain-stats " . $this->v_username . " " . $this->v_domain . " " . $v_stats, $output, $return_var);
                 check_return_code($return_var, $output);
                 unset($output);
             }
@@ -871,14 +868,14 @@ class WebController extends AppController
             // Add web stats
             if ((empty($v_stats)) && ($_POST['v_stats'] != 'none') && (empty($_SESSION['error_msg']))) {
                 $v_stats = escapeshellarg($_POST['v_stats']);
-                exec(VESTA_CMD . "v-add-web-domain-stats " . $v_username . " " . $v_domain . " " . $v_stats, $output, $return_var);
+                exec(VESTA_CMD . "v-add-web-domain-stats " . $this->v_username . " " . $this->v_domain . " " . $v_stats, $output, $return_var);
                 check_return_code($return_var, $output);
                 unset($output);
             }
 
             // Delete web stats authorization
             if ((!empty($v_stats_user)) && (empty($_POST['v_stats_auth'])) && (empty($_SESSION['error_msg']))) {
-                exec(VESTA_CMD . "v-delete-web-domain-stats-user " . $v_username . " " . $v_domain, $output, $return_var);
+                exec(VESTA_CMD . "v-delete-web-domain-stats-user " . $this->v_username . " " . $this->v_domain, $output, $return_var);
                 check_return_code($return_var, $output);
                 unset($output);
                 $v_stats_user = '';
@@ -903,7 +900,7 @@ class WebController extends AppController
                     $fp = fopen($v_stats_password, "w");
                     fwrite($fp, $_POST['v_stats_password'] . "\n");
                     fclose($fp);
-                    exec(VESTA_CMD . "v-add-web-domain-stats-user " . $v_username . " " . $v_domain . " " . $v_stats_user . " " . $v_stats_password, $output, $return_var);
+                    exec(VESTA_CMD . "v-add-web-domain-stats-user " . $this->v_username . " " . $this->v_domain . " " . $v_stats_user . " " . $v_stats_password, $output, $return_var);
                     check_return_code($return_var, $output);
                     unset($output);
                     unlink($v_stats_password);
@@ -930,7 +927,7 @@ class WebController extends AppController
                     $fp = fopen($v_stats_password, "w");
                     fwrite($fp, $_POST['v_stats_password'] . "\n");
                     fclose($fp);
-                    exec(VESTA_CMD . "v-add-web-domain-stats-user " . $v_username . " " . $v_domain . " " . $v_stats_user . " " . $v_stats_password, $output, $return_var);
+                    exec(VESTA_CMD . "v-add-web-domain-stats-user " . $this->v_username . " " . $this->v_domain . " " . $v_stats_user . " " . $v_stats_password, $output, $return_var);
                     check_return_code($return_var, $output);
                     unset($output);
                     unlink($v_stats_password);
@@ -971,14 +968,14 @@ class WebController extends AppController
                             $fp = fopen($v_ftp_password, "w");
                             fwrite($fp, $v_ftp_user_data['v_ftp_password'] . "\n");
                             fclose($fp);
-                            exec(VESTA_CMD . "v-add-web-domain-ftp " . $v_username . " " . $v_domain . " " . $v_ftp_user . " " . $v_ftp_password . " " . $v_ftp_path, $output, $return_var);
+                            exec(VESTA_CMD . "v-add-web-domain-ftp " . $this->v_username . " " . $this->v_domain . " " . $v_ftp_user . " " . $v_ftp_password . " " . $v_ftp_path, $output, $return_var);
                             check_return_code($return_var, $output);
                             if ((!empty($v_ftp_user_data['v_ftp_email'])) && (empty($_SESSION['error_msg']))) {
                                 $to = $v_ftp_user_data['v_ftp_email'];
                                 $subject = __("FTP login credentials");
                                 $hostname = exec('hostname');
                                 $from = __('MAIL_FROM', $hostname);
-                                $mailtext = __('FTP_ACCOUNT_READY', $_GET['domain'], $user, $v_ftp_username, $v_ftp_user_data['v_ftp_password']);
+                                $mailtext = __('FTP_ACCOUNT_READY', $param_domain, $user, $v_ftp_username, $v_ftp_user_data['v_ftp_password']);
                                 send_email($to, $subject, $mailtext, $from);
                                 unset($v_ftp_email);
                             }
@@ -1009,7 +1006,7 @@ class WebController extends AppController
                     // Delete FTP account
                     if ($v_ftp_user_data['delete'] == 1) {
                         $v_ftp_username = $user . '_' . $v_ftp_user_data['v_ftp_user'];
-                        exec(VESTA_CMD . "v-delete-web-domain-ftp " . $v_username . " " . $v_domain . " " . $v_ftp_username, $output, $return_var);
+                        exec(VESTA_CMD . "v-delete-web-domain-ftp " . $this->v_username . " " . $this->v_domain . " " . $v_ftp_username, $output, $return_var);
                         check_return_code($return_var, $output);
                         unset($output);
 
@@ -1035,7 +1032,7 @@ class WebController extends AppController
                         $v_ftp_username = escapeshellarg($v_ftp_username);
                         $v_ftp_path = escapeshellarg(trim($v_ftp_user_data['v_ftp_path']));
                         if (escapeshellarg(trim($v_ftp_user_data['v_ftp_path_prev'])) != $v_ftp_path) {
-                            exec(VESTA_CMD . "v-change-web-domain-ftp-path " . $v_username . " " . $v_domain . " " . $v_ftp_username . " " . $v_ftp_path, $output, $return_var);
+                            exec(VESTA_CMD . "v-change-web-domain-ftp-path " . $this->v_username . " " . $this->v_domain . " " . $v_ftp_username . " " . $v_ftp_path, $output, $return_var);
                         }
 
                         // Change FTP account password
@@ -1044,14 +1041,14 @@ class WebController extends AppController
                             $fp = fopen($v_ftp_password, "w");
                             fwrite($fp, $v_ftp_user_data['v_ftp_password'] . "\n");
                             fclose($fp);
-                            exec(VESTA_CMD . "v-change-web-domain-ftp-password " . $v_username . " " . $v_domain . " " . $v_ftp_username . " " . $v_ftp_password, $output, $return_var);
+                            exec(VESTA_CMD . "v-change-web-domain-ftp-password " . $this->v_username . " " . $this->v_domain . " " . $v_ftp_username . " " . $v_ftp_password, $output, $return_var);
                             unlink($v_ftp_password);
 
                             $to = $v_ftp_user_data['v_ftp_email'];
                             $subject = __("FTP login credentials");
                             $hostname = exec('hostname');
                             $from = __('MAIL_FROM', $hostname);
-                            $mailtext = __('FTP_ACCOUNT_READY', $_GET['domain'], $user, $v_ftp_username_for_emailing, $v_ftp_user_data['v_ftp_password']);
+                            $mailtext = __('FTP_ACCOUNT_READY', $param_domain, $user, $v_ftp_username_for_emailing, $v_ftp_user_data['v_ftp_password']);
                             send_email($to, $subject, $mailtext, $from);
                             unset($v_ftp_email);
                         }
@@ -1099,7 +1096,7 @@ class WebController extends AppController
 
 
         $v_ftp_users_raw = explode(':', $v_ftp_user);
-        $v_ftp_users_paths_raw = explode(':', $data[$v_domain]['FTP_PATH']);
+        $v_ftp_users_paths_raw = explode(':', $data[$this->v_domain]['FTP_PATH']);
         $v_ftp_users = array();
         foreach ($v_ftp_users_raw as $v_ftp_user_index => $v_ftp_user_val) {
             if (empty($v_ftp_user_val)) {

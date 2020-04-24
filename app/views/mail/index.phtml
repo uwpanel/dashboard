@@ -29,6 +29,7 @@
             <th data-field="bandwidth" data-filter-control="input" data-sortable="true" title="Bandwidth">Spam Filter</th>
             <th data-field="dkim" data-filter-control="input" data-sortable="true" title="SSL">DKIM</th>
             <th data-field="ssl" data-filter-control="input" data-sortable="true">SSL</th>
+            <th data-field="catchall" data-filter-control="input" data-sortable="true">Catchall Mail</th>
         </tr>
     </thead>
     <tbody>
@@ -68,6 +69,7 @@
                 <td><? echo $each['ANTISPAM'] ?></td>
                 <td><? echo $each['DKIM'] ?></td>
                 <td><? echo $each['STATS'] ?></td>
+                <td><? echo $each['CATCHALL'] ?></td>
             </tr>
         <?php
         }
@@ -78,5 +80,5 @@
 </div>
 
 <?php
-// echo "<pre>", print_r($data, true);
+echo "<pre>", print_r($data, true);
 ?>

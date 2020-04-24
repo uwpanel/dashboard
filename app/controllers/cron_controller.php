@@ -133,6 +133,7 @@ class CronController extends AppController
         // Parse cron job
         $v_username = $user;
         $v_job = $param_job;
+        $this->job_id = $param_job;
         $this->v_min = $data[$v_job]['MIN'];
         $this->v_hour = $data[$v_job]['HOUR'];
         $this->v_day = $data[$v_job]['DAY'];
@@ -177,6 +178,8 @@ class CronController extends AppController
             if (empty($_SESSION['error_msg'])) {
                 $_SESSION['ok_msg'] = __("Changes has been saved.");
             }
+
+            header("Location: /cron");
         }
 
         // Render page
@@ -205,7 +208,7 @@ class CronController extends AppController
 
         // Check user
         if ($_SESSION['user'] != 'admin') {
-            header("Location: /list/user");
+            header("Location: /user");
             exit;
         }
         if (!empty($param_user)) {
@@ -247,7 +250,7 @@ class CronController extends AppController
 
         // Check user
         if ($_SESSION['user'] != 'admin') {
-            header("Location: /list/user");
+            header("Location: /user");
             exit;
         }
 

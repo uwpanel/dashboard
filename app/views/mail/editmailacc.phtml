@@ -1,77 +1,79 @@
 <body>
-    <?
-    // echo "<pre>", print_r($data, true), "</pre>";
-    ?>
 
-    <title>Add User</title>
+    <title>Edit Mail Account</title>
 
     <div class="col-4">
         <p class="login-box-msg"><b>Editing Mail Account</b></p>
         <p class="text-center">
             <?php
-            echo $_SESSION['error_msg'];
+            echo $_SESSION['error_msg'], "<br>", $_SESSION['okr_msg'];
             $_SESSION['error_msg'] = NULL;
+            $_SESSION['ok_msg'] = NULL;
             ?>
         </p>
 
-        <form name="v_add_user" action="https://<?= $_SERVER['HTTP_HOST'] ?>/mail/editmailacc" method="post">
+        <form name="v_edit_mail_acc" action="https://<?= $_SERVER['HTTP_HOST'] ?>/mail/editmailacc/<?php if (isset($_SESSION['look'])) {
+                                                                                                        echo $_SESSION['look'];
+                                                                                                    } else {
+                                                                                                        echo $_SESSION['user'];
+                                                                                                    } ?>/<?= htmlentities(trim($v_domain, "'")) ?>/<?= htmlentities(trim($v_account, "'")) ?>" method="post">
+            <label for="v_account">Account</label>
             <div class="input-group mb-3">
-                <input type="text" name="v_domain" class="form-control" placeholder="Domain" value="<?= $domain ?>" disabled>
-                <input type="hidden" name="v_domain" class="form-control" placeholder="Domain" value="<?= $domain ?>">
-            </div>
-            <div class="input-group mb-3">
-                <input type="text" name="v_account" class="form-control" placeholder="Account">
-            </div>
-            <div class="input-group mb-3">
-                <input type="text" name="v_password" class="form-control" placeholder="Password">
-            </div>
-
-            <div class="input-group mb-3">
-                <b><u><a href="javascript:elementHideShow('advtable');" style="text-decoration: none;color : #000;">Advanced options</a></u></b>
+                <input type="text" name="v_account" class="form-control" value="<?php echo htmlentities(trim($v_account, "'")), '@', htmlentities(trim($v_domain, "'")); ?>" disabled>
+                <input type="hidden" name="v_domain" value="<?= htmlentities(trim($v_domain, "'")) ?>">
+                <input type="hidden" name="v_account" value="<?= htmlentities(trim($v_account, "'")) ?>">
             </div>
 
-            <table style="display:<?php if (empty($v_adv)) echo 'none'; ?> ;" id="advtable">
+            <label for="v_password">Password</label>
+            <div class="input-group mb-3">
+                <input type="text" name="v_password" class="form-control" value="<?= htmlentities(trim($v_password, "'")) ?>">
+            </div>
+
+            <label for="v_quota">Quota (in megabytes)</label>
+            <div class="input-group mb-3">
+                <input type="text" name="v_quota" class="form-control" value="<?= htmlentities(trim($v_quota, "'")) ?>" disabled>
+            </div>
+
+            <label for="v_aliases">Aliases (use local-part)</label>
+            <div class="input-group mb-3">
+                <textarea size="20" class="form-control" name="v_aliases"><?= htmlentities(trim($v_aliases, "'")) ?></textarea>
+            </div>
+
+            <label for="v_aliases">Forward to (one or more email addresses)</label>
+            <div class="input-group mb-3">
+                <textarea size="20" class="form-control" name="v_fwd"><?= htmlentities(trim($v_fwd, "'")) ?></textarea>
+            </div>
+
+            <div class="input-group form-control mb-3">
+                <input type="checkbox" name="v_fwd_only" id="v_fwd_only" <?php if ($v_fwd_only == 'yes') echo "checked=yes" ?>>
+                <label for="antivirus"> &nbsp; Do not store forwarded mail </label>
+            </div>
+
+            <div class="input-group form-control mb-3">
+                <input type="checkbox" name="v_autoreply" id="v_autoreply" <?php if ($v_autoreply == 'yes') echo "checked=yes" ?>>
+                <label for="antivirus"> &nbsp; Autoreply </label>
+            </div>
+
+            <table style="display:<?php if ($v_autoreply == 'yes') {
+                                        echo 'block';
+                                    } else {
+                                        echo 'none';
+                                    } ?> ;" id="autoreplytable">
                 <tr>
-                    <td class="vst-text input-label">
-                        <?php print __('Quota'); ?> <span class="optional">(<?= __('in megabytes') ?>)</span>
+                    <td class="vst-text" style="padding: 12px 0 0 0;">
+                        <?php print __('Message'); ?>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <input type="text" size="20" class="vst-input" name="v_quota" value="<?= htmlentities(trim($v_quota, "'")) ?>">
-                        <img class="unlim-trigger" id="unlim-quota" src="/images/unlim.png" />
-                    </td>
-                </tr>
-                <tr>
-                    <td class="vst-text input-label">
-                        <?php print __('Aliases'); ?> <span class="optional">(<?= __('use local-part') ?>)</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <textarea size="20" class="vst-textinput" name="v_aliases"><?= htmlentities(trim($v_aliases, "'")) ?></textarea>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="vst-text input-label">
-                        <?php print __('Forward to'); ?> <span class="optional">(<?= __('one or more email addresses') ?>)</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <textarea size="20" class="vst-textinput" name="v_fwd"><?= htmlentities(trim($v_fwd, "'")) ?></textarea>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="vst-text input-label">
-                        <label><input type="checkbox" size="20" class="vst-checkbox" name="v_fwd_only" <?php if ($v_fwd_only == 'yes') echo "checked=yes" ?>>
-                            <?php print __('Do not store forwarded mail'); ?></label>
+                        <textarea size="20" class="vst-textinput" name="v_autoreply_message"><?= htmlentities(trim($v_autoreply_message, "'")) ?></textarea>
                     </td>
                 </tr>
             </table>
-
+            <label for="v_aliases">Send login credentials to email address</label>
             <div class="input-group mb-3">
-                <input type="text" name="v_send_email" class="form-control" placeholder="Send Login credentials to this email">
+                <input type="text" name="v_send_email" class="form-control" value="<?= htmlentities(trim($v_send_email, "'")) ?>">
+                <input type="hidden" name="v_credentials" id="v_credentials">
             </div>
 
             <div class="row">
@@ -82,7 +84,7 @@
             <button type="submit" class="btn btn-primary btn-block">Confirm</button>
             <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/reset" class="btn btn-default btn-block">Back</a>
             <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
-            <input type="hidden" name="ok_acc" value="Add">
+            <input type="hidden" name="save" value="save">
 
         </form>
     </div>

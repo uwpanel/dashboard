@@ -1,12 +1,3 @@
-    <!DOCTYPE html>
-    <html lang="en">
-
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-    </head>
-
     <body>
         <?
         // echo "<pre>", print_r($data, true), "</pre>";
@@ -18,12 +9,13 @@
             <p class="login-box-msg"><b>Adding DNS</b></p>
             <p class="text-center">
                 <?php
-                echo $_SESSION['error_msg'];
+                echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
                 $_SESSION['error_msg'] = NULL;
+                $_SESSION['ok_msg'] = NULL;
                 ?>
             </p>
 
-            <form name="v_add_user" action="https://<?= $_SERVER['HTTP_HOST'] ?>/dns/add" method="post">
+            <form name="v_add_dns" action="https://<?= $_SERVER['HTTP_HOST'] ?>/dns/add" method="post">
 
                 <label for="v_domain">Domain</label>
                 <div class="input-group mb-3">

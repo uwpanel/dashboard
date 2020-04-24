@@ -17,11 +17,16 @@
         <p class="login-box-msg"><b>Editing CronJob</b></p>
         <p class="text-center">
             <?php
-            echo $_SESSION['error_msg'], $_SESSION['ok_msg'];
+            echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
             $_SESSION['error_msg'] = NULL;
+            $_SESSION['ok_msg'] = NULL;
             ?>
         </p>
-        <form name="v_add_user" action="https://<?= $_SERVER['HTTP_HOST'] ?>/cron/add" method="post">
+        <form name="v_add_user" action="https://<?= $_SERVER['HTTP_HOST'] ?>/cron/edit/<?php if (isset($_SESSION['look'])) {
+                                                                                            echo $_SESSION['look'];
+                                                                                        } else {
+                                                                                            echo $_SESSION['user'];
+                                                                                        } ?>/<?= $job_id ?>/<?= $_SESSION['token'] ?>" method="post">
             <label for="v_cmd">Command</label>
             <div class="input-group mb-3">
                 <input type="text" name="v_cmd" class="form-control" placeholder="Command" value="<?= $v_cmd ?>">
@@ -61,7 +66,7 @@
             <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/reset" class="btn btn-default btn-block">Back</a>
 
             <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
-            <input type="hidden" name="ok" value="Add">
+            <input type="hidden" name="save" value="save">
 
         </form>
     </div>

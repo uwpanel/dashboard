@@ -23,16 +23,6 @@ class MailController extends AppController
         $this->data = array_reverse($data, true);
         unset($output);
 
-        // render_page($user, $TAB, 'list_mail');
-        // } else {
-        //     exec(VESTA_CMD . "v-list-mail-accounts " . $user . " " . escapeshellarg($_GET['domain']) . " json", $output, $return_var);
-        //     $data = json_decode(implode('', $output), true);
-        //     $this->data = array_reverse($data, true);
-        //     unset($output);
-
-        //     render_page($user, $TAB, 'list_mail_acc');
-        // }
-
         // Back uri
         $_SESSION['back'] = $_SERVER['REQUEST_URI'];
     }
@@ -276,9 +266,8 @@ class MailController extends AppController
         unset($_SESSION['ok_msg']);
     }
 
-    public function edit($param_domain, $param_user, $param_account = NULL)
+    public function edit($param_user, $param_domain, $param_account = NULL)
     {
-
         error_reporting(NULL);
         ob_start();
         $TAB = 'MAIL';
@@ -288,7 +277,7 @@ class MailController extends AppController
 
         // Check domain argument
         if (empty($param_domain)) {
-            header("Location: /list/mail/");
+            header("Location: /mail");
             exit;
         }
 
@@ -306,66 +295,24 @@ class MailController extends AppController
             unset($output);
 
             // Parse domain
-            $v_domain = $param_domain;
-            $v_antispam = $data[$v_domain]['ANTISPAM'];
-            $v_antivirus = $data[$v_domain]['ANTIVIRUS'];
-            $v_dkim = $data[$v_domain]['DKIM'];
-            $v_catchall = $data[$v_domain]['CATCHALL'];
-            $v_date = $data[$v_domain]['DATE'];
-            $v_time = $data[$v_domain]['TIME'];
-            $v_suspended = $data[$v_domain]['SUSPENDED'];
+            $this->v_domain = $param_domain;
+            $this->v_antispam = $data[$this->v_domain]['ANTISPAM'];
+            $this->v_antivirus = $data[$this->v_domain]['ANTIVIRUS'];
+            $this->v_dkim = $data[$this->v_domain]['DKIM'];
+            $this->v_catchall = $data[$this->v_domain]['CATCHALL'];
+            $this->v_date = $data[$this->v_domain]['DATE'];
+            $this->v_time = $data[$this->v_domain]['TIME'];
+            $v_suspended = $data[$this->v_domain]['SUSPENDED'];
             if ($v_suspended == 'yes') {
-                $v_status =  'suspended';
+                $this->v_status =  'suspended';
             } else {
-                $v_status =  'active';
+                $this->v_status =  'active';
             }
         }
-
-        // List mail account
-        if ((!empty($param_domain)) && (!empty($param_account))) {
-            $v_domain = escapeshellarg($param_domain);
-            $v_account = escapeshellarg($param_account);
-            exec(VESTA_CMD . "v-list-mail-account " . $user . " " . $v_domain . " " . $v_account . " json", $output, $return_var);
-            $data = json_decode(implode('', $output), true);
-            unset($output);
-
-            // Parse mail account
-            $v_username = $user;
-            $v_domain = $param_domain;
-            $v_account = $param_account;
-            $v_password = "";
-            $v_aliases = str_replace(',', "\n", $data[$v_account]['ALIAS']);
-            $valiases = explode(",", $data[$v_account]['ALIAS']);
-            $v_fwd = str_replace(',', "\n", $data[$v_account]['FWD']);
-            $vfwd = explode(",", $data[$v_account]['FWD']);
-            $v_fwd_only = $data[$v_account]['FWD_ONLY'];
-            $v_quota = $data[$v_account]['QUOTA'];
-            $v_autoreply = $data[$v_account]['AUTOREPLY'];
-            $v_suspended = $data[$v_account]['SUSPENDED'];
-            if ($v_suspended == 'yes') {
-                $v_status =  'suspended';
-            } else {
-                $v_status =  'active';
-            }
-            $v_date = $data[$v_account]['DATE'];
-            $v_time = $data[$v_account]['TIME'];
-
-            $v_domain = escapeshellarg($param_domain);
-            $v_account = escapeshellarg($param_account);
-
-            // Parse autoreply
-            if ($v_autoreply == 'yes') {
-                exec(VESTA_CMD . "v-list-mail-account-autoreply " . $user . " " . $v_domain . " " . $v_account . " json", $output, $return_var);
-                $autoreply_str = json_decode(implode('', $output), true);
-                unset($output);
-                $v_autoreply_message = $autoreply_str[$v_account]['MSG'];
-                $v_autoreply_message = str_replace("\\n", "\n", $v_autoreply_message);
-            }
-        }
-
 
         // Check POST request for mail domain
-        if ((!empty($_POST['save'])) && (!empty($param_domain)) && (empty($param_account))) {
+        if ((!empty($_POST['save'])) && (!empty($param_domain))) {
+
             $v_domain = escapeshellarg($_POST['v_domain']);
 
             // Check token
@@ -375,7 +322,7 @@ class MailController extends AppController
             }
 
             // Delete antispam
-            if (($v_antispam == 'yes') && (empty($_POST['v_antispam'])) && (empty($_SESSION['error_msg']))) {
+            if (($this->v_antispam == 'yes') && (empty($_POST['v_antispam'])) && (empty($_SESSION['error_msg']))) {
                 exec(VESTA_CMD . "v-delete-mail-domain-antispam " . $v_username . " " . $v_domain, $output, $return_var);
                 check_return_code($return_var, $output);
                 $v_antispam = 'no';
@@ -383,7 +330,7 @@ class MailController extends AppController
             }
 
             // Add antispam
-            if (($v_antispam == 'no') && (!empty($_POST['v_antispam'])) && (empty($_SESSION['error_msg']))) {
+            if (($this->v_antispam == 'no') && (!empty($_POST['v_antispam'])) && (empty($_SESSION['error_msg']))) {
                 exec(VESTA_CMD . "v-add-mail-domain-antispam " . $v_username . " " . $v_domain, $output, $return_var);
                 check_return_code($return_var, $output);
                 $v_antispam = 'yes';
@@ -391,7 +338,7 @@ class MailController extends AppController
             }
 
             // Delete antivirus
-            if (($v_antivirus == 'yes') && (empty($_POST['v_antivirus'])) && (empty($_SESSION['error_msg']))) {
+            if (($this->v_antivirus == 'yes') && (empty($_POST['v_antivirus'])) && (empty($_SESSION['error_msg']))) {
                 exec(VESTA_CMD . "v-delete-mail-domain-antivirus " . $v_username . " " . $v_domain, $output, $return_var);
                 check_return_code($return_var, $output);
                 $v_antivirus = 'no';
@@ -399,7 +346,7 @@ class MailController extends AppController
             }
 
             // Add antivirs
-            if (($v_antivirus == 'no') && (!empty($_POST['v_antivirus'])) && (empty($_SESSION['error_msg']))) {
+            if (($this->v_antivirus == 'no') && (!empty($_POST['v_antivirus'])) && (empty($_SESSION['error_msg']))) {
                 exec(VESTA_CMD . "v-add-mail-domain-antivirus " . $v_username . " " . $v_domain, $output, $return_var);
                 check_return_code($return_var, $output);
                 $v_antivirus = 'yes';
@@ -407,7 +354,7 @@ class MailController extends AppController
             }
 
             // Delete DKIM
-            if (($v_dkim == 'yes') && (empty($_POST['v_dkim'])) && (empty($_SESSION['error_msg']))) {
+            if (($this->v_dkim == 'yes') && (empty($_POST['v_dkim'])) && (empty($_SESSION['error_msg']))) {
                 exec(VESTA_CMD . "v-delete-mail-domain-dkim " . $v_username . " " . $v_domain, $output, $return_var);
                 check_return_code($return_var, $output);
                 $v_dkim = 'no';
@@ -415,7 +362,7 @@ class MailController extends AppController
             }
 
             // Add DKIM
-            if (($v_dkim == 'no') && (!empty($_POST['v_dkim'])) && (empty($_SESSION['error_msg']))) {
+            if (($this->v_dkim == 'no') && (!empty($_POST['v_dkim'])) && (empty($_SESSION['error_msg']))) {
                 exec(VESTA_CMD . "v-add-mail-domain-dkim " . $v_username . " " . $v_domain, $output, $return_var);
                 check_return_code($return_var, $output);
                 $v_dkim = 'yes';
@@ -423,17 +370,17 @@ class MailController extends AppController
             }
 
             // Delete catchall
-            if ((!empty($v_catchall)) && (empty($_POST['v_catchall'])) && (empty($_SESSION['error_msg']))) {
+            if ((!empty($this->v_catchall)) && (empty($_POST['v_catchall'])) && (empty($_SESSION['error_msg']))) {
                 exec(VESTA_CMD . "v-delete-mail-domain-catchall " . $v_username . " " . $v_domain, $output, $return_var);
                 check_return_code($return_var, $output);
-                $v_catchall = '';
+                $this->v_catchall = '';
                 unset($output);
             }
 
             // Change catchall address
-            if ((!empty($v_catchall)) && (!empty($_POST['v_catchall'])) && (empty($_SESSION['error_msg']))) {
-                if ($v_catchall != $_POST['v_catchall']) {
-                    $v_catchall = escapeshellarg($_POST['v_catchall']);
+            if ((!empty($this->v_catchall)) && (!empty($_POST['v_catchall'])) && (empty($_SESSION['error_msg']))) {
+                if ($this->v_catchall != $_POST['v_catchall']) {
+                    $this->v_catchall = escapeshellarg($_POST['v_catchall']);
                     exec(VESTA_CMD . "v-change-mail-domain-catchall " . $v_username . " " . $v_domain . " " . $v_catchall, $output, $return_var);
                     check_return_code($return_var, $output);
                     unset($output);
@@ -441,7 +388,7 @@ class MailController extends AppController
             }
 
             // Add catchall
-            if ((empty($v_catchall)) && (!empty($_POST['v_catchall'])) && (empty($_SESSION['error_msg']))) {
+            if ((empty($this->v_catchall)) && (!empty($_POST['v_catchall'])) && (empty($_SESSION['error_msg']))) {
                 $v_catchall = escapeshellarg($_POST['v_catchall']);
                 exec(VESTA_CMD . "v-add-mail-domain-catchall " . $v_username . " " . $v_domain . " " . $v_catchall, $output, $return_var);
                 check_return_code($return_var, $output);
@@ -451,6 +398,76 @@ class MailController extends AppController
             // Set success message
             if (empty($_SESSION['error_msg'])) {
                 $_SESSION['ok_msg'] = __('Changes has been saved.');
+            }
+
+            header("Location: /mail");
+        }
+
+        // Flush session messages
+        unset($_SESSION['error_msg']);
+        unset($_SESSION['ok_msg']);
+    }
+
+    public function editmailacc($param_user, $param_domain, $param_account)
+    {
+        error_reporting(NULL);
+        ob_start();
+        $TAB = 'MAIL';
+
+        // Main include
+        include(APP_PATH . 'libs/inc/main.php');
+
+        // Check domain argument
+        if (empty($param_domain)) {
+            header("Location: /mail");
+            exit;
+        }
+
+        // Edit as someone else?
+        if (($_SESSION['user'] == 'admin') && (!empty($param_user))) {
+            $user = escapeshellarg($param_user);
+        }
+        $v_username = $user;
+
+        // List mail account
+        if ((!empty($param_domain)) && (!empty($param_account))) {
+            $this->v_domain = escapeshellarg($param_domain);
+            $this->v_account = escapeshellarg($param_account);
+            exec(VESTA_CMD . "v-list-mail-account " . $user . " " . $this->v_domain . " " . $this->v_account . " json", $output, $return_var);
+            $data = json_decode(implode('', $output), true);
+            unset($output);
+
+            // Parse mail account
+            $this->v_username = $user;
+            $this->v_domain = $param_domain;
+            $this->v_account = $param_account;
+            $this->v_password = "";
+            $this->v_aliases = str_replace(',', "\n", $data[$this->v_account]['ALIAS']);
+            $this->valiases = explode(",", $data[$this->v_account]['ALIAS']);
+            $this->v_fwd = str_replace(',', "\n", $data[$vthis->_account]['FWD']);
+            $this->vfwd = explode(",", $data[$this->v_account]['FWD']);
+            $this->v_fwd_only = $data[$this->v_account]['FWD_ONLY'];
+            $this->v_quota = $data[$this->v_account]['QUOTA'];
+            $this->v_autoreply = $data[$this->v_account]['AUTOREPLY'];
+            $v_suspended = $data[$this->v_account]['SUSPENDED'];
+            if ($v_suspended == 'yes') {
+                $this->v_status =  'suspended';
+            } else {
+                $this->v_status =  'active';
+            }
+            $this->v_date = $data[$this->v_account]['DATE'];
+            $this->v_time = $data[$this->v_account]['TIME'];
+
+            $this->v_domain = escapeshellarg($param_domain);
+            $this->v_account = escapeshellarg($param_account);
+
+            // Parse autoreply
+            if ($v_autoreply == 'yes') {
+                exec(VESTA_CMD . "v-list-mail-account-autoreply " . $user . " " . $v_domain . " " . $v_account . " json", $output, $return_var);
+                $autoreply_str = json_decode(implode('', $output), true);
+                unset($output);
+                $v_autoreply_message = $autoreply_str[$v_account]['MSG'];
+                $v_autoreply_message = str_replace("\\n", "\n", $v_autoreply_message);
             }
         }
 
@@ -604,28 +621,8 @@ class MailController extends AppController
             if (empty($_SESSION['error_msg'])) {
                 $_SESSION['ok_msg'] = __('Changes has been saved.');
             }
+
+            header("Location: /mail/listmailacc/" . htmlentities(trim($v_domain, "'")));
         }
-
-
-        // Render page
-        if (empty($param_account)) {
-            // Display body for mail domain
-            render_page($user, $TAB, 'edit_mail');
-        } else {
-            // Display body for mail account
-            render_page($user, $TAB, 'edit_mail_acc');
-        }
-
-        // Flush session messages
-        unset($_SESSION['error_msg']);
-        unset($_SESSION['ok_msg']);
-    }
-
-    public function editmailacc($param_domain, $param_user, $param_account)
-    {
-        // Main include
-        include(APP_PATH . 'libs/inc/main.php');
-
-        
     }
 }

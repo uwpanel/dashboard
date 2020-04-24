@@ -1,2 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Mail</title>
+</head>
+
+<body>
+    <title>Edit Mail</title>
+
+    <div class="col-4">
+        <p class="login-box-msg"><b>Editing Mail</b></p>
+        <p class="text-center">
+            <?php
+            echo $_SESSION['error_msg'];
+            $_SESSION['error_msg'] = NULL;
+            ?>
+        </p>
+
+        <form name="v_edit_mail" action="https://<?= $_SERVER['HTTP_HOST'] ?>/mail/edit/<?php if (isset($_SESSION['look'])) {
+                                                                                            echo $_SESSION['look'];
+                                                                                        } else {
+                                                                                            echo $_SESSION['user'];
+                                                                                        } ?>/<?= $v_domain ?>" method="post">
+
+            <label for="v_domain">Domain</label>
+            <div class="input-group mb-3">
+                <input type="text" name="v_domain" class="form-control" value="<?= $v_domain ?>" disabled>
+                <input type="hidden" name="v_domain" value="<?= $v_domain ?>">
+            </div>
+            <div class="input-group form-control mb-3">
+                <input type="checkbox" name="v_antispam" id="antispam" <?php if ($v_antispam == 'yes') echo "checked=yes"; ?>>
+                <label for="antispam"> &nbsp; AntiSpam Support </label>
+            </div>
+            <div class="input-group form-control mb-3">
+                <input type="checkbox" name="v_antivirus" id="antivirus" <?php if ($v_antivirus == 'yes') echo "checked=yes"; ?>>
+                <label for="antivirus"> &nbsp; AntiVirus Support </label>
+            </div>
+            <div class="input-group form-control mb-3">
+                <input type="checkbox" name="v_dkim" id="dkim" <?php if ($v_dkim == 'yes') echo "checked=yes"; ?>>
+                <label for="dkim"> &nbsp; DKIM Support </label>
+            </div>
+            <label for="v_catchall">Catchall email</label>
+            <div class="input-group mb-3">
+                <input type="text" name="v_catchall" class="form-control" value="<?= $v_catchall ?>">
+            </div>
+            <div class="row">
+                <!-- /.col -->
+                <!-- /.col -->
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Confirm</button>
+            <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/reset" class="btn btn-default btn-block">Back</a>
+            <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
+            <input type="hidden" name="save" value="save">
+
+        </form>
+    </div>
+
+</body>
+
+
+</html>
+
 <?php
-echo "<pre>", $data;
+// echo "mail/add", "<pre>", print_r($data, true);
