@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Default controller if routes are not used
- *
- */
-
 class MailController extends AppController
 {
     public function index()

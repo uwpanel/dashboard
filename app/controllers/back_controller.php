@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Default controller if routes are not used
- *
- */
 class BackController extends AppController
 {
     public function index()

@@ -1,4 +1,5 @@
 <?php
+
 class WeblogController extends AppController
 {
     public function index($param_domain,$param_type = NULL)

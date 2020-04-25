@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Default controller if routes are not used
- *
- */
 class WebController extends AppController
 {
     public function index()
@@ -504,6 +500,8 @@ class WebController extends AppController
 
         // Check POST request
         if (!empty($_POST['save'])) {
+            echo "<pre>", print_r($_POST), "</pre>";
+            die();
             $this->v_domain = escapeshellarg($_POST['v_domain']);
 
             // Check token

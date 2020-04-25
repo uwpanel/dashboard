@@ -1,16 +1,17 @@
-<body>
-    <?
-    echo "<pre>", print_r($test_var, true), "</pre>";
-    ?>
+<?
+echo "<pre>", print_r($test_var, true), "</pre>";
+?>
 
+<body>
     <title>Edit Web</title>
 
     <div class="col-4">
         <p class="login-box-msg"><b>Editing Web</b></p>
         <p class="text-center">
             <?php
-            echo $_SESSION['error_msg'];
+            echo $_SESSION['error_msg'],"<br>",$_SESSION['ok_msg'];
             $_SESSION['error_msg'] = NULL;
+            $_SESSION['ok_msg'] = NULL;
             ?>
         </p>
         <form name="v_edit_web" action="https://<?= $_SERVER['HTTP_HOST'] ?>/web/edit/<?php if (isset($_SESSION['look'])) {
@@ -57,8 +58,21 @@
                 </select>
             </div>
 
+            <label for="v_template"> Backend Template </label>&emsp;<?= strtoupper($_SESSION['WEB_SYSTEM']) ?>
+            <div class="input-group mb-3">
+                <?php if (!empty($_SESSION['WEB_BACKEND'])) { ?>
+                    <select class="form-control" name="v_backend_template">
+                        <?php foreach ($v_backend_template as $back_template) { ?>
+                            <option value="<? $back_template ?>"> $back_template</option>
+                        <?php } ?>
+                    </select>
+                <?php } ?>
+            </div>
+
+
             <button type="submit" class="btn btn-primary btn-block">Confirm</button>
             <a href="https://<?= $_SERVER['HTTP_HOST'] ?>" class="btn btn-default btn-block">Back</a>
+
             <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
             <input type="hidden" name="save" value="save">
         </form>

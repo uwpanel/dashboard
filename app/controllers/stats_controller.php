@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Default controller if routes are not used
- *
- */
 class StatsController extends AppController
 {
 

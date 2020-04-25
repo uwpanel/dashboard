@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Default controller if routes are not used
- *
- */
-
 class DbController extends AppController
 {
     public function index()

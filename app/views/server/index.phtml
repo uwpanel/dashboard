@@ -1,0 +1,73 @@
+<div class="select" style="display:none">
+    <select class="form-control" id="locale">
+        <option value="en-US" selected>en-US</option>
+    </select>
+</div>
+
+<p class="text-center">
+    <?php
+    echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
+    $_SESSION['error_msg'] = NULL;
+    $_SESSION['ok_msg'] = NULL;
+    ?>
+</p>
+
+<div id="toolbar">
+    <button id="remove" class="btn btn-danger" disabled>
+        <i class="fas fa-trash status-icon red status-icon dim do_delete"></i> Delete
+    </button>
+
+    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/server" id="add" class="btn btn-primary">
+        <i class="fas fa-cog"></i> Configure
+    </a>
+</div>
+
+<table id="table" data-toggle="table" data-toolbar="#toolbar" data-search="true" data-show-refresh="true" data-show-toggle="false" data-show-fullscreen="true" data-show-columns="true" data-show-columns-toggle-all="true" data-show-export="true" data-click-to-select="true" data-minimum-count-columns="2" data-show-pagination-switch="true" data-pagination="true" data-id-field="name" data-page-list="[10, 25, 50, 100, all]" data-show-footer="false" data-response-handler="responseHandler">
+    <thead>
+        <tr>
+            <th data-field="state" data-checkbox="true"></th>
+            <th data-field="action" data-filter-control="input" data-sortable="true">Action</th>
+            <th data-field="name" data-filter-control="input" data-sortable="true">Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="bs-checkbox "><input data-index="0" name="btSelectItem" type="checkbox"></td>
+            <td>
+                <a class="edit" href="#" title="Edit">
+                    <i class="fas fa-pencil-alt status-icon orange status-icon dim"></i>
+                </a>
+            </td>
+            <td>
+                <b><?= $sys['sysinfo']['HOSTNAME'] ?></b>
+                <br>
+                <p><b><?= $sys['sysinfo']['OS'] ?></b> &emsp; (<?= __($sys['sysinfo']['ARCH']) ?>) &emsp; Load Average : <?= $sys['sysinfo']['LOADAVERAGE'] ?> &emsp;Uptime : <?= humanize_time($sys['sysinfo']['UPTIME']) ?></p>
+            </td>
+        </tr>
+
+        <?php
+        foreach ($data as $key => $each) {
+        ?>
+            <tr>
+                <td class="bs-checkbox "><input data-index="0" name="btSelectItem" type="checkbox"></td>
+                <td>
+
+                    <a class="edit" href="https://<?= $_SERVER['HTTP_HOST'] ?>/user/edit/<?= $key ?>" title="Edit">
+                        <i class="fas fa-pencil-alt status-icon orange status-icon dim"></i>
+                    </a>&nbsp;
+                </td>
+                <td>
+                    <b><? echo $key ?></b>
+                    <br>
+                    <p><?= $each['SYSTEM'] ?> &emsp; CPU : <?= $each['CPU'] ?> &emsp; Memory : <?= $each['MEM'] ?> &emsp; Uptime: <?= humanize_time($each['RTIME']) ?></p>
+                </td>
+            </tr>
+        <?php
+        }
+        ?>
+    </tbody>
+</table>
+
+<?php
+// echo "<pre>", print_r($data, true);
+?>
