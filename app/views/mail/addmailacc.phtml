@@ -29,13 +29,13 @@
                 <input type="text" name="v_domain" class="form-control" placeholder="Domain" value="<?= $domain ?>" disabled>
                 <input type="hidden" name="v_domain" class="form-control" placeholder="Domain" value="<?= $domain ?>">
             </div>
-            <label for="v_account">Account</label>
+            <label for="v_account">Account</label> <span style="color:red">*</span>
             <div class="input-group mb-3">
-                <input type="text" name="v_account" class="form-control" placeholder="Account">
+                <input type="text" name="v_account" class="form-control" placeholder="Account" required>
             </div>
-            <label for="v_password">Password </label>
+            <label for="v_password">Password </label> <span style="color:red">*</span>
             <div class="input-group mb-3">
-                <input type="text" name="v_password" class="form-control" placeholder="Password">
+                <input type="text" name="v_password" class="form-control" placeholder="Password" required>
             </div>
             <div class="input-group mb-3">
                 <b><u><a href="javascript:elementHideShow('advtable');" style="text-decoration: none;color : #000;">Advanced options</a></u></b>

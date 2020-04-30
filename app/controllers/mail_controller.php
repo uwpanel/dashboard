@@ -126,9 +126,6 @@ class MailController extends AppController
         // Main include
         include(APP_PATH . 'libs/inc/main.php');
 
-        // echo "<pre>",print_r($_POST);
-        // die();
-
         // Check POST request for mail account
         if (!empty($_POST['ok_acc'])) {
 
@@ -254,6 +251,8 @@ class MailController extends AppController
                 unset($v_fwd);
                 unset($v_quota);
             }
+
+            header("Location: /mail/listmailacc/" . $v_domain);
         }
 
         // Flush session messages
@@ -619,5 +618,146 @@ class MailController extends AppController
 
             header("Location: /mail/listmailacc/" . htmlentities(trim($v_domain, "'")));
         }
+    }
+
+    public function suspend($param_domain, $param_account = NULL, $param_token)
+    {
+        // Init
+        error_reporting(NULL);
+        ob_start();
+        session_start();
+        include(APP_PATH . 'libs/inc/main.php');
+
+        // Check token
+        if ((!isset($param_token) || ($_SESSION['token'] != $param_token))) {
+            header('location: /login');
+            exit();
+        }
+
+        // Check user
+        if ($_SESSION['user'] != 'admin') {
+            header("Location: /list/user");
+            exit;
+        }
+
+        if (!empty($param_user)) {
+            $user = $param_user;
+        }
+
+        // Mail domain
+        if ((!empty($param_domain)) && (empty($param_account))) {
+            $v_username = escapeshellarg($user);
+            $v_domain = escapeshellarg($param_domain);
+            exec(VESTA_CMD . "v-suspend-mail-domain " . $v_username . " " . $v_domain, $output, $return_var);
+            check_return_code($return_var, $output);
+            unset($output);
+            $back = getenv("HTTP_REFERER");
+            if (!empty($back)) {
+                header("Location: " . $back);
+                exit;
+            }
+            header("Location: /mail");
+            exit;
+        }
+
+        // Mail account
+        if ((!empty($param_domain)) && (!empty($param_account))) {
+            $v_username = escapeshellarg($user);
+            $v_domain = escapeshellarg($param_domain);
+            $v_account = escapeshellarg($param_account);
+            exec(VESTA_CMD . "v-suspend-mail-account " . $v_username . " " . $v_domain . " " . $v_account, $output, $return_var);
+            check_return_code($return_var, $output);
+            unset($output);
+            $back = $_SESSION['back'];
+            if (!empty($back)) {
+                header("Location: " . $back);
+                exit;
+            }
+            header("Location: /mail/listmailacc/" . $param_domain);
+            exit;
+        }
+
+        $back = $_SESSION['back'];
+        if (!empty($back)) {
+            header("Location: " . $back);
+            exit;
+        }
+
+        header("Location: /mail");
+        exit;
+    }
+    public function unsuspend($param_domain, $param_account = NULL, $param_token)
+    {
+        // Init
+        error_reporting(NULL);
+        ob_start();
+        session_start();
+        include($_SERVER['DOCUMENT_ROOT'] . "/inc/main.php");
+
+        // Check token
+        if ((!isset($param_token)) || ($_SESSION['token'] != $param_token)) {
+            header('location: /login/');
+            exit();
+        }
+
+        // Check user
+        if ($_SESSION['user'] != 'admin') {
+            header("Location: /user");
+            exit;
+        }
+
+        if (!empty($param_user)) {
+            $user = $param_user;
+        }
+
+        // Mail domain
+        if ((!empty($param_domain)) && (empty($param_account))) {
+            $v_username = escapeshellarg($user);
+            $v_domain = escapeshellarg($param_domain);
+            exec(VESTA_CMD . "v-unsuspend-mail-domain " . $v_username . " " . $v_domain, $output, $return_var);
+            if ($return_var != 0) {
+                $error = implode('<br>', $output);
+                if (empty($error)) $error = __('Error: vesta did not return any output.');
+                $_SESSION['error_msg'] = $error;
+            }
+            unset($output);
+            $back = getenv("HTTP_REFERER");
+            if (!empty($back)) {
+                header("Location: " . $back);
+                exit;
+            }
+            header("Location: /mail");
+            exit;
+        }
+
+        // Mail account
+        if ((!empty($param_domain)) && (!empty($param_account))) {
+            $v_username = escapeshellarg($user);
+            $v_domain = escapeshellarg($param_domain);
+            $v_account = escapeshellarg($param_account);
+            exec(VESTA_CMD . "v-unsuspend-mail-account " . $v_username . " " . $v_domain . " " . $v_account, $output, $return_var);
+            if ($return_var != 0) {
+                $error = implode('<br>', $output);
+                if (empty($error)) $error = __('Error: vesta did not return any output.');
+                $_SESSION['error_msg'] = $error;
+            }
+            unset($output);
+            $back = getenv("HTTP_REFERER");
+            if (!empty($back)) {
+                header("Location: " . $back);
+                exit;
+            }
+            header("Location: /mail/listmailacc" . $param_domain);
+            exit;
+        }
+
+        $back = getenv("HTTP_REFERER");
+        if (!empty($back)) {
+            header("Location: " . $back);
+            exit;
+        }
+
+        header("Location: /mail");
+        exit;
     }
 }

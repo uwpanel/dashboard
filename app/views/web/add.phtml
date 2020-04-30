@@ -20,9 +20,9 @@
                 ?>
             </p>
             <form name="v_add_web" action="https://<?= $_SERVER['HTTP_HOST'] ?>/web/addweb" method="post">
-                <label for="v_domain">Domain</label>
+                <label for="v_domain">Domain</label> <span style="color:red">*</span>
                 <div class="input-group mb-3">
-                    <input type="text" name="v_domain" class="form-control" placeholder="Domain">
+                    <input type="text" name="v_domain" class="form-control" placeholder="Domain" required>
                 </div>
                 <label for="v_ip">IP Address</label>
                 <div class="input-group mb-3">

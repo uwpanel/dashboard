@@ -122,19 +122,6 @@
             })
         }
 
-        // $(function() {
-        //     initTable()
-
-        //     $('#locale').change(initTable)
-
-        //     $('#toolbar').find('select').change(function() {
-        //         $table.bootstrapTable('destroy').bootstrapTable({
-        //             exportDataType: $(this).val(),
-        //             exportTypes: ['csv', 'txt', 'excel']
-        //         })
-        //     }).trigger('change')
-        // })
-
         $(function() {
 
             initTable()
@@ -147,6 +134,9 @@
                 //     exportTypes: ['csv', 'txt', 'excel'],
                 // })
             }).trigger('change')
+        })
+        $('#myModal').on('shown.bs.modal', function() {
+            $('#myInput').trigger('focus')
         })
     </script>
 

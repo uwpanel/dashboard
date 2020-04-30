@@ -20,20 +20,20 @@
 
         </p>
         <form name="v_add_db" action="https://<?= $_SERVER['HTTP_HOST'] ?>/db/add" method="post">
-            <label for="v_database">Database</label>
+            <label for="v_database">Database</label> <span style="color:red">*</span>
             <div class="input-group mb-3">
-                <input type="text" name="v_database" class="form-control" placeholder="Database">
+                <input type="text" name="v_database" class="form-control" placeholder="Database" required>
             </div>
 
             <!-- <p>maximum 16 characters length, including prefix</p> -->
 
-            <label for="v_dbuser">Username</label>
+            <label for="v_dbuser">Username</label> <span style="color:red">*</span>
             <div class="input-group mb-3">
-                <input type="text" name="v_dbuser" class="form-control" placeholder="Username">
+                <input type="text" name="v_dbuser" class="form-control" placeholder="Username" required>
             </div>
-            <label for="v_password">Password</label>
+            <label for="v_password">Password</label> <span style="color:red">*</span>
             <div class="input-group mb-3">
-                <input type="password" name="v_password" class="form-control" placeholder="Password">
+                <input type="password" name="v_password" class="form-control" placeholder="Password" required>
             </div>
             <label for="v_type">Type</label>
             <div class="input-group mb-3">

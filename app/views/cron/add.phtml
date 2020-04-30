@@ -22,30 +22,35 @@
             ?>
         </p>
         <form name="v_add_user" action="https://<?= $_SERVER['HTTP_HOST'] ?>/cron/add" method="post">
-            <label for="v_cmd">Command</label>
+            <label for="v_cmd">Command</label> <span style="color:red">*</span>
             <div class="input-group mb-3">
-                <input type="text" name="v_cmd" class="form-control" placeholder="Command">
+                <input type="text" name="v_cmd" class="form-control" placeholder="Command" required>
             </div>
+            
             <table style="width: 200px;">
-                <label for="v_min">Minutes</label>
+                <label for="v_min">Minutes</label> <span style="color:red">*</span>
                 <div class="input-group mb-3">
-                    <input type="text" name="v_min" class="form-control" placeholder="Minutes">
+                    <input type="text" name="v_min" class="form-control" placeholder="Minutes" required>
                 </div>
-                <label for="v_hour">Hour</label>
+                
+                <label for="v_hour">Hour</label> <span style="color:red">*</span>
                 <div class="input-group mb-3">
-                    <input type="text" name="v_hour" class="form-control" placeholder="Hour">
+                    <input type="text" name="v_hour" class="form-control" placeholder="Hour" required>
                 </div>
-                <label for="v_day">Day</label>
+                
+                <label for="v_day">Day</label> <span style="color:red">*</span>
                 <div class="input-group mb-3">
-                    <input type="text" name="v_day" class="form-control" placeholder="Day">
+                    <input type="text" name="v_day" class="form-control" placeholder="Day" required>
                 </div>
-                <label for="v_month">Month</label>
+                
+                <label for="v_month">Month</label> <span style="color:red">*</span>
                 <div class="input-group mb-3">
-                    <input type="text" name="v_month" class="form-control" placeholder="Month">
+                    <input type="text" name="v_month" class="form-control" placeholder="Month" required>
                 </div>
-                <label for="v_wday">Day of week</label>
+                
+                <label for="v_wday">Day of week</label> <span style="color:red">*</span>
                 <div class="input-group mb-3">
-                    <input type="text" name="v_wday" class="form-control" placeholder="Day of week">
+                    <input type="text" name="v_wday" class="form-control" placeholder="Day of week" required>
                 </div>
             </table>
             <div class="row">

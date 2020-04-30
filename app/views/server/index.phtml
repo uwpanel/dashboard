@@ -19,6 +19,10 @@
 
     <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/server" id="add" class="btn btn-primary">
         <i class="fas fa-cog"></i> Configure
+    </a>&emsp;
+    </a>
+    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/server/info/cpu" id="show_stat" class="btn btn-info">
+        <i class="fas fa-info"></i>&emsp; SHOW CPU / MEM / NET / DISK
     </a>
 </div>
 
@@ -34,8 +38,12 @@
         <tr>
             <td class="bs-checkbox "><input data-index="0" name="btSelectItem" type="checkbox"></td>
             <td>
-                <a class="edit" href="#" title="Edit">
-                    <i class="fas fa-pencil-alt status-icon orange status-icon dim"></i>
+                <a class="edit" href="#" title="Configure">
+                    <i class="fas fa-cog status-icon orange status-icon dim"></i>
+                </a>
+                &nbsp;
+                <a class="edit" href="#" title="Restart">
+                    <i class="fas fa-redo-alt status-icon orange status-icon dim"></i>
                 </a>
             </td>
             <td>
@@ -51,10 +59,18 @@
             <tr>
                 <td class="bs-checkbox "><input data-index="0" name="btSelectItem" type="checkbox"></td>
                 <td>
+                    <a class="edit" href="#" title="Configure">
+                        <i class="fas fa-cog status-icon orange status-icon dim"></i>
+                    </a>
+                    &nbsp;
+                    <a class="edit" href="#" title="Stop">
+                        <i class="fas fa-stop status-icon orange status-icon dim"></i>
+                    </a>
+                    &nbsp;
+                    <a class="edit" href="#" title="Restart">
+                        <i class="fas fa-redo-alt status-icon orange status-icon dim"></i>
+                    </a>
 
-                    <a class="edit" href="https://<?= $_SERVER['HTTP_HOST'] ?>/user/edit/<?= $key ?>" title="Edit">
-                        <i class="fas fa-pencil-alt status-icon orange status-icon dim"></i>
-                    </a>&nbsp;
                 </td>
                 <td>
                     <b><? echo $key ?></b>
