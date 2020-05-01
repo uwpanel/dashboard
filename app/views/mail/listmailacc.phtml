@@ -38,13 +38,47 @@
                         <i class="fas fa-pencil-alt status-icon orange status-icon dim"></i>
                     </a>
                     &nbsp;
-                    <a class="suspend" href="" title="Suspend">
-                        <i class="fas fa-pause status-icon highlight status-icon dim do_suspend"></i>
+                    <?php if ($_SESSION['user'] == 'admin') {
+                        if ($each['SUSPENDED'] != 'yes') { ?>
+                            <a class="suspend" href="https://<?= $_SERVER['HTTP_HOST'] ?>/mail/suspend/<?= $domain ?>/<?= $key ?>/<?= $_SESSION['token']; ?>" title="Suspend">
+                                <i class="fas fa-pause status-icon highlight status-icon dim do_suspend"></i>
+                            </a>&nbsp;
+                        <?php } else { ?>
+                            <a class="suspend" href="https://<?= $_SERVER['HTTP_HOST'] ?>/mail/unsuspend/<?= $domain ?>/<?= $key ?>/<?= $_SESSION['token']; ?>" title="Unsuspend">
+                                <i class="fas fa-play status-icon highlight status-icon dim do_suspend"></i>
+                            </a>&nbsp;
+                    <?php }
+                    } ?>
+                    <a class="like" href="" data-toggle="modal" data-target="#exampleModalLong" title="Delete">
+                        <i class="fas fa-trash"></i>
                     </a>
-                    &nbsp;
-                    <a class="remove" href="" title="Delete">
-                        <i class="fa fa-trash"></i>
-                    </a>
+
+                    <!-- Modal -->
+                    <div class="modal danger" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Confirmation</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure want to delete <b><?= $key ?>@<?= $domain ?></b> .
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <a class="btn btn-danger" href="https://<?= $_SERVER['HTTP_HOST'] ?>/mail/delete/<?php if (isset($_SESSION['look'])) {
+                                                                                                                            echo $_SESSION['look'];
+                                                                                                                        } else {
+                                                                                                                            echo $_SESSION['user'];
+                                                                                                                        } ?>/<?= $domain ?>/<?= $key ?>/<?= $_SESSION['token'] ?>" title="Delete">
+                                        Delete
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </td>
                 <td><? echo $each['U_DISK'] ?></td>
                 <td><? echo $each['QUOTA'] ?></td>

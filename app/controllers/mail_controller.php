@@ -651,11 +651,11 @@ class MailController extends AppController
             exec(VESTA_CMD . "v-suspend-mail-domain " . $v_username . " " . $v_domain, $output, $return_var);
             check_return_code($return_var, $output);
             unset($output);
-            $back = getenv("HTTP_REFERER");
-            if (!empty($back)) {
-                header("Location: " . $back);
-                exit;
-            }
+            // $back = getenv("HTTP_REFERER");
+            // if (!empty($back)) {
+            //     header("Location: " . $back);
+            //     exit;
+            // }
             header("Location: /mail");
             exit;
         }
@@ -668,31 +668,32 @@ class MailController extends AppController
             exec(VESTA_CMD . "v-suspend-mail-account " . $v_username . " " . $v_domain . " " . $v_account, $output, $return_var);
             check_return_code($return_var, $output);
             unset($output);
-            $back = $_SESSION['back'];
-            if (!empty($back)) {
-                header("Location: " . $back);
-                exit;
-            }
+            // $back = $_SESSION['back'];
+            // if (!empty($back)) {
+            //     header("Location: " . $back);
+            //     exit;
+            // }
             header("Location: /mail/listmailacc/" . $param_domain);
             exit;
         }
 
-        $back = $_SESSION['back'];
-        if (!empty($back)) {
-            header("Location: " . $back);
-            exit;
-        }
+        // $back = $_SESSION['back'];
+        // if (!empty($back)) {
+        //     header("Location: " . $back);
+        //     exit;
+        // }
 
-        header("Location: /mail");
-        exit;
+        // header("Location: /mail");
+        // exit;
     }
+
     public function unsuspend($param_domain, $param_account = NULL, $param_token)
     {
         // Init
         error_reporting(NULL);
         ob_start();
         session_start();
-        include($_SERVER['DOCUMENT_ROOT'] . "/inc/main.php");
+        include(APP_PATH . 'libs/inc/main.php');
 
         // Check token
         if ((!isset($param_token)) || ($_SESSION['token'] != $param_token)) {
@@ -721,11 +722,11 @@ class MailController extends AppController
                 $_SESSION['error_msg'] = $error;
             }
             unset($output);
-            $back = getenv("HTTP_REFERER");
-            if (!empty($back)) {
-                header("Location: " . $back);
-                exit;
-            }
+            // $back = getenv("HTTP_REFERER");
+            // if (!empty($back)) {
+            //     header("Location: " . $back);
+            //     exit;
+            // }
             header("Location: /mail");
             exit;
         }
@@ -742,20 +743,82 @@ class MailController extends AppController
                 $_SESSION['error_msg'] = $error;
             }
             unset($output);
-            $back = getenv("HTTP_REFERER");
-            if (!empty($back)) {
-                header("Location: " . $back);
-                exit;
-            }
-            header("Location: /mail/listmailacc" . $param_domain);
+            // $back = getenv("HTTP_REFERER");
+            // if (!empty($back)) {
+            //     header("Location: " . $back);
+            //     exit;
+            // }
+            header("Location: /mail/listmailacc/" . $param_domain);
             exit;
         }
 
-        $back = getenv("HTTP_REFERER");
-        if (!empty($back)) {
-            header("Location: " . $back);
+        // $back = getenv("HTTP_REFERER");
+        // if (!empty($back)) {
+        //     header("Location: " . $back);
+        //     exit;
+        // }
+
+        // header("Location: /mail");
+        // exit;
+    }
+
+    public function delete($param_user, $param_domain, $param_account, $param_token)
+    {
+        // Init
+        error_reporting(NULL);
+        ob_start();
+        session_start();
+        include(APP_PATH . 'libs/inc/main.php');
+
+        // Delete as someone else?
+        if (($_SESSION['user'] == 'admin') && (!empty($param_user))) {
+            $user = $param_user;
+        }
+
+        // Check token
+        if ((!isset($param_token)) || ($_SESSION['token'] != $param_token)) {
+            header('location: /login');
+            exit();
+        }
+
+        // Mail domain
+        if ((!empty($param_domain)) && (empty($param_account))) {
+            $v_username = escapeshellarg($user);
+            $v_domain = escapeshellarg($param_domain);
+            exec(VESTA_CMD . "v-delete-mail-domain " . $v_username . " " . $v_domain, $output, $return_var);
+            check_return_code($return_var, $output);
+            unset($output);
+            // $back = $_SESSION['back'];
+            // if (!empty($back)) {
+            //     header("Location: " . $back);
+            //     exit;
+            // }
+            header("Location: /mail");
             exit;
         }
+
+        // Mail account
+        if ((!empty($param_domain)) && (!empty($param_account))) {
+            $v_username = escapeshellarg($user);
+            $v_domain = escapeshellarg($param_domain);
+            $v_account = escapeshellarg($param_account);
+            exec(VESTA_CMD . "v-delete-mail-account " . $v_username . " " . $v_domain . " " . $v_account, $output, $return_var);
+            check_return_code($return_var, $output);
+            unset($output);
+            // $back = $_SESSION['back'];
+            // if (!empty($back)) {
+            //     header("Location: " . $back);
+            //     exit;
+            // }
+            header("Location: /mail/listmailacc/" . $param_domain);
+            exit;
+        }
+
+        // $back = $_SESSION['back'];
+        // if (!empty($back)) {
+        //     header("Location: " . $back);
+        //     exit;
+        // }
 
         header("Location: /mail");
         exit;

@@ -1402,7 +1402,7 @@ class KumbiaActiveRecord
          * We remind you that those that have default values ​​do not appear here,
          * but nevertheless it must be pending to validate in the other verifications
          * the null fields, since in these if the field is null, it really refers to a field that
-         * debe tomar el valor por defecto
+         * you must take the value for
          *
          */
         foreach ($this->not_null as $f) {

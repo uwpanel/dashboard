@@ -42,9 +42,35 @@
                     <i class="fas fa-cog status-icon orange status-icon dim"></i>
                 </a>
                 &nbsp;
-                <a class="edit" href="#" title="Restart">
+
+                <a class="like" href="" data-toggle="modal" data-target="#exampleModalLong" title="Restart">
                     <i class="fas fa-redo-alt status-icon orange status-icon dim"></i>
                 </a>
+
+                <!-- Modal -->
+                <div class="modal danger" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Confirmation</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <span style="color: red"><b><i>The system is going down for reboot NOW!</i></b></span>
+                                <br>
+                                Are you sure want to restart <b><?= $sys['sysinfo']['HOSTNAME'] ?></b> .
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <a class="btn btn-danger" href="https://<?= $_SERVER['HTTP_HOST'] ?>/system/restart/<?= $sys['sysinfo']['HOSTNAME'] ?>/<?= $_SESSION['token'] ?>" title="Restart">
+                                    Yes, Restart
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </td>
             <td>
                 <b><?= $sys['sysinfo']['HOSTNAME'] ?></b>
@@ -63,11 +89,24 @@
                         <i class="fas fa-cog status-icon orange status-icon dim"></i>
                     </a>
                     &nbsp;
-                    <a class="edit" href="#" title="Stop">
-                        <i class="fas fa-stop status-icon orange status-icon dim"></i>
-                    </a>
-                    &nbsp;
-                    <a class="edit" href="#" title="Restart">
+                    <?php
+                    if ($each['STATE'] == 'running') {
+                    ?>
+                        <a class="edit" href="https://<?= $_SERVER['HTTP_HOST'] ?>/service/stop/<?= $key ?>" title="Stop">
+                            <i class="fas fa-stop status-icon orange status-icon dim"></i>
+                        </a>&nbsp;
+                    <?php
+                    }
+                    if ($each['STATE'] == 'stopped') { ?>
+                        <a class="edit" href="https://<?= $_SERVER['HTTP_HOST'] ?>/service/start/<?= $key ?>" title="Stop">
+                            <i class="fas fa-play status-icon orange status-icon dim"></i>
+                        </a>&nbsp;
+                    <?php
+                    }
+                    ?>
+
+
+                    <a class="edit" href="https://<?= $_SERVER['HTTP_HOST'] ?>/service/restart/<?= $key ?>/<?= $_SESSION['token'] ?>" title="Restart">
                         <i class="fas fa-redo-alt status-icon orange status-icon dim"></i>
                     </a>
 
@@ -85,5 +124,5 @@
 </table>
 
 <?php
-// echo "<pre>", print_r($data, true);
+echo "<pre>", print_r($data, true);
 ?>

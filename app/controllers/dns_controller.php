@@ -492,4 +492,150 @@ class DnsController extends AppController
             exit;
         }
     }
+
+    public function suspend($param_user, $param_domain, $param_record_id, $param_token)
+    {
+        // Init
+        error_reporting(NULL);
+        ob_start();
+        session_start();
+
+        // Main include
+        include(APP_PATH . 'libs/inc/main.php');
+
+        // Check token
+        if ((!isset($param_token)) || ($_SESSION['token'] != $param_token)) {
+            header('location: /login');
+            exit();
+        }
+
+        // Check user
+        if ($_SESSION['user'] != 'admin') {
+            header("Location: /user");
+            exit;
+        }
+
+        if (!empty($param_user)) {
+            $user = $param_user;
+        }
+
+        // DNS domain
+        if ((!empty($param_domain)) && (empty($param_record_id))) {
+            $v_username = escapeshellarg($user);
+            $v_domain = escapeshellarg($param_domain);
+            exec(VESTA_CMD . "v-suspend-dns-domain " . $v_username . " " . $v_domain, $output, $return_var);
+            check_return_code($return_var, $output);
+            unset($output);
+            // $back = $_SESSION['back'];
+            // if (!empty($back)) {
+            //     header("Location: " . $back);
+            //     exit;
+            // }
+            header("Location: /dns");
+            exit;
+        }
+
+        // DNS record
+        if ((!empty($param_domain)) && (!empty($param_record_id))) {
+            $v_username = escapeshellarg($user);
+            $v_domain = escapeshellarg($param_domain);
+            $v_record_id = escapeshellarg($param_record_id);
+            exec(VESTA_CMD . "v-suspend-dns-record " . $v_username . " " . $v_domain . " " . $v_record_id, $output, $return_var);
+            check_return_code($return_var, $output);
+            unset($output);
+            // $back = $_SESSION['back'];
+            // if (!empty($back)) {
+            //     header("Location: " . $back);
+            //     exit;
+            // }
+            header("Location: /dns/listrecord/" . $param_domain);
+            exit;
+        }
+
+        // $back = $_SESSION['back'];
+        // if (!empty($back)) {
+        //     header("Location: " . $back);
+        //     exit;
+        // }
+
+        header("Location: /dns");
+        exit;
+    }
+
+    public function unsuspend($param_user, $param_domain, $param_record_id, $param_token)
+    {
+        // Init
+        error_reporting(NULL);
+        ob_start();
+        session_start();
+
+        // Main include
+        include(APP_PATH . 'libs/inc/main.php');
+
+        // Check token
+        if ((!isset($param_token)) || ($_SESSION['token'] != $param_token)) {
+            header('location: /login');
+            exit();
+        }
+
+        // Check user
+        if ($_SESSION['user'] != 'admin') {
+            header("Location: /user");
+            exit;
+        }
+
+        if (!empty($param_user)) {
+            $user = $param_user;
+        }
+
+        // DNS domain
+        if ((!empty($param_domain)) && (empty($param_record_id))) {
+            $v_username = escapeshellarg($user);
+            $v_domain = escapeshellarg($param_domain);
+            exec(VESTA_CMD . "v-unsuspend-dns-domain " . $v_username . " " . $v_domain, $output, $return_var);
+            if ($return_var != 0) {
+                $error = implode('<br>', $output);
+                if (empty($error)) $error = __('Error: vesta did not return any output.');
+                $_SESSION['error_msg'] = $error;
+            }
+            unset($output);
+            // $back = getenv("HTTP_REFERER");
+            // if (!empty($back)) {
+            //     header("Location: " . $back);
+            //     exit;
+            // }
+            header("Location: /dns");
+            exit;
+        }
+
+        // DNS record
+        if ((!empty($param_domain)) && (!empty($param_record_id))) {
+            $v_username = escapeshellarg($user);
+            $v_domain = escapeshellarg($param_domain);
+            $v_record_id = escapeshellarg($param_record_id);
+            exec(VESTA_CMD . "v-unsuspend-dns-record " . $v_username . " " . $v_domain . " " . $v_record_id, $output, $return_var);
+            if ($return_var != 0) {
+                $error = implode('<br>', $output);
+                if (empty($error)) $error = __('Error: vesta did not return any output.');
+                $_SESSION['error_msg'] = $error;
+            }
+            unset($output);
+            // $back = getenv("HTTP_REFERER");
+            // if (!empty($back)) {
+            //     header("Location: " . $back);
+            //     exit;
+            // }
+            header("Location: /dns/listrecord/" . $param_domain);
+            exit;
+        }
+
+        // $back = getenv("HTTP_REFERER");
+        // if (!empty($back)) {
+        //     header("Location: " . $back);
+        //     exit;
+        // }
+
+        header("Location: /dns");
+        exit;
+    }
 }
