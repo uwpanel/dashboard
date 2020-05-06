@@ -39,44 +39,44 @@
                 <td class="bs-checkbox "><input data-index="0" name="btSelectItem" type="checkbox"></td>
                 <td> <b><? echo $key ?></b></td>
                 <td>
-                    <a class="like" href="http://<?= $key ?>">
+                    <a href="http://<?= $key ?>" target="_blank">
                         <i class="fas fa-external-link-square-alt status-icon lightblue status-icon dim"></i>
                     </a>&nbsp;
-                    <a class="like" href="https://<?= $_SERVER['HTTP_HOST'] ?>/web/edit/<?php if (isset($_SESSION['look'])) {
-                                                                                            echo $_SESSION['look'];
-                                                                                        } else {
-                                                                                            echo $_SESSION['user'];
-                                                                                        } ?>/<?= $key ?>" title="Edit Web Domain">
+                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/web/edit/<?php if (isset($_SESSION['look'])) {
+                                                                                echo $_SESSION['look'];
+                                                                            } else {
+                                                                                echo $_SESSION['user'];
+                                                                            } ?>/<?= $key ?>" title="Edit Web Domain">
                         <i class="fas fa-pencil-alt status-icon orange status-icon dim"></i>
                     </a>&nbsp;
-                    <a class="like" href="https://<?= $_SERVER['HTTP_HOST'] ?>/weblog/index/<?= $key ?>/access" title="Access Log">
+                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/weblog/index/<?= $key ?>/access" title="Access Log">
                         <i class="fas fa-binoculars status-icon purple status-icon dim"></i>
                     </a>&nbsp;
-                    <a class="like" href="https://<?= $_SERVER['HTTP_HOST'] ?>/weblog/index/<?= $key ?>/error" title="Error Log">
+                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/weblog/index/<?= $key ?>/error" title="Error Log">
                         <i class="fa fa-exclamation" aria-hidden="true"></i>
                     </a>&nbsp;
                     <?php if ($_SESSION['user'] == 'admin') {
 
                         if ($each['SUSPENDED'] != 'yes') { ?>
-                            <a class="like" href="https://<?= $_SERVER['HTTP_HOST'] ?>/web/suspend/<?php if (isset($_SESSION['look'])) {
-                                                                                                        echo $_SESSION['look'];
-                                                                                                    } else {
-                                                                                                        echo $_SESSION['user'];
-                                                                                                    } ?>/<?= $key ?>/<?= $_SESSION['token'] ?>"" title=" Suspend">
+                            <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/web/suspend/<?php if (isset($_SESSION['look'])) {
+                                                                                            echo $_SESSION['look'];
+                                                                                        } else {
+                                                                                            echo $_SESSION['user'];
+                                                                                        } ?>/<?= $key ?>/<?= $_SESSION['token'] ?>"" title=" Suspend">
                                 <i class="fas fa-pause status-icon highlight status-icon dim do_suspend"></i>
                             </a>&nbsp;
                         <?php } else { ?>
-                            <a class="like" href="https://<?= $_SERVER['HTTP_HOST'] ?>/web/unsuspend/<?php if (isset($_SESSION['look'])) {
-                                                                                                            echo $_SESSION['look'];
-                                                                                                        } else {
-                                                                                                            echo $_SESSION['user'];
-                                                                                                        } ?>/<?= $key ?>/<?= $_SESSION['token'] ?>"" title=" Unsuspend">
+                            <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/web/unsuspend/<?php if (isset($_SESSION['look'])) {
+                                                                                            echo $_SESSION['look'];
+                                                                                        } else {
+                                                                                            echo $_SESSION['user'];
+                                                                                        } ?>/<?= $key ?>/<?= $_SESSION['token'] ?>"" title=" Unsuspend">
                                 <i class="fas fa-play status-icon highlight status-icon dim do_suspend"></i>
                             </a>&nbsp;
                     <?php }
                     } ?>
 
-                    <a class="like" href="" data-toggle="modal" data-target="#exampleModalLong" title="Delete">
+                    <a href="" data-toggle="modal" data-target="#exampleModalLong" title="Delete">
                         <i class="fas fa-trash"></i>
                     </a>
 

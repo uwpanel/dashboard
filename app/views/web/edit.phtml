@@ -1,15 +1,8 @@
-<?
-echo "<pre>", print_r($test_var, true), "</pre>";
-?>
-
 <body>
-    <title>Edit Web</title>
-
     <div class="col-4">
-        <p class="login-box-msg"><b>Editing Web</b></p>
         <p class="text-center">
             <?php
-            echo $_SESSION['error_msg'],"<br>",$_SESSION['ok_msg'];
+            echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
             $_SESSION['error_msg'] = NULL;
             $_SESSION['ok_msg'] = NULL;
             ?>
@@ -58,17 +51,167 @@ echo "<pre>", print_r($test_var, true), "</pre>";
                 </select>
             </div>
 
-            <label for="v_template"> Backend Template </label>&emsp;<?= strtoupper($_SESSION['WEB_SYSTEM']) ?>
+            <label for="v_template"> Backend Template </label>&emsp;<?= strtoupper($_SESSION['WEB_BACKEND']) ?>
             <div class="input-group mb-3">
-                <?php if (!empty($_SESSION['WEB_BACKEND'])) { ?>
-                    <select class="form-control" name="v_backend_template">
-                        <?php foreach ($v_backend_template as $back_template) { ?>
-                            <option value="<? $back_template ?>"> $back_template</option>
-                        <?php } ?>
-                    </select>
-                <?php } ?>
+                <? //php if (!empty($_SESSION['WEB_BACKEND'])) { 
+                ?>
+                <select class="form-control" name="v_backend_template">
+                    <?php foreach ($v_backend_template as $back_template) { ?>
+                        <option value="<? $back_template ?>"> <?= $back_template ?></option>
+                    <?php } ?>
+                </select>
+                <? //php } 
+                ?>
             </div>
 
+            <div class="input-group form-control mb-3">
+                <input type="checkbox" name="v_ssl" id="v_ssl">
+                <label class="" for="v_ssl"> &nbsp; SSL Support</label>
+            </div>
+
+            <table style="display:<?php if ($v_ssl == 'no') {
+                                        echo 'none';
+                                    } else {
+                                        echo 'block';
+                                    } ?> ;" id="ssltable">
+                <tr>
+                    <td class="input-label vst-text">
+                        <label><input type="checkbox" size="20" class="vst-checkbox" name="v_letsencrypt" <?php if ($v_letsencrypt == 'yes' || $v_letencrypt == 'on') echo "checked=yes" ?> onclick="App.Actions.WEB.toggle_letsencrypt(this)">
+                            <?php print __('Lets Encrypt Support'); ?></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="vst-text input-label">
+                        <?php print __('SSL Home Directory'); ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <select class="vst-list" name="v_ssl_home">
+
+                            <option value='same' <?php if ($v_ssl_home == 'same') echo "selected"; ?>>
+                                public_html
+                            </option>
+                            <option value='single' <?php if ($v_ssl_home == 'single') echo "selected"; ?>>
+                                public_shtml
+                            </option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="vst-text input-label">
+                        <?php print __('SSL Certificate'); ?>
+                        <span id="generate-csr"> / <a class="generate" target="_blank" href="/generate/ssl/?domain=<?= $v_domain ?>"><?= __('Generate CSR') ?></a></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <textarea size="20" class="vst-textinput" name="v_ssl_crt"><?= htmlentities(trim($v_ssl_crt, "'")) ?></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="vst-text input-label">
+                        <?php print __('SSL Key'); ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <textarea size="20" class="vst-textinput" name="v_ssl_key"><?= htmlentities(trim($v_ssl_key, "'")) ?></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="vst-text input-label">
+                        <?php print __('SSL Certificate Authority / Intermediate'); ?> <span class="optional">(<?php print __('optional'); ?>)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <textarea size="20" class="vst-textinput" name="v_ssl_ca"><?= htmlentities(trim($v_ssl_ca, "'")) ?></textarea>
+                    </td>
+                </tr>
+                <?
+                if ($v_ssl != 'no') { ?>
+                    <tr>
+                        <td>
+                            <table class="additional-info">
+                                <tr>
+                                    <td>
+                                        <?= __('SUBJECT') ?>:
+                                    </td>
+                                    <td class="details">
+                                        <?= $v_ssl_subject ?>
+                                    </td>
+                                </tr>
+                                <? if ($v_ssl_aliases) { ?>
+                                    <tr>
+                                        <td>
+                                            <?= __('ALIASES') ?>:
+                                        </td>
+                                        <td class="details">
+                                            <?= $v_ssl_aliases ?>
+                                        </td>
+                                    </tr>
+                                <? } ?>
+                                <tr>
+                                    <td>
+                                        <?= __('NOT_BEFORE') ?>:
+                                    </td>
+                                    <td class="details">
+                                        <?= $v_ssl_not_before ?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <?= __('NOT_AFTER') ?>:
+                                    </td>
+                                    <td class="details">
+                                        <?= $v_ssl_not_after ?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <?= __('SIGNATURE') ?>:
+                                    </td>
+                                    <td class="details">
+                                        <?= $v_ssl_signature ?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <?= __('PUB_KEY') ?>:
+                                    </td>
+                                    <td class="details">
+                                        <?= $v_ssl_pub_key ?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <?= __('ISSUER') ?>:
+                                    </td>
+                                    <td class="details">
+                                        <?= $v_ssl_issuer ?>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                <? } // if ssl is enabled 
+                ?>
+            </table>
+
+            <label for="v_template"> Web Statistics </label>
+            <div class="input-group mb-3">
+                <select class="form-control" name="v_backend_template">
+                    <?php foreach ($stats as $stat) { ?>
+                        <option value="<? $stat ?>"> <?= $stat ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+
+            <div class="input-group form-control mb-3">
+                <input type="checkbox" name="v_ftp" id="v_ftp">
+                <label class="" for="v_ftp"> &nbsp; Additional FTP </label>
+            </div>
 
             <button type="submit" class="btn btn-primary btn-block">Confirm</button>
             <a href="https://<?= $_SERVER['HTTP_HOST'] ?>" class="btn btn-default btn-block">Back</a>
@@ -78,9 +221,7 @@ echo "<pre>", print_r($test_var, true), "</pre>";
         </form>
     </div>
 </body>
+<?
+echo "<pre>", print_r($_SESSION, true), "</pre>";
 
-
-</html>
-
-<?php
-    // echo "<pre>", print_r($data);
+echo $v_ssl;

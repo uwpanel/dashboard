@@ -10,7 +10,6 @@ class LoginasController extends AuthController
 
         $uri = explode('/', $_SERVER['REQUEST_URI']);
 
-
         // Login as someone else
         if (isset($_SESSION['user'])) {
             if ($_SESSION['user'] == 'admin' && !empty($uri[3])) {

@@ -40,19 +40,15 @@
                 <td class="bs-checkbox "><input data-index="0" name="btSelectItem" type="checkbox"></td>
                 <td> <b><? echo $key ?></b></td>
                 <td>
-                    <a class="like" href="https://<?= $_SERVER['HTTP_HOST'] ?>/back/download/<?= $key ?>" title="Download">
+                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/back/download/<?= $key ?>" title="Download">
                         <i class="fas fa-download"></i>
                     </a>
                     &nbsp;
-                    <a class="like" href="https://<?= $_SERVER['HTTP_HOST'] ?>/back/listbackup/<?= $key ?>" title="Configure Restore Settings">
-                        <i class="fas fa-cloud-download-alt"></i>
+                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/back/listbackup/<?= $key ?>" title="Configure Restore Settings">
+                        <i class="fas fa-cog"></i>
                     </a>
                     &nbsp;
-                    <a class="like" href="https://<?= $_SERVER['HTTP_HOST'] ?>/back/edit" title="Edit">
-                        <i class="fas fa-edit"></i>
-                    </a>
-                    &nbsp;
-                    <a class="like" href="" data-toggle="modal" data-target="#exampleModalLong" title="Delete">
+                    <a href="" data-toggle="modal" data-target="#exampleModalLong" title="Delete">
                         <i class="fas fa-trash"></i>
                     </a>
 

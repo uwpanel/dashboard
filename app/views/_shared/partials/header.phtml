@@ -19,7 +19,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <title>KumbiaPHP Framework</title>
+    <title> <?= $_SESSION['title'] ?> | UWPanel</title>
 
     <!-- Font Awesome Icons -->
     <? //php Tag::css('all.min') 
@@ -27,7 +27,8 @@
     <!-- Theme Stylesheet -->
     <?php Tag::css('adminlte.min') ?>
     <!-- Theme Stylesheet
-    <link rel="stylesheet" href="https://<?//=$_SERVER['HTTP_HOST']?>/public/css/adminlte.min.css"> -->
+    <link rel="stylesheet" href="https://<? //=$_SERVER['HTTP_HOST']
+                                            ?>/public/css/adminlte.min.css"> -->
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <!-- Bootsrap Min.CSS -->

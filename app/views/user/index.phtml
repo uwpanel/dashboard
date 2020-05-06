@@ -53,7 +53,7 @@
         ?>
             <tr>
                 <td class="bs-checkbox "><input data-index="0" name="btSelectItem" type="checkbox"></td>
-                <td> <b><? echo $key ?></b><br>Email:<? echo $each['CONTACT'] ?></td>
+                <td> <b><? echo $key ?></b><br>Email :&ensp;<? echo $each['CONTACT'] ?></td>
                 <td>
                     <?php if (!isset($_SESSION['look'])) { ?>
                         <a class="login" href="https://<?= $_SERVER['HTTP_HOST'] ?>/loginas/index/<?= $key ?>" title="Login">
@@ -80,7 +80,7 @@
                     <?php }
                     } ?>
 
-                    <a class="like" href="" data-toggle="modal" data-target="#exampleModalLong" title="Delete">
+                    <a href="" data-toggle="modal" data-target="#exampleModalLong" title="Delete">
                         <i class="fas fa-trash"></i>
                     </a>
 

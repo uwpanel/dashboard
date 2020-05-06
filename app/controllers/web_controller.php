@@ -5,7 +5,7 @@ class WebController extends AppController
     public function index()
     {
         error_reporting(NULL);
-        $_SESSION['title'] = 'WEB';
+        $_SESSION['title'] = 'WEB Domains';
 
         // Main include
         include(APP_PATH . 'libs/inc/main.php');
@@ -26,6 +26,7 @@ class WebController extends AppController
     {
         error_reporting(NULL);
         ob_start();
+        $_SESSION['title'] = 'Adding Web Domains';
 
         // Main include
         include(APP_PATH . 'libs/inc/main.php');
@@ -363,7 +364,7 @@ class WebController extends AppController
                 }
 
                 if (!empty($_SESSION['error_msg']) && $domain_added) {
-                    $_SESSION['ok_msg'] = __('WEB_DOMAIN_CREATED_OK', htmlentities($_POST[v_domain]), htmlentities($_POST[v_domain]));
+                    $_SESSION['ok_msg'] = __('WEB_DOMAIN_CREATED_OK', htmlentities($_POST['v_domain']), htmlentities($_POST['v_domain']));
                     $_SESSION['flash_error_msg'] = $_SESSION['error_msg'];
                     $url = '/edit/web/?domain=' . strtolower(preg_replace("/^www\./i", "", $_POST['v_domain']));
                     header('Location: /web');
@@ -396,7 +397,7 @@ class WebController extends AppController
         error_reporting(NULL);
         ob_start();
         unset($_SESSION['error_msg']);
-        $TAB = 'WEB';
+        $_SESSION['title'] = 'Editing Web Domains';
 
         // Main include
         include(APP_PATH . 'libs/inc/main.php');
@@ -1138,6 +1139,7 @@ class WebController extends AppController
                 );
             }
         }
+        header("Location: /web");
 
         // Render page
         render_page($user, $TAB, 'edit_web');
@@ -1255,13 +1257,7 @@ class WebController extends AppController
             unset($output);
         }
 
-        $back = $_SESSION['back'];
-        if (!empty($back)) {
-            header("Location: " . $back);
-            exit;
-        }
-
-        header("Location: /user");
+        header("Location: /web");
         exit;
     }
 }

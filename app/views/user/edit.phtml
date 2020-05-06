@@ -1,20 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-
 <body>
-    <?
-    // echo "<pre>", print_r($languages, true), "</pre>";
-    ?>
-
-    <title>Edit User</title>
-
     <div class="col-4">
-        <p class="login-box-msg"><b>Editing User Account</b></p>
         <p class="text-center">
             <?php
             echo $_SESSION['error_msg'];
@@ -104,14 +89,9 @@
             </div>
 
             <button type="submit" class="btn btn-primary btn-block">Confirm</button>
-            <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/reset" class="btn btn-default btn-block">Back</a>
+            <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/user" class="btn btn-default btn-block">Back</a>
             <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
             <input type="hidden" name="save" value="save">
         </form>
     </div>
 </body>
-
-</html>
-
-<?php
-// echo "<pre>", print_r($data, true);

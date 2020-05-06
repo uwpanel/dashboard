@@ -83,12 +83,6 @@ class BackController extends AppController
         exit;
     }
 
-    public function edit()
-    {
-        // Main include
-        include(APP_PATH . 'libs/inc/main.php');
-    }
-
     public function delete($param_user, $param_backup, $param_token)
     {
         // Init

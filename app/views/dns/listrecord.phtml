@@ -48,15 +48,15 @@ $uri = explode('/', $_SERVER['REQUEST_URI']);
                 <td> <b><?= $each['RECORD'] ?></b></td>
                 <td style="text-align:center">
                     &nbsp;
-                    <a class="like" href="https://<?= $_SERVER['HTTP_HOST'] ?>/dns/editrecord/<?php if (isset($_SESSION['look'])) {
-                                                                                                    echo $_SESSION['look'];
-                                                                                                } else {
-                                                                                                    echo $_SESSION['user'];
-                                                                                                } ?>/<?= $uri[3] ?>/<?= $each['ID'] ?>" title="Edit">
+                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/dns/editrecord/<?php if (isset($_SESSION['look'])) {
+                                                                                        echo $_SESSION['look'];
+                                                                                    } else {
+                                                                                        echo $_SESSION['user'];
+                                                                                    } ?>/<?= $uri[3] ?>/<?= $each['ID'] ?>" title="Edit">
                         <i class="fas fa-pencil-alt status-icon orange status-icon dim"></i>
                     </a>&nbsp;
 
-                    <a class="like" href="" data-toggle="modal" data-target="#exampleModalLong" title="Delete">
+                    <a href="" data-toggle="modal" data-target="#exampleModalLong" title="Delete">
                         <i class="fas fa-trash"></i>
                     </a>
 

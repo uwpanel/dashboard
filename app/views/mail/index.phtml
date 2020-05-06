@@ -40,19 +40,19 @@
                 <td class="bs-checkbox "><input data-index="0" name="btSelectItem" type="checkbox"></td>
                 <td> <b><? echo $key ?></b></td>
                 <td>
-                    <a class="like" href="https://<?= $_SERVER['HTTP_HOST'] ?>/mail/listmailacc/<?= $key ?>" title="List Mail Acoounts">
+                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/mail/listmailacc/<?= $key ?>" title="List Mail Acoounts">
                         <i class="fas fa-list status-icon lightblue status-icon dim"></i>
                     </a>
                     &nbsp;
-                    <a class="like" href="https://<?= $_SERVER['HTTP_HOST'] ?>/mail/addmailacc/<?= $key ?>" title="Add Mail Account">
+                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/mail/addmailacc/<?= $key ?>" title="Add Mail Account">
                         <i class="fas fa-plus-circle status-icon"></i>
                     </a>
                     &nbsp;
-                    <a class="like" href="https://<?= $_SERVER['HTTP_HOST'] ?>/mail/edit/<?php if (isset($_SESSION['look'])) {
-                                                                                                echo $_SESSION['look'];
-                                                                                            } else {
-                                                                                                echo $_SESSION['user'];
-                                                                                            } ?>/<?= $key ?>" title="Edit Mail Domain" title="Edit">
+                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/mail/edit/<?php if (isset($_SESSION['look'])) {
+                                                                                echo $_SESSION['look'];
+                                                                            } else {
+                                                                                echo $_SESSION['user'];
+                                                                            } ?>/<?= $key ?>" title="Edit Mail Domain" title="Edit">
                         <i class="fas fa-pencil-alt status-icon orange status-icon dim"></i>
                     </a>
                     &nbsp;
@@ -69,7 +69,7 @@
                     <?php }
                     } ?>
 
-                    <a class="like" href="" data-toggle="modal" data-target="#exampleModalLong" title="Delete">
+                    <a href="" data-toggle="modal" data-target="#exampleModalLong" title="Delete">
                         <i class="fas fa-trash"></i>
                     </a>
 
@@ -89,10 +89,10 @@
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                     <a class="btn btn-danger" href="https://<?= $_SERVER['HTTP_HOST'] ?>/mail/delete/<?php if (isset($_SESSION['look'])) {
-                                                                                                                                echo $_SESSION['look'];
-                                                                                                                            } else {
-                                                                                                                                echo $_SESSION['user'];
-                                                                                                                            } ?>/<?= $key ?>//<?= $_SESSION['token'] ?>" title="Delete">
+                                                                                                                            echo $_SESSION['look'];
+                                                                                                                        } else {
+                                                                                                                            echo $_SESSION['user'];
+                                                                                                                        } ?>/<?= $key ?>//<?= $_SESSION['token'] ?>" title="Delete">
                                         Delete
                                     </a>
                                 </div>

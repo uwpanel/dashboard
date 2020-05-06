@@ -38,12 +38,12 @@
         <tr>
             <td class="bs-checkbox "><input data-index="0" name="btSelectItem" type="checkbox"></td>
             <td>
-                <a class="edit" href="#" title="Configure">
+                <a class="edit" href="https://<?= $_SERVER['HTTP_HOST'] ?>/server/edit/" title="Configure">
                     <i class="fas fa-cog status-icon orange status-icon dim"></i>
                 </a>
                 &nbsp;
 
-                <a class="like" href="" data-toggle="modal" data-target="#exampleModalLong" title="Restart">
+                <a href="" data-toggle="modal" data-target="#exampleModalLong" title="Restart">
                     <i class="fas fa-redo-alt status-icon orange status-icon dim"></i>
                 </a>
 
@@ -85,7 +85,7 @@
             <tr>
                 <td class="bs-checkbox "><input data-index="0" name="btSelectItem" type="checkbox"></td>
                 <td>
-                    <a class="edit" href="#" title="Configure">
+                    <a class="edit" href="https://<?= $_SERVER['HTTP_HOST'] ?>/server/edit/<?= $key ?>" title="Configure">
                         <i class="fas fa-cog status-icon orange status-icon dim"></i>
                     </a>
                     &nbsp;
@@ -114,7 +114,7 @@
                 <td>
                     <b><? echo $key ?></b>
                     <br>
-                    <p><?= $each['SYSTEM'] ?> &emsp; CPU : <?= $each['CPU'] ?> &emsp; Memory : <?= $each['MEM'] ?> &emsp; Uptime: <?= humanize_time($each['RTIME']) ?></p>
+                    <p><?= $each['SYSTEM'] ?> &emsp; CPU : <?= $each['CPU'] ?> &emsp; Memory : <?= $each['MEM'] ?> mb &emsp; Uptime: <?= humanize_time($each['RTIME']) ?></p>
                 </td>
             </tr>
         <?php
@@ -124,5 +124,5 @@
 </table>
 
 <?php
-echo "<pre>", print_r($data, true);
+// echo "<pre>", print_r($data, true);
 ?>

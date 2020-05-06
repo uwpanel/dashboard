@@ -1,3 +1,646 @@
 <?php
-echo "<pre>",print_r($languages),"</pre>";
-echo "<pre>",print_r($dns_cluster),"</pre>";
+$uri = explode('/', $_SERVER['REQUEST_URI']);
+?>
+
+<body>
+    <?php
+    if ($uri[3] == NULL) { ?>
+        <title>Edit Server</title>
+        <div class="col-4">
+            <p class="login-box-msg"><b>Configuring Server</b></p>
+            <p class="text-center">
+                <?php
+                echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
+                $_SESSION['error_msg'] = NULL;
+                $_SESSION['ok_msg'] = NULL;
+
+                //echo "<pre>", print_r($v_timezones), "</pre>";
+
+                ?>
+            </p>
+
+            <form name="v_configure_server" action="https://<?= $_SERVER['HTTP_HOST'] ?>/server/edit/" method="post">
+                <label for="v_hostname">Hostname</label>
+                <div class="input-group mb-3">
+                    <input type="text" name="v_hostname" class="form-control" placeholder="Hostname" value="<?= htmlentities(trim($v_hostname, "'")) ?>">
+                </div>
+
+                <label for="v_timezone">Timezone</label>
+                <div class="input-group mb-3">
+                    <select name="v_timezone" class="form-control">
+                        <?php
+                        foreach ($v_timezones as $key => $timezone) { ?>
+                            <option value="<?= $key ?>" <?php if ($key == $v_timezone) {
+                                                            echo 'selected';
+                                                        } ?>> <?= $timezone ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+
+                <label for="v_language">Default Language</label>
+                <div class="input-group mb-3">
+                    <select name="v_language" class="form-control">
+                        <?php
+                        foreach ($languages as $key => $language) { ?>
+                            <option value="<?= $language ?>" <?php if ($language == $_SESSION['LANGUAGE']) {
+                                                                    echo 'selected';
+                                                                } ?>><?= $language; ?></option>
+                            <?= $language; ?>
+                            </option>
+                        <?php } ?>
+                    </select>
+                </div>
+
+                <div>
+                    <label>WEB</label>
+                </div>
+
+                <div>
+                    <label>DNS</label>
+                </div>
+
+                <div>
+                    <label>MAIL</label>
+                </div>
+
+                <div>
+                    <label>DB</label>
+                </div>
+
+                <div>
+                    <label>BACKUP</label>
+                </div>
+
+                <div>
+                    <label>VESTA SSL</label>
+                </div>
+
+                <div>
+                    <label>VESTA Control Panel Plugins</label>
+                </div>
+
+
+                <div class="row">
+                    <!-- /.col -->
+
+                    <!-- /.col -->
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Confirm</button>
+                <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/server" class="btn btn-default btn-block">Back</a>
+                <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
+                <input type="hidden" name="save" value="save">
+            </form>
+        </div>
+    <?php
+    } ?>
+
+    <?php
+    if ($uri[3] == 'apache2' || $uri[3] == 'httpd') { ?>
+        <title>Edit Server</title>
+        <div class="col-8">
+            <p class="login-box-msg"><b>Configuring Server <?= strtoupper($v_service_name) ?></b></p>
+            <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/server/edit/php">Configure php.ini</a>
+            <p class="text-center">
+                <?php
+                echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
+                $_SESSION['error_msg'] = NULL;
+                $_SESSION['ok_msg'] = NULL;
+
+                //echo "<pre>", print_r($v_timezones), "</pre>";
+
+                ?>
+            </p>
+
+            <form name="v_configure_server" action="https://<?= $_SERVER['HTTP_HOST'] ?>/server/edit/<?= strtolower($v_service_name) ?>" method="post">
+                <label for="v_config"><?= $v_config_path ?></label>
+                <div class="input-group mb-3">
+                    <textarea name="v_config" class="form-control" rows="15"><?= $v_config ?></textarea>
+                </div>
+
+                <div class="col-4 input-group form-control mb-3">
+                    <input type="checkbox" name="v_restart" checked=yes>
+                    <label for="v_restart"> &nbsp; Restart </label>
+                </div>
+
+                <div class="row">
+                    <!-- /.col -->
+
+                    <!-- /.col -->
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Confirm</button>
+                <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/server" class="btn btn-default btn-block">Back</a>
+                <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
+                <input type="hidden" name="save" value="save">
+            </form>
+        </div>
+    <?php
+    } ?>
+
+    <?php if ($uri[3] == 'bind9') { ?>
+        <title>Edit Server</title>
+        <div class="col-8">
+            <p class="login-box-msg"><b>Configuring Server <?= strtoupper($v_service_name) ?></b></p>
+            <p class="text-center">
+                <?php
+                echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
+                $_SESSION['error_msg'] = NULL;
+                $_SESSION['ok_msg'] = NULL;
+
+                //echo "<pre>", print_r($v_timezones), "</pre>";
+
+                ?>
+            </p>
+
+            <form name="v_configure_server" action="https://<?= $_SERVER['HTTP_HOST'] ?>/server/edit/<?= strtolower($v_service_name) ?>" method="post">
+
+                <label for="v_config"><?= $v_options_path ?></label>
+                <div class="input-group mb-3">
+                    <textarea name="v_config" class="form-control" rows="15"><?= $v_options ?></textarea>
+                </div>
+
+                <label for="v_config"><?= $v_config_path ?></label>
+                <div class="input-group mb-3">
+                    <textarea name="v_config" class="form-control" rows="15"><?= $v_config ?></textarea>
+                </div>
+
+                <div class="col-4 input-group form-control mb-3">
+                    <input type="checkbox" name="v_restart" checked=yes>
+                    <label for="v_restart"> &nbsp; Restart </label>
+                </div>
+
+                <div class="row">
+                    <!-- /.col -->
+
+                    <!-- /.col -->
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Confirm</button>
+                <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/server" class="btn btn-default btn-block">Back</a>
+                <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
+                <input type="hidden" name="save" value="save">
+            </form>
+        </div>
+    <?php
+    } ?>
+
+    <?php if ($uri[3] == 'dovecot') { ?>
+        <title>Edit Server</title>
+        <div class="col-8">
+            <p class="login-box-msg"><b>Configuring Server <?= strtoupper($v_service_name) ?></b></p>
+            <p class="text-center">
+                <?php
+                echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
+                $_SESSION['error_msg'] = NULL;
+                $_SESSION['ok_msg'] = NULL;
+
+                //echo "<pre>", print_r($v_timezones), "</pre>";
+
+                ?>
+            </p>
+
+            <form name="v_configure_server" action="https://<?= $_SERVER['HTTP_HOST'] ?>/server/edit/<?= $v_service_name ?>" method="post">
+
+                <label for="v_config"><?= $v_config_path ?></label>
+                <div class="input-group mb-3">
+                    <textarea name="v_config" class="form-control" rows="8"><?= $v_config ?></textarea>
+                </div>
+
+                <label for="v_config1"><?= $v_config_path1 ?></label>
+                <div class="input-group mb-3">
+                    <textarea name="v_config1" class="form-control" rows="8"><?= $v_config1 ?></textarea>
+                </div>
+
+                <label for="v_config2"><?= $v_config_path2 ?></label>
+                <div class="input-group mb-3">
+                    <textarea name="v_config2" class="form-control" rows="8"><?= $v_config2 ?></textarea>
+                </div>
+
+                <label for="v_config3"><?= $v_config_path3 ?></label>
+                <div class="input-group mb-3">
+                    <textarea name="v_config3" class="form-control" rows="8"><?= $v_config3 ?></textarea>
+                </div>
+
+                <label for="v_config4"><?= $v_config_path4 ?></label>
+                <div class="input-group mb-3">
+                    <textarea name="v_config4" class="form-control" rows="8"><?= $v_config4 ?></textarea>
+                </div>
+
+                <label for="v_config5"><?= $v_config_path5 ?></label>
+                <div class="input-group mb-3">
+                    <textarea name="v_config5" class="form-control" rows="8"><?= $v_config5 ?></textarea>
+                </div>
+
+                <label for="v_config6"><?= $v_config_path6 ?></label>
+                <div class="input-group mb-3">
+                    <textarea name="v_config6" class="form-control" rows="8"><?= $v_config6 ?></textarea>
+                </div>
+
+                <label for="v_config7"><?= $v_config_path7 ?></label>
+                <div class="input-group mb-3">
+                    <textarea name="v_config7" class="form-control" rows="8"><?= $v_config7 ?></textarea>
+                </div>
+
+                <label for="v_config8"><?= $v_config_path8 ?></label>
+                <div class="input-group mb-3">
+                    <textarea name="v_config8" class="form-control" rows="8"><?= $v_config8 ?></textarea>
+                </div>
+
+                <div class="col-4 input-group form-control mb-3">
+                    <input type="checkbox" name="v_restart" checked=yes>
+                    <label for="v_restart"> &nbsp; Restart </label>
+                </div>
+
+                <div class="row">
+                    <!-- /.col -->
+
+                    <!-- /.col -->
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Confirm</button>
+                <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/server" class="btn btn-default btn-block">Back</a>
+                <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
+                <input type="hidden" name="save" value="save">
+            </form>
+        </div>
+    <?php
+    } ?>
+
+    <?php if ($uri[3] == 'iptables') { ?>
+        Check
+    <?php
+    } ?>
+
+
+    <?php if ($uri[3] == 'mysql' || $uri[3] == 'mariadb' || $uri[3] == 'mysqld') { ?>
+        <title>Edit Server</title>
+
+        <p class="login-box-msg"><b>Configuring Server <?= strtoupper($v_service_name) ?></b></p>
+        <p class="text-center">
+            <?php
+            echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
+            $_SESSION['error_msg'] = NULL;
+            $_SESSION['ok_msg'] = NULL;
+
+            //echo "<pre>", print_r($v_timezones), "</pre>";
+
+            ?>
+        </p>
+
+        <form name="v_configure_server" action="https://<?= $_SERVER['HTTP_HOST'] ?>/server/edit/<?= strtolower($v_service_name) ?>" method="post">
+
+            <div class="col-4">
+                <div id="basic-options">
+                    <label for="v_max_connections">max_connections</label>
+                    <div class="input-group mb-3">
+                        <input type="text" name="v_max_connections" class="form-control" regexp="max_connections" prev_value="<?= htmlentities($v_max_connections) ?>" value="<?= htmlentities($v_max_connections) ?>">
+                    </div>
+
+                    <label for="v_max_user_connections">max_user_connections</label>
+                    <div class="input-group mb-3">
+                        <input type="text" name="v_max_user_connections" class="form-control" regexp="max_user_connections" prev_value="<?= htmlentities($v_max_user_connections) ?>" value="<?= htmlentities($v_max_user_connections) ?>">
+                    </div>
+
+                    <label for="v_wait_timeout">wait_timeout</label>
+                    <div class="input-group mb-3">
+                        <input type="text" name="v_wait_timeout" class="form-control" regexp="wait_timeout" prev_value="<?= htmlentities($v_wait_timeout) ?>" value="<?= htmlentities($v_wait_timeout) ?>">
+                    </div>
+
+                    <label for="v_interactive_timeout">interactive_timeout</label>
+                    <div class="input-group mb-3">
+                        <input type="text" name="v_interactive_timeout" class="form-control" regexp="interactive_timeout" prev_value="<?= htmlentities($v_interactive_timeout) ?>" value="<?= htmlentities($v_interactive_timeout) ?>">
+                    </div>
+
+                    <label for="v_max_allowed_packet">max_allowed_packet</label>
+                    <div class="input-group mb-3">
+                        <input type="text" name="v_max_allowed_packet" class="form-control" regexp="max_allowed_packet" prev_value="<?= htmlentities($v_max_allowed_packet) ?>" value="<?= htmlentities($v_max_allowed_packet) ?>">
+                    </div>
+
+                    <a href="javascript:toggleOptions();"> <?= strtoupper('Advanced Options') ?></a>
+
+                </div>
+            </div>
+
+            <div class="col-8">
+                <div id="advanced-options" style="display:<?php if (empty($v_adv)) echo 'none'; ?> ;">
+                    <a href="javascript:toggleOptions();"> <?= strtoupper('Basic Options') ?></a>
+                    <br>
+
+                    <label for="v_config"><?= $v_config_path ?></label>
+                    <div class="input-group mb-3">
+                        <textarea name="v_config" class="form-control" rows="15"><?= $v_config ?></textarea>
+                    </div>
+
+                    <div class="input-group form-control mb-3">
+                        <input type="checkbox" name="v_restart" checked=yes>
+                        <label for="v_restart"> &nbsp; Restart </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- /.col -->
+
+                <!-- /.col -->
+            </div>
+
+            <div class="col-4">
+                <button type="submit" class="btn btn-primary btn-block">Confirm</button>
+                <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/server" class="btn btn-default btn-block">Back</a>
+                <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
+                <input type="hidden" name="save" value="save">
+            </div>
+        </form>
+    <?php
+    } ?>
+
+    <?php if ($uri[3] == 'nginx') { ?>
+        <title>Edit Server</title>
+
+        <p class="login-box-msg"><b>Configuring Server <?= strtoupper($uri[3]) ?></b></p>
+        <p class="text-center">
+            <?php
+            echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
+            $_SESSION['error_msg'] = NULL;
+            $_SESSION['ok_msg'] = NULL;
+
+            //echo "<pre>", print_r($v_timezones), "</pre>";
+
+            ?>
+        </p>
+
+        <form name="v_configure_server" action="https://<?= $_SERVER['HTTP_HOST'] ?>/server/edit/<? strtolower($uri[3]) ?>" method="post">
+
+            <div class="col-4">
+                <div id="basic-options">
+                    <label for="v_worker_processes">worker_processes</label>
+                    <div class="input-group mb-3">
+                        <input type="text" name="v_worker_processes" class="form-control" regexp="worker_processes" prev_value="<?= htmlentities($v_worker_processes) ?>" value="<?= htmlentities($v_worker_processes) ?>">
+                    </div>
+
+                    <label for="v_worker_connections">worker_connections</label>
+                    <div class="input-group mb-3">
+                        <input type="text" name="v_worker_connections" class="form-control" regexp="worker_connections" prev_value="<?= htmlentities($v_worker_connections) ?>" value="<?= htmlentities($v_worker_connections) ?>">
+                    </div>
+
+                    <label for="v_client_max_body_size">client_max_body_size</label>
+                    <div class="input-group mb-3">
+                        <input type="text" name="v_client_max_body_size" class="form-control" regexp="client_max_body_size" prev_value="<?= htmlentities($v_client_max_body_size) ?>" value="<?= htmlentities($v_client_max_body_size) ?>">
+                    </div>
+
+                    <label for="v_send_timeout">send_timeout</label>
+                    <div class="input-group mb-3">
+                        <input type="text" name="v_send_timeout" class="form-control" regexp="send_timeout" prev_value="<?= htmlentities($v_send_timeout) ?>" value="<?= htmlentities($v_send_timeout) ?>">
+                    </div>
+
+                    <label for="v_proxy_connect_timeout">proxy_connect_timeout</label>
+                    <div class="input-group mb-3">
+                        <input type="text" name="v_proxy_connect_timeout" class="form-control" regexp="proxy_connect_timeout" prev_value="<?= htmlentities($v_proxy_connect_timeout) ?>" value="<?= htmlentities($v_proxy_connect_timeout) ?>">
+                    </div>
+
+                    <label for="v_proxy_send_timeout">proxy_send_timeout</label>
+                    <div class="input-group mb-3">
+                        <input type="text" name="v_proxy_send_timeout" class="form-control" regexp="proxy_send_timeout" prev_value="<?= htmlentities($v_proxy_send_timeout) ?>" value="<?= htmlentities($v_proxy_send_timeout) ?>">
+                    </div>
+
+                    <label for="v_proxy_read_timeout">proxy_read_timeout</label>
+                    <div class="input-group mb-3">
+                        <input type="text" name="v_proxy_read_timeout" class="form-control" regexp="proxy_read_timeout" prev_value="<?= htmlentities($v_proxy_read_timeout) ?>" value="<?= htmlentities($v_proxy_read_timeout) ?>">
+                    </div>
+
+                    <label for="v_gzip">gzip</label>
+                    <div class="input-group mb-3">
+                        <input type="text" name="v_gzip" class="form-control" regexp="gzip" prev_value="<?= htmlentities($v_gzip) ?>" value="<?= htmlentities($v_gzip) ?>">
+                    </div>
+
+                    <label for="v_gzip_comp_level">gzip_comp_level</label>
+                    <div class="input-group mb-3">
+                        <input type="text" name="v_gzip_comp_level" class="form-control" regexp="gzip_comp_level" prev_value="<?= htmlentities($v_gzip_comp_level) ?>" value="<?= htmlentities($v_gzip_comp_level) ?>">
+                    </div>
+
+                    <label for="v_charset">charset</label>
+                    <div class="input-group mb-3">
+                        <input type="text" name="v_charset" class="form-control" regexp="charset" prev_value="<?= htmlentities($v_charset) ?>" value="<?= htmlentities($v_charset) ?>">
+                    </div>
+
+                    <a href="javascript:toggleOptions();"> <?= strtoupper('Advanced Options') ?></a>
+
+                </div>
+            </div>
+
+            <div class="col-8">
+                <div id="advanced-options" style="display:<?php if (empty($v_adv)) echo 'none'; ?> ;">
+                    <a href="javascript:toggleOptions();"> <?= strtoupper('Basic Options') ?></a>
+                    <br>
+                    <label for="v_config"><?= $v_config_path ?></label>
+                    <div class="input-group mb-3">
+                        <textarea name="v_config" class="form-control" rows="15"><?= $v_config ?></textarea>
+                    </div>
+
+                    <div class="input-group form-control mb-3">
+                        <input type="checkbox" name="v_restart" checked=yes>
+                        <label for="v_restart"> &nbsp; Restart </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- /.col -->
+
+                <!-- /.col -->
+            </div>
+
+            <div class="col-4">
+                <button type="submit" class="btn btn-primary btn-block">Confirm</button>
+                <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/server" class="btn btn-default btn-block">Back</a>
+                <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
+                <input type="hidden" name="save" value="save">
+            </div>
+        </form>
+    <?php
+    } ?>
+
+
+    <?php if ($uri[3] == 'php' || $uri[3] == 'php-fpm' || $uri[3] == 'php5-fpm') { ?>
+        <title>Edit Server</title>
+
+        <p class="login-box-msg"><b>Configuring Server <?= strtoupper($uri[3]) ?></b></p>
+        <p class="text-center">
+            <?php
+            echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
+            $_SESSION['error_msg'] = NULL;
+            $_SESSION['ok_msg'] = NULL;
+
+            //echo "<pre>", print_r($v_timezones), "</pre>";
+
+            ?>
+        </p>
+
+        <form name="v_configure_server" action="https://<?= $_SERVER['HTTP_HOST'] ?>/server/edit/<?= $uri[3] ?>" method="post">
+
+            <div class="col-4">
+                <div id="basic-options">
+                    <label for="v_max_execution_time">max_execution_time</label>
+                    <div class="input-group mb-3">
+                        <input type="text" name="v_max_execution_time" class="form-control" regexp="max_execution_time" prev_value="<?= htmlentities($v_max_execution_time) ?>" value="<?= htmlentities($v_max_execution_time) ?>">
+                    </div>
+
+                    <label for="v_max_input_time">max_input_time</label>
+                    <div class="input-group mb-3">
+                        <input type="text" name="v_max_input_time" class="form-control" regexp="max_input_time" prev_value="<?= htmlentities($v_max_input_time) ?>" value="<?= htmlentities($v_max_input_time) ?>">
+                    </div>
+
+                    <label for="v_memory_limit">memory_limit</label>
+                    <div class="input-group mb-3">
+                        <input type="text" name="v_memory_limit" class="form-control" regexp="memory_limit" prev_value="<?= htmlentities($v_memory_limit) ?>" value="<?= htmlentities($v_memory_limit) ?>">
+                    </div>
+
+                    <label for="v_error_reporting">error_reporting</label>
+                    <div class="input-group mb-3">
+                        <input type="text" name="v_error_reporting" class="form-control" regexp="error_reporting" prev_value="<?= htmlentities($v_error_reporting) ?>" value="<?= htmlentities($v_error_reporting) ?>">
+                    </div>
+
+                    <label for="v_display_errors">display_errors</label>
+                    <div class="input-group mb-3">
+                        <input type="text" name="v_display_errors" class="form-control" regexp="display_errors" prev_value="<?= htmlentities($v_display_errors) ?>" value="<?= htmlentities($v_display_errors) ?>">
+                    </div>
+
+                    <label for="v_post_max_size">post_max_size</label>
+                    <div class="input-group mb-3">
+                        <input type="text" name="v_post_max_size" class="form-control" regexp="post_max_size" prev_value="<?= htmlentities($v_post_max_size) ?>" value="<?= htmlentities($v_post_max_size) ?>">
+                    </div>
+
+                    <label for="v_upload_max_filesize">upload_max_filesize</label>
+                    <div class="input-group mb-3">
+                        <input type="text" name="v_upload_max_filesize" class="form-control" regexp="upload_max_filesize" prev_value="<?= htmlentities($v_upload_max_filesize) ?>" value="<?= htmlentities($v_upload_max_filesize) ?>">
+                    </div>
+
+                    <a href="javascript:toggleOptions();"> <?= strtoupper('Advanced Options') ?></a>
+
+                </div>
+            </div>
+
+            <div class="col-8">
+                <div id="advanced-options" style="display:<?php if (empty($v_adv)) echo 'none'; ?> ;">
+                    <a href="javascript:toggleOptions();"> <?= strtoupper('Basic Options') ?></a>
+                    <br>
+
+                    <label for="v_config"><?= $v_config_path ?></label>
+                    <div class="input-group mb-3">
+                        <textarea name="v_config" class="form-control" rows="15"><?= $v_config ?></textarea>
+                    </div>
+
+                    <div class="input-group form-control mb-3">
+                        <input type="checkbox" name="v_restart" checked=yes>
+                        <label for="v_restart"> &nbsp; Restart </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- /.col -->
+
+                <!-- /.col -->
+            </div>
+
+            <div class="col-4">
+                <button type="submit" class="btn btn-primary btn-block">Confirm</button>
+                <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/server" class="btn btn-default btn-block">Back</a>
+                <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
+                <input type="hidden" name="save" value="save">
+            </div>
+        </form>
+
+    <?php
+    } ?>
+
+    <?php if ($uri[3] == 'postgresql') { ?>
+
+    <?php
+    } ?>
+
+    <?php if ($uri[3] == 'spamassassin') { ?>
+        <title>Edit Server</title>
+        <div class="col-8">
+            <p class="login-box-msg"><b>Configuring Server <?= strtoupper($v_service_name) ?></b></p>
+            <p class="text-center">
+                <?php
+                echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
+                $_SESSION['error_msg'] = NULL;
+                $_SESSION['ok_msg'] = NULL;
+
+                //echo "<pre>", print_r($v_timezones), "</pre>";
+
+                ?>
+            </p>
+
+            <form name="v_configure_server" action="https://<?= $_SERVER['HTTP_HOST'] ?>/server/edit/<?= strtolower($v_service_name) ?>" method="post">
+
+                <label for="v_config"><?= $v_config_path ?></label>
+                <div class="input-group mb-3">
+                    <textarea name="v_config" class="form-control" rows="15"><?= $v_config ?></textarea>
+                </div>
+
+                <div class="col-4 input-group form-control mb-3">
+                    <input type="checkbox" name="v_restart" checked=yes>
+                    <label for="v_restart"> &nbsp; Restart </label>
+                </div>
+
+                <div class="row">
+                    <!-- /.col -->
+
+                    <!-- /.col -->
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Confirm</button>
+                <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/server" class="btn btn-default btn-block">Back</a>
+                <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
+                <input type="hidden" name="save" value="save">
+            </form>
+        </div>
+    <?php
+    } ?>
+
+    <?php if ($uri[3] == 'vsftpd' || $uri[3] == 'cron' || $uri[3] == 'clamd' || $uri[3] == 'crond' || $uri[3] == 'exim' || $uri[3] == 'exim4' || $uri[3] == 'fail2ban' || $uri[3] == 'named' || $uri[3] == 'proftpd' || $uri[3] == 'spamd') { ?>
+        <title>Edit Server</title>
+        <div class="col-8">
+            <p class="login-box-msg"><b>Configuring Server <?= strtoupper($v_service_name) ?></b></p>
+            <p class="text-center">
+                <?php
+                echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
+                $_SESSION['error_msg'] = NULL;
+                $_SESSION['ok_msg'] = NULL;
+
+                //echo "<pre>", print_r($v_timezones), "</pre>";
+
+                ?>
+            </p>
+
+            <form name="v_configure_server" action="https://<?= $_SERVER['HTTP_HOST'] ?>/server/edit/<?= strtolower($v_service_name) ?>" method="post">
+
+                <label for="v_config"><?= $v_config_path ?></label>
+                <div class="input-group mb-3">
+                    <textarea name="v_config" class="form-control" rows="15"><?= $v_config ?></textarea>
+                </div>
+
+                <div class="col-4 input-group form-control mb-3">
+                    <input type="checkbox" name="v_restart" checked=yes>
+                    <label for="v_restart"> &nbsp; Restart </label>
+                </div>
+
+                <div class="row">
+                    <!-- /.col -->
+
+                    <!-- /.col -->
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Confirm</button>
+                <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/server" class="btn btn-default btn-block">Back</a>
+                <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
+                <input type="hidden" name="save" value="save">
+            </form>
+        </div>
+    <?php
+    } ?>
+</body>

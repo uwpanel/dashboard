@@ -42,33 +42,33 @@
                 <td class="bs-checkbox "><input data-index="0" name="btSelectItem" type="checkbox"></td>
                 <td> <b><? echo $key ?></b></td>
                 <td>
-                    <a class="like" href="https://<?= $_SERVER['HTTP_HOST'] ?>/db/edit/<?php if (isset($_SESSION['look'])) {
-                                                                                            echo $_SESSION['look'];
-                                                                                        } else {
-                                                                                            echo $_SESSION['user'];
-                                                                                        } ?>/<?= $key ?>" title="Delete">
+                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/db/edit/<?php if (isset($_SESSION['look'])) {
+                                                                                echo $_SESSION['look'];
+                                                                            } else {
+                                                                                echo $_SESSION['user'];
+                                                                            } ?>/<?= $key ?>" title="Delete">
                         <i class="fas fa-pencil-alt"></i>
                     </a>&nbsp;
                     <?php if ($each['SUSPENDED'] != 'yes') { ?>
-                        <a class="like" href="https://<?= $_SERVER['HTTP_HOST'] ?>/db/suspend/<?php if (isset($_SESSION['look'])) {
-                                                                                                    echo $_SESSION['look'];
-                                                                                                } else {
-                                                                                                    echo $_SESSION['user'];
-                                                                                                } ?>/<?= $key ?>/<?= $_SESSION['token'] ?>" title="Suspend">
+                        <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/db/suspend/<?php if (isset($_SESSION['look'])) {
+                                                                                        echo $_SESSION['look'];
+                                                                                    } else {
+                                                                                        echo $_SESSION['user'];
+                                                                                    } ?>/<?= $key ?>/<?= $_SESSION['token'] ?>" title="Suspend">
                             <i class="fas fa-pause"></i>
                         </a>
                     <?php } else { ?>
-                        <a class="like" href="https://<?= $_SERVER['HTTP_HOST'] ?>/db/unsuspend/<?php if (isset($_SESSION['look'])) {
-                                                                                                    echo $_SESSION['look'];
-                                                                                                } else {
-                                                                                                    echo $_SESSION['user'];
-                                                                                                } ?>/<?= $key ?>/<?= $_SESSION['token'] ?>" title="Unsuspend">
+                        <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/db/unsuspend/<?php if (isset($_SESSION['look'])) {
+                                                                                        echo $_SESSION['look'];
+                                                                                    } else {
+                                                                                        echo $_SESSION['user'];
+                                                                                    } ?>/<?= $key ?>/<?= $_SESSION['token'] ?>" title="Unsuspend">
                             <i class="fas fa-play"></i>
                         </a>
                     <?php } ?>
                     &nbsp;
 
-                    <a class="like" href="" data-toggle="modal" data-target="#exampleModalLong" title="Delete">
+                    <a href="" data-toggle="modal" data-target="#exampleModalLong" title="Delete">
                         <i class="fas fa-trash"></i>
                     </a>
 

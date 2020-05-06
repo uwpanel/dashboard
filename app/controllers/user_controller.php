@@ -28,7 +28,7 @@ class UserController extends AppController
     {
         error_reporting(NULL);
         ob_start();
-
+        $_SESSION['title'] = 'Adding User';
         // Main include
         include(APP_PATH . 'libs/inc/main.php');
 
@@ -170,6 +170,7 @@ class UserController extends AppController
 
         // Main include
         include(APP_PATH . 'libs/inc/main.php');
+        $_SESSION['title'] = 'Editing User Account';
 
         // echo "<pre>", print_r($_POST, true);
         // die();

@@ -6,26 +6,56 @@
         <li class="nav-item">
             <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="#" class="nav-link">Graph</a>
-        </li>
+        <?php if ($_SESSION['user'] == 'admin' && empty($_SESSION['look'])) { ?>
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="#" class="nav-link">Graph</a>
+            </li>
+        <?php } ?>
         <li class="nav-item d-none d-sm-inline-block">
             <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/stats" class="nav-link <?php if ($uri['1'] == 'stats') echo "active"; ?>">Statistics</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
             <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/log" class="nav-link <?php if ($uri['1'] == 'log') echo "active"; ?>">Log</a>
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="#" class="nav-link">Updates</a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/server" class="nav-link <?php if ($uri['1'] == 'server') echo "active"; ?>">Server</a>
-        </li>
+        <?php if ($_SESSION['user'] == 'admin' && empty($_SESSION['look'])) { ?>
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="#" class="nav-link">Updates</a>
+            </li>
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/server" class="nav-link <?php if ($uri['1'] == 'server') echo "active"; ?>">Server</a>
+            </li>
+        <?php } ?>
     </ul>
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
         <!-- Notifications Dropdown Menu -->
+
+        <li class="nav-item dropdown">
+            <a class="nav-link" data-toggle="dropdown" href="#">
+                <i class="fa fa-plus-circle"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                <span class="dropdown-header">Quick Add</span>
+                <!-- <div class="dropdown-divider"></div>
+                <a href="#" class="dropdown-item">
+                    <i class="fas fa-envelope mr-2"></i> 4 new messages
+                    <span class="float-right text-muted text-sm">3 mins</span>
+                </a>
+                <div class="dropdown-divider"></div>
+                <a href="#" class="dropdown-item">
+                    <i class="fas fa-users mr-2"></i> 8 friend requests
+                    <span class="float-right text-muted text-sm">12 hours</span>
+                </a>
+                <div class="dropdown-divider"></div>
+                <a href="#" class="dropdown-item">
+                    <i class="fas fa-file mr-2"></i> 3 new reports
+                    <span class="float-right text-muted text-sm">2 days</span>
+                </a>
+                <div class="dropdown-divider"></div>
+                <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a> -->
+            </div>
+        </li>
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
                 <i class="far fa-bell"></i>
@@ -67,21 +97,6 @@
                         <?= $_SESSION['user'] ?>
                         <!-- <small>Member since Nov. 2012</small> -->
                     </p>
-                </li>
-                <!-- Menu Body -->
-                <li class="user-body">
-                    <div class="row">
-                        <div class="col-4 text-center">
-                            <a href="#">Followers</a>
-                        </div>
-                        <div class="col-4 text-center">
-                            <a href="#">Sales</a>
-                        </div>
-                        <div class="col-4 text-center">
-                            <a href="#">Friends</a>
-                        </div>
-                    </div>
-                    <!-- /.row -->
                 </li>
                 <!-- Menu Footer-->
                 <li class="user-footer">

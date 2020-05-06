@@ -54,19 +54,19 @@
                 <td class="bs-checkbox "><input data-index="0" name="btSelectItem" type="checkbox"></td>
                 <td> <b><? echo $key ?></b></td>
                 <td style="text-align:center">
-                    <a class="like" href="https://<?= $_SERVER['HTTP_HOST'] ?>/dns/edit/<?php if (isset($_SESSION['look'])) {
-                                                                                            echo $_SESSION['look'];
-                                                                                        } else {
-                                                                                            echo $_SESSION['user'];
-                                                                                        } ?>/<?= $key ?>" title="Edit">
+                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/dns/edit/<?php if (isset($_SESSION['look'])) {
+                                                                                echo $_SESSION['look'];
+                                                                            } else {
+                                                                                echo $_SESSION['user'];
+                                                                            } ?>/<?= $key ?>" title="Edit">
                         <i class="fas fa-pencil-alt status-icon orange status-icon dim"></i>
                     </a>
                     &nbsp;
-                    <a class="like" href="https://<?= $_SERVER['HTTP_HOST'] ?>/dns/listrecord/<?= $key ?>" title="List DNS">
+                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/dns/listrecord/<?= $key ?>" title="List DNS">
                         <i class="fas fa-list-alt status-icon orange status-icon dim"></i>
                     </a>
                     &nbsp;
-                    <a class="like" href="https://<?= $_SERVER['HTTP_HOST'] ?>/dns/addrecord/<?= $key ?>" title="Add DNS Record">
+                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/dns/addrecord/<?= $key ?>" title="Add DNS Record">
                         <i class="fas fa-plus-circle status-icon"></i>
                     </a>
                     &nbsp;
@@ -89,7 +89,7 @@
                             </a>&nbsp;
                     <?php }
                     } ?>
-                    <a class="like" href="" data-toggle="modal" data-target="#exampleModalLong" title="Delete">
+                    <a href="" data-toggle="modal" data-target="#exampleModalLong" title="Delete">
                         <i class="fas fa-trash"></i>
                     </a>
 
