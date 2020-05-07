@@ -14,94 +14,91 @@
         ?>
         <!-- Sidebar Menu -->
         <?php
-        //foreach ($result as $key => $each) {
+        // echo "<pre>", print_r($stats_result) ,"<pre>";
+        // die();
+        foreach ($stats_result as $key => $each) {
         ?>
-        <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <!-- Add icons to the links using the .nav-icon class
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-                <li class="nav-item">
-                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>" class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/') echo "active"; ?>">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>Dashboard
-                        </p>
-                    </a>
+                    <li class="nav-item">
+                        <a href="https://<?= $_SERVER['HTTP_HOST'] ?>" class="nav-link <?php if ($_SERVER['REQUEST_URI'] == '/') echo "active"; ?>">
+                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <p>Dashboard
+                            </p>
+                        </a>
 
-                </li>
-                <li class=" nav-item ">
-                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/user" class="nav-link <?php if ($active[1] == 'user') echo "active"; ?>">
-                        <i class="nav-icon fas fa-users"></i>
-                        <p>
-                            Users
-                            <span class="right badge badge-danger"><? // echo $each['U_USERS']  
-                                                                    ?></span>
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/web" class="nav-link <?php if ($active[1] == 'web' || $active[1] == 'weblog') echo "active"; ?>">
-                        <i class="nav-icon fas fa-globe"></i>
-                        <p>
-                            Web
-                            <span class="right badge badge-danger"><? // echo $each['U_WEB_DOMAINS']  
-                                                                    ?></span>
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/dns" class="nav-link <?php if ($active[1] == 'dns') echo "active"; ?>">
-                        <i class="nav-icon fas fa-sitemap"></i>
-                        <p>
-                            DNS
-                            <span class="right badge badge-danger"><? // echo $each['U_DNS_RECORDS']  
-                                                                    ?></span>
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/mail" class="nav-link <?php if ($active[1] == 'mail') echo "active"; ?>">
-                        <i class="nav-icon fas fa-envelope"></i>
-                        <p>
-                            Mail
-                            <span class="right badge badge-danger"><? // echo $each['U_MAIL_DOMAINS']  
-                                                                    ?></span>
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/db" class="nav-link <?php if ($active[1] == 'db') echo "active"; ?>">
-                        <i class="nav-icon fas fa-database"></i>
-                        <p>
-                            Database
-                            <span class="right badge badge-danger"><? // echo $each['U_DATABASES']  
-                                                                    ?></span>
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/cron" class="nav-link <?php if ($active[1] == 'cron') echo "active"; ?>">
-                        <i class="nav-icon fas fa-cogs"></i>
-                        <p>
-                            Cron Jobs
-                            <span class="right badge badge-danger"><? // echo $each['U_CRON_JOBS']  
-                                                                    ?></span>
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/back" class="nav-link <?php if ($active[1] == 'back') echo "active"; ?>">
-                        <i class="nav-icon fas fa-upload"></i>
-                        <p>
-                            Backups
-                            <span class="right badge badge-danger"><? // echo $each['U_BACKUPS']  
-                                                                    ?></span>
-                        </p>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+                    </li>
+                    <li class=" nav-item ">
+                        <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/user" class="nav-link <?php if ($active[1] == 'user') echo "active"; ?>">
+                            <i class="nav-icon fas fa-users"></i>
+                            <p>
+                                Users
+                                <span class="right badge badge-info"><?php if (!isset($_SESSION['look'])) echo $each['U_USERS'] ?></span>
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/web" class="nav-link <?php if ($active[1] == 'web' || $active[1] == 'weblog') echo "active"; ?>">
+                            <i class="nav-icon fas fa-globe"></i>
+                            <p>
+                                Web
+                                <span class="right badge badge-info" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Web Domain&nbsp; :&nbsp; <?= $each['U_WEB_DOMAINS'] ?><br>Aliases &nbsp; :&nbsp; <?= $each['U_WEB_ALIASES'] ?><br>Suspended&nbsp; :&nbsp; <?= $each['SUSPENDED_WEB'] ?>"><?= $each['U_WEB_DOMAINS'] ?></span>
+                            </p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/dns" class="nav-link <?php if ($active[1] == 'dns') echo "active"; ?>">
+                            <i class="nav-icon fas fa-sitemap"></i>
+                            <p>
+                                DNS
+                                <span class="right badge badge-info"><?= $each['U_DNS_DOMAINS']
+                                                                        ?></span>
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/mail" class="nav-link <?php if ($active[1] == 'mail') echo "active"; ?>">
+                            <i class="nav-icon fas fa-envelope"></i>
+                            <p>
+                                Mail
+                                <span class="right badge badge-info"><?= $each['U_MAIL_DOMAINS'] ?></span>
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/db" class="nav-link <?php if ($active[1] == 'db') echo "active"; ?>">
+                            <i class="nav-icon fas fa-database"></i>
+                            <p>
+                                Database
+                                <span class="right badge badge-info"><?= $each['U_DATABASES'] ?></span>
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/cron" class="nav-link <?php if ($active[1] == 'cron') echo "active"; ?>">
+                            <i class="nav-icon fas fa-cogs"></i>
+                            <p>
+                                Cron Jobs
+                                <span class="right badge badge-info"><?= $each['U_CRON_JOBS'] ?></span>
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/back" class="nav-link <?php if ($active[1] == 'back') echo "active"; ?>">
+                            <i class="nav-icon fas fa-upload"></i>
+                            <p>
+                                Backups
+                                <span class="right badge badge-info"><?= $each['U_BACKUPS'] ?></span>
+                            </p>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         <?php
-        //   }
+        }
         ?>
         <!-- /.sidebar-menu -->
     </div>

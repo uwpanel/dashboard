@@ -89,6 +89,7 @@ class LoginController extends AuthController
 
                         // Define session user
                         $_SESSION['user'] = key($data);
+                        $_SESSION['user_email'] = $data[key($data)]['CONTACT'];
                         $v_user = $_SESSION['user'];
 
                         // Check system configuration

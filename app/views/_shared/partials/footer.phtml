@@ -134,9 +134,18 @@
                 //     exportTypes: ['csv', 'txt', 'excel'],
                 // })
             }).trigger('change')
+
         })
         $('#myModal').on('shown.bs.modal', function() {
             $('#myInput').trigger('focus')
+        })
+
+        $(document).ready(function() {
+            $('[data-toggle="tooltip"]').tooltip({
+                
+                animation: true,
+                html: true
+            })
         })
     </script>
 
