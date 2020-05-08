@@ -5,7 +5,7 @@ class DbController extends AppController
     public function index()
     {
         error_reporting(NULL);
-        $_SESSION['title'] = 'DB';
+        $_SESSION['title'] = 'Database';
 
         // Main include
         include(APP_PATH . 'libs/inc/main.php');
@@ -25,10 +25,9 @@ class DbController extends AppController
 
     public function add()
     {
-
+        $_SESSION['title'] = 'Adding Database';
         error_reporting(NULL);
         ob_start();
-        $TAB = 'DB';
 
         // Main include
         include(APP_PATH . 'libs/inc/main.php');
@@ -165,6 +164,7 @@ class DbController extends AppController
 
     public function edit($param_user, $param_db)
     {
+        $_SESSION['title'] = 'Editing Database';
         error_reporting(NULL);
         ob_start();
 

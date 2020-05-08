@@ -6,8 +6,7 @@ class UserController extends AppController
     public function index()
     {
         error_reporting(NULL);
-        $TAB = 'USER';
-        $_SESSION['title'] = 'USER';
+        $_SESSION['title'] = 'User';
 
         // Main include
         include(APP_PATH . 'libs/inc/main.php');
@@ -171,9 +170,6 @@ class UserController extends AppController
         // Main include
         include(APP_PATH . 'libs/inc/main.php');
         $_SESSION['title'] = 'Editing User Account';
-
-        // echo "<pre>", print_r($_POST, true);
-        // die();
 
         // Check user argument
         if (empty($param_user)) {

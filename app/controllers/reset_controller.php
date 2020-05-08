@@ -5,6 +5,8 @@ class ResetController extends AuthController
 
     public function index()
     {
+        $_SESSION['title'] = 'Reset Password';
+
         define('NO_AUTH_REQUIRED', true);
 
         //If user is already logged in
@@ -17,6 +19,8 @@ class ResetController extends AuthController
     }
     public function r1()
     {
+        $_SESSION['title'] = 'Reset Password';
+
         // Main include
         // include(APP_PATH . 'libs/inc/main.php');
 
@@ -52,8 +56,10 @@ class ResetController extends AuthController
             //     exit;
         }
     }
+
     public function r2()
     {
+        $_SESSION['title'] = 'Reset Password';
         // Main include
         // include(APP_PATH . 'libs/inc/main.php');
 

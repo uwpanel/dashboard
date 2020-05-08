@@ -4,6 +4,8 @@ class LoginController extends AuthController
 {
     public function index()
     {
+        $_SESSION['title'] = 'Log in';
+
         // Generate CSRF token
         if (!isset($_SESSION['token'])) {
 

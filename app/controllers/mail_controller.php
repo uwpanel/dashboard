@@ -5,7 +5,7 @@ class MailController extends AppController
     public function index()
     {
         error_reporting(NULL);
-        $_SESSION['title'] = 'MAIL';
+        $_SESSION['title'] = 'Mail';
 
         // Main include
         include(APP_PATH . 'libs/inc/main.php');
@@ -23,12 +23,14 @@ class MailController extends AppController
     }
     public function add()
     {
+        $_SESSION['title'] = 'Adding Mail Domains';
         // Main include
         include(APP_PATH . 'libs/inc/main.php');
     }
 
     public function addmailacc($domain)
     {
+        $_SESSION['title'] = 'Adding Mail Accounts';
         // Main include
         include(APP_PATH . 'libs/inc/main.php');
         $this->domain = $domain;
@@ -111,6 +113,8 @@ class MailController extends AppController
 
     public function listmailacc($domain)
     {
+        $_SESSION['title'] = 'Mail Accounts';
+
         $this->domain = $domain;
         // Main include
         include(APP_PATH . 'libs/inc/main.php');
@@ -262,6 +266,7 @@ class MailController extends AppController
 
     public function edit($param_user, $param_domain, $param_account = NULL)
     {
+        $_SESSION['title'] = 'Editing Mail Domains';
         error_reporting(NULL);
         ob_start();
         $TAB = 'MAIL';
@@ -404,6 +409,8 @@ class MailController extends AppController
 
     public function editmailacc($param_user, $param_domain, $param_account)
     {
+        $_SESSION['title'] = 'Editing Mail Accounts';
+
         error_reporting(NULL);
         ob_start();
         $TAB = 'MAIL';

@@ -4,6 +4,8 @@ class WeblogController extends AppController
 {
     public function index($param_domain,$param_type = NULL)
     {
+        $_SESSION['title'] = 'Web-logs';
+
         // Init
         error_reporting(NULL);
 

@@ -5,7 +5,7 @@ class DnsController extends AppController
     public function index()
     {
         error_reporting(NULL);
-        $_SESSION['title'] = 'DNS';
+        $_SESSION['title'] = 'DNS Domains';
 
         // Main include
         include(APP_PATH . 'libs/inc/main.php');
@@ -22,7 +22,7 @@ class DnsController extends AppController
     public function listrecord($param_domain)
     {
         error_reporting(NULL);
-        $_SESSION['title'] = 'DNS';
+        $_SESSION['title'] = 'DNS Records';
 
         // Main include
         include(APP_PATH . 'libs/inc/main.php');
@@ -39,6 +39,7 @@ class DnsController extends AppController
     }
     public function add()
     {
+        $_SESSION['title'] = 'Adding DNS Domains';
         error_reporting(NULL);
         ob_start();
 
@@ -46,7 +47,6 @@ class DnsController extends AppController
         include(APP_PATH . 'libs/inc/main.php');
         // Check POST request for dns domain
         if (!empty($_POST['ok'])) {
-
             // Check token
             if ((!isset($_POST['token'])) || ($_SESSION['token'] != $_POST['token'])) {
                 header('location: /login/');
@@ -136,6 +136,8 @@ class DnsController extends AppController
 
     public function addrecord($param_domain)
     {
+        $_SESSION['title'] = 'Adding DNS Records';
+
         // Main include
         include(APP_PATH . 'libs/inc/main.php');
 
@@ -206,6 +208,7 @@ class DnsController extends AppController
 
     public function edit($param_user, $param_domain)
     {
+        $_SESSION['title'] = 'Editing DNS Domain';
         error_reporting(NULL);
         ob_start();
         $TAB = 'DNS';
@@ -326,6 +329,8 @@ class DnsController extends AppController
 
     public function editrecord($param_user, $param_domain, $param_record_id)
     {
+        $_SESSION['title'] = 'Editing DNS Record';
+
         error_reporting(NULL);
         ob_start();
         $TAB = 'DNS';

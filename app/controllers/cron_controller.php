@@ -5,7 +5,7 @@ class CronController extends AppController
     public function index()
     {
         error_reporting(NULL);
-        $_SESSION['title'] = 'CRON';
+        $_SESSION['title'] = 'Cron';
 
         // Main include
         include(APP_PATH . 'libs/inc/main.php');
@@ -27,6 +27,7 @@ class CronController extends AppController
     {
         // Init
         error_reporting(NULL);
+        $_SESSION['title'] = 'Adding Cron Job';
         ob_start();
 
         // Main include
@@ -98,8 +99,8 @@ class CronController extends AppController
 
     public function edit($param_user, $param_job, $param_token)
     {
-
         error_reporting(NULL);
+        $_SESSION['title'] = 'Editing Cron Job';
         ob_start();
         session_start();
         $TAB = 'CRON';
@@ -188,7 +189,6 @@ class CronController extends AppController
 
     public function suspend($param_user, $param_job, $param_token)
     {
-        // Init
         error_reporting(NULL);
         ob_start();
         session_start();

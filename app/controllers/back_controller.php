@@ -5,7 +5,7 @@ class BackController extends AppController
     public function index()
     {
         error_reporting(NULL);
-        $_SESSION['title'] = 'BACKUP';
+        $_SESSION['title'] = 'Backup';
 
         // Main include
         include(APP_PATH . 'libs/inc/main.php');
@@ -26,7 +26,7 @@ class BackController extends AppController
     public function listbackup($param_backup)
     {
         error_reporting(NULL);
-        $_SESSION['title'] = 'BACKUP';
+        $_SESSION['title'] = 'Listing Backup';
 
         // Main include
         include(APP_PATH . 'libs/inc/main.php');

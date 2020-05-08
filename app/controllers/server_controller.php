@@ -5,13 +5,13 @@ class ServerController extends AppController
     public function index()
     {
         error_reporting(NULL);
-        $_SESSION['title'] = 'SERVER';
+        $_SESSION['title'] = 'Server';
 
         // Main include
         include(APP_PATH . 'libs/inc/main.php');
 
         // Check user
-        if ($_SESSION['user'] != 'admin') {
+        if ($_SESSION['user'] != 'admin' || isset($_SESSION['look'])) {
             header("Location: /user");
             exit;
         }
@@ -31,13 +31,13 @@ class ServerController extends AppController
     public function info($param_type)
     {
         error_reporting(NULL);
-        $_SESSION['title'] = 'SERVER INFO';
+        $_SESSION['title'] = 'Server Info';
 
         // Main include
         include(APP_PATH . 'libs/inc/main.php');
 
         // Check user
-        if ($_SESSION['user'] != 'admin') {
+        if ($_SESSION['user'] != 'admin' || isset($_SESSION['look'])) {
             header("Location: /user");
             exit;
         }
@@ -118,13 +118,13 @@ class ServerController extends AppController
     public function edit($param_type = NULL)
     {
         error_reporting(NULL);
-        $_SESSION['title'] = 'SERVER';
+        $_SESSION['title'] = 'Configuring Server';
 
         // Main include
         include(APP_PATH . 'libs/inc/main.php');
 
         // Check user
-        if ($_SESSION['user'] != 'admin') {
+        if ($_SESSION['user'] != 'admin' || isset($_SESSION['look'])) {
             header("Location: /user");
             exit;
         }

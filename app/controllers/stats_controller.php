@@ -6,7 +6,7 @@ class StatsController extends AppController
     public function index()
     {
         error_reporting(NULL);
-        $_SESSION['title'] = 'STATS';
+        $_SESSION['title'] = 'Statistics';
 
         // Main include
         include(APP_PATH . 'libs/inc/main.php');
