@@ -1,75 +1,73 @@
-<body>
-    <div class="col-4">
-        <p class="login-box-msg"><b></b></p>
-        <p class="text-center">
-            <?php
-            echo $_SESSION['error_msg'];
-            $_SESSION['error_msg'] = NULL;
-            ?>
-        </p>
-        <form name="v_add_user" action="https://<?= $_SERVER['HTTP_HOST'] ?>/user/adduser" method="post">
-            <label for="v_username">Username</label> <span style="color:red">*</span>
-            <div class="input-group mb-3">
-                <input type="text" name="v_username" class="form-control" placeholder="Username" required>
-            </div>
-            <label for="v_password">Password </label> <span style="color:red">*</span>
-            <div class="input-group mb-3">
-                <input type="password" name="v_password" class="form-control" placeholder="Password" required>
-            </div>
-            <label for="v_email">Email</label> <span style="color:red">*</span>
-            <div class="input-group mb-3">
-                <input type="text" name="v_email" class="form-control" placeholder="Email" required>
-            </div>
-            <label for="v_package">Package</label>
-            <div class="input-group mb-3">
-                <select name="v_package" class="form-control">
-                    <?php
-                    foreach ($data as $key => $value) { ?>
-                        <option value="<?= $key ?>" <?php if ($key == 'default') {
+<div class="col-4">
+    <p class="login-box-msg"><b></b></p>
+    <p class="text-center">
+        <?php
+        echo $_SESSION['error_msg'];
+        $_SESSION['error_msg'] = NULL;
+        ?>
+    </p>
+    <form name="v_add_user" action="https://<?= $_SERVER['HTTP_HOST'] ?>/user/adduser" method="post">
+        <label for="v_username">Username</label> <span style="color:red">*</span>
+        <div class="input-group mb-3">
+            <input type="text" name="v_username" class="form-control" placeholder="Username" required>
+        </div>
+        <label for="v_password">Password </label> <span style="color:red">*</span>
+        <div class="input-group mb-3">
+            <input type="password" name="v_password" class="form-control" placeholder="Password" required>
+        </div>
+        <label for="v_email">Email</label> <span style="color:red">*</span>
+        <div class="input-group mb-3">
+            <input type="text" name="v_email" class="form-control" placeholder="Email" required>
+        </div>
+        <label for="v_package">Package</label>
+        <div class="input-group mb-3">
+            <select name="v_package" class="form-control">
+                <?php
+                foreach ($data as $key => $value) { ?>
+                    <option value="<?= $key ?>" <?php if ($key == 'default') {
+                                                    echo 'selected';
+                                                } ?>><?= $key; ?></option>
+                <?php } ?>
+            </select>
+        </div>
+        <label for="v_language">Language</label>
+        <div class="input-group mb-3">
+            <select name="v_language" class="form-control">
+                <?php
+                foreach ($languages as $key => $value) { ?>
+                    <option value="<?= $value ?>" <?php if (($value == $_SESSION['LANGUAGE']) && (empty($v_language))) {
                                                         echo 'selected';
-                                                    } ?>><?= $key; ?></option>
-                    <?php } ?>
-                </select>
-            </div>
-            <label for="v_language">Language</label>
-            <div class="input-group mb-3">
-                <select name="v_language" class="form-control">
-                    <?php
-                    foreach ($languages as $key => $value) { ?>
-                        <option value="<?= $value ?>" <?php if (($value == $_SESSION['LANGUAGE']) && (empty($v_language))) {
-                                                            echo 'selected';
-                                                        }
-                                                        if (isset($v_language)) {
-                                                            echo 'selected';
-                                                        }    ?>><?= $value; ?></option>
-                    <?php } ?>
-                </select>
-            </div>
-            <label for="v_fname">First Name</label> <span style="color:red">*</span>
-            <div class="input-group mb-3">
-                <input type="text" name="v_fname" class="form-control" placeholder="First Name" required>
-            </div>
-            <label for="v_lname">Last Name</label> <span style="color:red">*</span>
-            <div class="input-group mb-3">
-                <input type="text" name="v_lname" class="form-control" placeholder="Last Name" required>
-            </div>
-            <label for="v_notify">Send login credentials to email address</label>
-            <div class="input-group mb-3">
-                <input type="text" name="v_notify" class="form-control" placeholder="Send login credentials to this email">
-            </div>
-            <div class="row">
-                <!-- /.col -->
+                                                    }
+                                                    if (isset($v_language)) {
+                                                        echo 'selected';
+                                                    }    ?>><?= $value; ?></option>
+                <?php } ?>
+            </select>
+        </div>
+        <label for="v_fname">First Name</label> <span style="color:red">*</span>
+        <div class="input-group mb-3">
+            <input type="text" name="v_fname" class="form-control" placeholder="First Name" required>
+        </div>
+        <label for="v_lname">Last Name</label> <span style="color:red">*</span>
+        <div class="input-group mb-3">
+            <input type="text" name="v_lname" class="form-control" placeholder="Last Name" required>
+        </div>
+        <label for="v_notify">Send login credentials to email address</label>
+        <div class="input-group mb-3">
+            <input type="text" name="v_notify" class="form-control" placeholder="Send login credentials to this email">
+        </div>
+        <div class="row">
+            <!-- /.col -->
 
-                <!-- /.col -->
-            </div>
+            <!-- /.col -->
+        </div>
 
-            <button type="submit" class="btn btn-primary btn-block">Confirm</button>
-            <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/user" class="btn btn-default btn-block">Back</a>
-            <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
-            <input type="hidden" name="ok" value="Add">
-        </form>
-    </div>
-</body>
+        <button type="submit" class="btn btn-primary btn-block">Confirm</button>
+        <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/user" class="btn btn-default btn-block">Back</a>
+        <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
+        <input type="hidden" name="ok" value="Add">
+    </form>
+</div>
 
 <?php
 // echo "<pre>", print_r($data);

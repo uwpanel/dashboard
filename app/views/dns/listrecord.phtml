@@ -1,16 +1,9 @@
-<?php
-$uri = explode('/', $_SERVER['REQUEST_URI']);
-?>
-<div class="select" style="display:none">
-    <select class="form-control" id="locale">
-        <option value="en-US" selected>en-US</option>
-    </select>
-</div>
 <p class="text-center">
     <?php
     echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
     $_SESSION['error_msg'] = NULL;
     $_SESSION['ok_msg'] = NULL;
+    $uri = explode('/', $_SERVER['REQUEST_URI']);
     ?>
 </p>
 <div>

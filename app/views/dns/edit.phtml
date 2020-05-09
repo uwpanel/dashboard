@@ -1,77 +1,66 @@
-<?php
-// echo "<pre>", print_r($templates, true), "</pre>";
-?>
+<div class="col-4">
+    <p class="login-box-msg"><b>Editing DNS</b></p>
+    <p class="text-center">
+        <?php
+        echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
+        $_SESSION['error_msg'] = NULL;
+        $_SESSION['ok_msg'] = NULL;
+        ?>
+    </p>
 
-<body>
+    <form name="v_edit_dns" action="https://<?= $_SERVER['HTTP_HOST'] ?>/dns/edit/<?php if (isset($_SESSION['look'])) {
+                                                                                        echo $_SESSION['look'];
+                                                                                    } else {
+                                                                                        echo $_SESSION['user'];
+                                                                                    } ?>/<?= $v_domain ?>" method="post">
 
-    <title>Edit DNS</title>
+        <label for="v_domain">Domain</label>
+        <div class="input-group mb-3">
+            <input type="text" name="v_domain" class="form-control" value="<?= $v_domain ?>" disabled>
+            <input type="hidden" name="v_domain" value="<?= $v_domain ?>">
+        </div>
 
-    <div class="col-4">
-        <p class="login-box-msg"><b>Editing DNS</b></p>
-        <p class="text-center">
-            <?php
-            echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
-            $_SESSION['error_msg'] = NULL;
-            $_SESSION['ok_msg'] = NULL;
-            ?>
-        </p>
+        <label for="v_ip">IP</label>
+        <div class="input-group mb-3">
+            <input type="text" name="v_ip" class="form-control" value="<?= $v_ip ?>">
+        </div>
 
-        <form name="v_edit_dns" action="https://<?= $_SERVER['HTTP_HOST'] ?>/dns/edit/<?php if (isset($_SESSION['look'])) {
-                                                                                            echo $_SESSION['look'];
-                                                                                        } else {
-                                                                                            echo $_SESSION['user'];
-                                                                                        } ?>/<?= $v_domain ?>" method="post">
+        <label for="v_template"> Template </label>&emsp;<?= strtoupper($_SESSION['DNS_SYSTEM']) ?>
+        <div class="input-group mb-3">
+            <select class="form-control" name="v_template">
+                <?php foreach ($templates as $template) { ?>
+                    <option value="<?= $template ?>" <?php
+                                                        if ((!empty($v_template)) && ($template == $v_template) || ($template == $v_template)) {
+                                                            echo ' selected';
+                                                        } ?>>
+                        <?= $template ?>
+                    </option>
+                <?php } ?>
+            </select>
+        </div>
 
-            <label for="v_domain">Domain</label>
-            <div class="input-group mb-3">
-                <input type="text" name="v_domain" class="form-control" value="<?= $v_domain ?>" disabled>
-                <input type="hidden" name="v_domain" value="<?= $v_domain ?>">
-            </div>
+        <label for="v_exp">Expiration Date</label>&emsp;<?= "YYYY-MM-DD" ?>
+        <div class="input-group mb-3">
+            <input type="text" name="v_exp" class="form-control" value="<?= $v_exp ?>">
+        </div>
 
-            <label for="v_ip">IP</label>
-            <div class="input-group mb-3">
-                <input type="text" name="v_ip" class="form-control" value="<?= $v_ip ?>">
-            </div>
+        <label for="v_soa">SOA</label>
+        <div class="input-group mb-3">
+            <input type="text" name="v_soa" class="form-control" value="<?= $v_soa ?>">
+        </div>
 
-            <label for="v_template"> Template </label>&emsp;<?= strtoupper($_SESSION['DNS_SYSTEM']) ?>
-            <div class="input-group mb-3">
-                <select class="form-control" name="v_template">
-                    <?php foreach ($templates as $template) { ?>
-                        <option value="<?= $template ?>" <?php
-                                                            if ((!empty($v_template)) && ($template == $v_template) || ($template == $v_template)) {
-                                                                echo ' selected';
-                                                            } ?>>
-                            <?= $template ?>
-                        </option>
-                    <?php } ?>
-                </select>
-            </div>
+        <label for="v_ttl">TTL</label>
+        <div class="input-group mb-3">
+            <input type="text" name="v_ttl" class="form-control" value="<?= $v_ttl ?>">
+        </div>
 
-            <label for="v_exp">Expiration Date</label>&emsp;<?= "YYYY-MM-DD" ?>
-            <div class="input-group mb-3">
-                <input type="text" name="v_exp" class="form-control" value="<?= $v_exp ?>">
-            </div>
+        <button type="submit" class="btn btn-primary btn-block">Confirm</button>
 
-            <label for="v_soa">SOA</label>
-            <div class="input-group mb-3">
-                <input type="text" name="v_soa" class="form-control" value="<?= $v_soa ?>">
-            </div>
+        <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/dns" class="btn btn-default btn-block">Back</a>
 
-            <label for="v_ttl">TTL</label>
-            <div class="input-group mb-3">
-                <input type="text" name="v_ttl" class="form-control" value="<?= $v_ttl ?>">
-            </div>
-
-            <button type="submit" class="btn btn-primary btn-block">Confirm</button>
-
-            <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/dns" class="btn btn-default btn-block">Back</a>
-
-            <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
-            <input type="hidden" name="save" value="save">
-        </form>
-    </div>
-
-</body>
-
+        <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
+        <input type="hidden" name="save" value="save">
+    </form>
+</div>
 <?php
     // echo "<pre>", print_r($data);

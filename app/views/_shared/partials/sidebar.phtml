@@ -25,7 +25,6 @@
                             <p>Dashboard
                             </p>
                         </a>
-
                     </li>
                     <li class=" nav-item ">
                         <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/user" class="nav-link <?php if ($active[1] == 'user') echo "active"; ?>">
@@ -33,16 +32,16 @@
                             <p>
                                 Users
                                 <?php if ($_SESSION['user'] == 'admin' && empty($_SESSION['look'])) { ?>
-                                    <div class="right">
-                                        <span class="badge badge-success" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Users"><?= $each['U_USERS'] ?></span>
-                                        <span class="badge badge-danger" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Suspended"><?= $each['SUSPENDED_USERS'] ?></span>
-                                    </div>
+                                    <span class="right ">
+                                        <span class=" badge badge-success" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Users"><?= $each['U_USERS'] ?></span>
+                                        <span class=" badge badge-danger" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Suspended"><?= $each['SUSPENDED_USERS'] ?></span>
+                                    </span>
 
                                 <? } else { ?>
-                                    <div class="right">
+                                    <span class="right">
                                         <span class="badge badge-success" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Disk"><?= $each['U_DISK'] ?></span>
                                         <span class="badge badge-info" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Bandwidth"><?= $each['U_BANDWIDTH'] ?></span>
-                                    </div>
+                                    </span>
                                 <? } ?>
                             </p>
                         </a>
@@ -52,11 +51,11 @@
                             <i class="nav-icon fas fa-globe"></i>
                             <p>
                                 Web
-                                <div class="right">
+                                <span class="right">
                                     <span class="badge badge-success" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Web Domains"><?= $each['U_WEB_DOMAINS'] ?></span>
                                     <span class="badge badge-info" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Aliases"><?= $each['U_WEB_ALIASES'] ?></span>
                                     <span class="badge badge-danger" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Suspended"><?= $each['SUSPENDED_WEB'] ?></span>
-                                </div>
+                                </span>
                             </p>
                         </a>
                     </li>
@@ -66,11 +65,11 @@
                             <i class="nav-icon fas fa-sitemap"></i>
                             <p>
                                 DNS
-                                <div class="right">
+                                <span class="right">
                                     <span class="badge badge-success" data-toggle="tooltip" data-placement="bottom" data-html="true" title="DNS Domains"><?= $each['U_DNS_DOMAINS'] ?></span>
                                     <span class="badge badge-info" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Records"><?= $each['U_DNS_RECORDS'] ?></span>
                                     <span class="badge badge-danger" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Suspended"><?= $each['SUSPENDED_DNS'] ?></span>
-                                </div>
+                                </span>
                             </p>
                         </a>
                     </li>
@@ -79,11 +78,11 @@
                             <i class="nav-icon fas fa-envelope"></i>
                             <p>
                                 Mail
-                                <div class="right">
+                                <span class="right">
                                     <span class="badge badge-success" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Mail Domains"><?= $each['U_MAIL_DOMAINS'] ?></span>
                                     <span class="badge badge-info" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Mail Accounts"><?= $each['U_MAIL_ACCOUNTS'] ?></span>
                                     <span class="badge badge-danger" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Suspended"><?= $each['SUSPENDED_MAIL'] ?></span>
-                                </div>
+                                </span>
                             </p>
                         </a>
                     </li>
@@ -92,10 +91,10 @@
                             <i class="nav-icon fas fa-database"></i>
                             <p>
                                 Database
-                                <div class="right">
+                                <span class="right">
                                     <span class="badge badge-success" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Databases"><?= $each['U_DATABASES'] ?></span>
                                     <span class="badge badge-danger" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Suspended"><?= $each['SUSPENDED_DB'] ?></span>
-                                </div>
+                                </span>
                             </p>
                         </a>
                     </li>
@@ -104,10 +103,10 @@
                             <i class="nav-icon fas fa-cogs"></i>
                             <p>
                                 Cron Jobs
-                                <div class="right">
+                                <span class="right">
                                     <span class="badge badge-success" data-toggle="tooltip" data-placement="bottom" data-html="true" title="CRON Jobss"><?= $each['U_CRON_JOBS'] ?></span>
                                     <span class="badge badge-danger" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Suspended"><?= $each['SUSPENDED_CRON'] ?></span>
-                                </div>
+                                </span>
                             </p>
                         </a>
                     </li>
@@ -116,9 +115,9 @@
                             <i class="nav-icon fas fa-upload"></i>
                             <p>
                                 Backups
-                                <div class="right">
+                                <span class="right">
                                     <span class="badge badge-success" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Backups"><?= $each['U_BACKUPS'] ?></span>
-                                </div>
+                                </span>
                             </p>
                         </a>
                     </li>

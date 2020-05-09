@@ -1,68 +1,59 @@
-<body>
-    <?
-    // echo "<pre>", print_r($data, true), "</pre>";
-    ?>
+<div class="col-4">
+    <p class="login-box-msg"><b>Adding DNS Record</b></p>
+    <p class="text-center">
+        <?php
+        echo $_SESSION['error_msg'];
+        $_SESSION['error_msg'] = NULL;
+        ?>
+    </p>
 
-    <title>Add DNS</title>
+    <form name="v_add_dns_rec" action="https://<?= $_SERVER['HTTP_HOST'] ?>/dns/addrecord/<?= $domain ?>" method="post">
 
-    <div class="col-4">
-        <p class="login-box-msg"><b>Adding DNS Record</b></p>
-        <p class="text-center">
-            <?php
-            echo $_SESSION['error_msg'];
-            $_SESSION['error_msg'] = NULL;
-            ?>
-        </p>
+        <label for="v_domain">Domain</label>
+        <div class="input-group mb-3">
+            <input type="text" name="v_domain" class="form-control" placeholder="Domain" value="<?= $domain ?>" disabled>
+            <input type="hidden" name="v_domain" value="<?= $domain ?>">
+        </div>
 
-        <form name="v_add_dns_rec" action="https://<?= $_SERVER['HTTP_HOST'] ?>/dns/addrecord/<?= $domain ?>" method="post">
+        <label for="v_rec">Record</label> <span style="color:red">*</span>
+        <div class="input-group mb-3">
+            <input type="text" name="v_rec" class="form-control" placeholder="Record" required>
+        </div>
 
-            <label for="v_domain">Domain</label>
-            <div class="input-group mb-3">
-                <input type="text" name="v_domain" class="form-control" placeholder="Domain" value="<?= $domain ?>" disabled>
-                <input type="hidden" name="v_domain" value="<?= $domain ?>">
-            </div>
+        <label for="v_type">Type</label>
+        <select name="v_type" class="form-control input-group mb-3">
+            <option value="A" <?php if ($v_type == 'A') echo 'selected'; ?>>A</option>
+            <option value="AAAA" <?php if ($v_type == 'AAAA') echo 'selected'; ?>>AAAA</option>
+            <option value="NS" <?php if ($v_type == 'NS') echo 'selected'; ?>>NS</option>
+            <option value="CNAME" <?php if ($v_type == 'CNAME') echo 'selected'; ?>>CNAME</option>
+            <option value="MX" <?php if ($v_type == 'MX') echo 'selected'; ?>>MX</option>
+            <option value="TXT" <?php if ($v_type == 'TXT') echo 'selected'; ?>>TXT</option>
+            <option value="SRV" <?php if ($v_type == 'SRV') echo 'selected'; ?>>SRV</option>
+            <option value="DNSKEY" <?php if ($v_type == 'DNSKEY') echo 'selected'; ?>>DNSKEY</option>
+            <option value="KEY" <?php if ($v_type == 'KEY') echo 'selected'; ?>>KEY</option>
+            <option value="IPSECKEY" <?php if ($v_type == 'IPSECKEY') echo 'selected'; ?>>IPSECKEY</option>
+            <option value="PTR" <?php if ($v_type == 'PTR') echo 'selected'; ?>>PTR</option>
+            <option value="SPF" <?php if ($v_type == 'SPF') echo 'selected'; ?>>SPF</option>
+            <option value="TLSA" <?php if ($v_type == 'TLSA') echo 'selected'; ?>>TLSA</option>
+            <option value="CAA" <?php if ($v_type == 'CAA') echo 'selected'; ?>>CAA</option>
+        </select>
 
-            <label for="v_rec">Record</label> <span style="color:red">*</span>
-            <div class="input-group mb-3">
-                <input type="text" name="v_rec" class="form-control" placeholder="Record" required>
-            </div>
+        <label for="v_val">IP or Value</label> <span style="color:red">*</span>
+        <div class="input-group mb-3">
+            <input type="text" name="v_val" class="form-control" placeholder="IP or Value" required>
+        </div>
 
-            <label for="v_type">Type</label>
-            <select name="v_type" class="form-control input-group mb-3">
-                <option value="A" <?php if ($v_type == 'A') echo 'selected'; ?>>A</option>
-                <option value="AAAA" <?php if ($v_type == 'AAAA') echo 'selected'; ?>>AAAA</option>
-                <option value="NS" <?php if ($v_type == 'NS') echo 'selected'; ?>>NS</option>
-                <option value="CNAME" <?php if ($v_type == 'CNAME') echo 'selected'; ?>>CNAME</option>
-                <option value="MX" <?php if ($v_type == 'MX') echo 'selected'; ?>>MX</option>
-                <option value="TXT" <?php if ($v_type == 'TXT') echo 'selected'; ?>>TXT</option>
-                <option value="SRV" <?php if ($v_type == 'SRV') echo 'selected'; ?>>SRV</option>
-                <option value="DNSKEY" <?php if ($v_type == 'DNSKEY') echo 'selected'; ?>>DNSKEY</option>
-                <option value="KEY" <?php if ($v_type == 'KEY') echo 'selected'; ?>>KEY</option>
-                <option value="IPSECKEY" <?php if ($v_type == 'IPSECKEY') echo 'selected'; ?>>IPSECKEY</option>
-                <option value="PTR" <?php if ($v_type == 'PTR') echo 'selected'; ?>>PTR</option>
-                <option value="SPF" <?php if ($v_type == 'SPF') echo 'selected'; ?>>SPF</option>
-                <option value="TLSA" <?php if ($v_type == 'TLSA') echo 'selected'; ?>>TLSA</option>
-                <option value="CAA" <?php if ($v_type == 'CAA') echo 'selected'; ?>>CAA</option>
-            </select>
+        <label for="v_priority">Priority</label> <span><i>(Optional)</i></span>
+        <div class="input-group mb-3">
+            <input type="text" name="v_priority" class="form-control" placeholder="Priority">
+        </div>
 
-            <label for="v_val">IP or Value</label> <span style="color:red">*</span>
-            <div class="input-group mb-3">
-                <input type="text" name="v_val" class="form-control" placeholder="IP or Value" required>
-            </div>
+        <button type="submit" class="btn btn-primary btn-block">Confirm</button>
 
-            <label for="v_priority">Priority</label> <span><i>(Optional)</i></span>
-            <div class="input-group mb-3">
-                <input type="text" name="v_priority" class="form-control" placeholder="Priority">
-            </div>
+        <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/dns" class="btn btn-default btn-block">Back</a>
 
-            <button type="submit" class="btn btn-primary btn-block">Confirm</button>
+        <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>" />
+        <input type="hidden" name="ok_rec" value="add" />
 
-            <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/dns" class="btn btn-default btn-block">Back</a>
-
-            <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>" />
-            <input type="hidden" name="ok_rec" value="add" />
-
-        </form>
-    </div>
-
-</body>
+    </form>
+</div>

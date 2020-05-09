@@ -1,70 +1,59 @@
-<?php
-// echo "<pre>", print_r($v_val, true), "</pre>";
-?>
+<div class="col-4">
+    <p class="login-box-msg"><b>Editing DNS Record</b></p>
+    <p class="text-center">
+        <?php
+        echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
+        $_SESSION['error_msg'] = NULL;
+        $_SESSION['ok_msg'] = NULL;
+        ?>
+    </p>
 
-<body>
+    <form name="v_edit_dns" action="https://<?= $_SERVER['HTTP_HOST'] ?>/dns/editrecord/<?php if (isset($_SESSION['look'])) {
+                                                                                            echo $_SESSION['look'];
+                                                                                        } else {
+                                                                                            echo $_SESSION['user'];
+                                                                                        } ?>/<?= htmlentities(trim($v_domain, "'")) ?>/<?= htmlentities(trim($v_record_id, "'")) ?>" method="post">
 
-    <title>Edit DNS Record</title>
+        <label for="v_domain">Domain</label>
+        <div class="input-group mb-3">
+            <input type="text" name="v_domain" class="form-control" value="<?= htmlentities(trim($v_domain, "'")) ?>" disabled>
+            <input type="hidden" name="v_domain" value="<?= htmlentities(trim($v_domain, "'")) ?>">
+        </div>
 
-    <div class="col-4">
-        <p class="login-box-msg"><b>Editing DNS Record</b></p>
-        <p class="text-center">
-            <?php
-            echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
-            $_SESSION['error_msg'] = NULL;
-            $_SESSION['ok_msg'] = NULL;
-            ?>
-        </p>
+        <label for="v_rec">Record</label>
+        <div class="input-group mb-3">
+            <input type="text" name="v_rec" class="form-control" value="<?= htmlentities(trim($v_rec, "'")) ?>" disabled>
+            <input type="hidden" name="v_rec" value="<?= htmlentities(trim($v_rec, "'"))  ?>">
+        </div>
 
-        <form name="v_edit_dns" action="https://<?= $_SERVER['HTTP_HOST'] ?>/dns/editrecord/<?php if (isset($_SESSION['look'])) {
-                                                                                                echo $_SESSION['look'];
-                                                                                            } else {
-                                                                                                echo $_SESSION['user'];
-                                                                                            } ?>/<?= htmlentities(trim($v_domain, "'")) ?>/<?= htmlentities(trim($v_record_id, "'")) ?>" method="post">
+        <label for="v_rec">Type</label>
+        <div class="input-group mb-3">
+            <input type="text" name="v_type" class="form-control" value="<?= htmlentities(trim($v_type, "'"))  ?>" disabled>
+            <input type="hidden" name="v_type" value="<?= htmlentities(trim($v_type, "'")) ?>">
+        </div>
 
-            <label for="v_domain">Domain</label>
-            <div class="input-group mb-3">
-                <input type="text" name="v_domain" class="form-control" value="<?= htmlentities(trim($v_domain, "'")) ?>" disabled>
-                <input type="hidden" name="v_domain" value="<?= htmlentities(trim($v_domain, "'")) ?>">
-            </div>
+        <label for="v_val">IP or Value</label>
+        <div class="input-group mb-3">
+            <input type="text" name="v_val" class="form-control" value="<?= htmlentities(trim($v_val, "'")) ?>">
+        </div>
 
-            <label for="v_rec">Record</label>
-            <div class="input-group mb-3">
-                <input type="text" name="v_rec" class="form-control" value="<?= htmlentities(trim($v_rec, "'")) ?>" disabled>
-                <input type="hidden" name="v_rec" value="<?= htmlentities(trim($v_rec, "'"))  ?>">
-            </div>
+        <label for="v_priority">Priority</label>&emsp;<?= "(Optional)" ?>
+        <div class="input-group mb-3">
+            <input type="text" name="v_priority" class="form-control" value="<?= htmlentities(trim($v_priority, "'")) ?>">
+        </div>
 
-            <label for="v_rec">Type</label>
-            <div class="input-group mb-3">
-                <input type="text" name="v_type" class="form-control" value="<?= htmlentities(trim($v_type, "'"))  ?>" disabled>
-                <input type="hidden" name="v_type" value="<?= htmlentities(trim($v_type, "'")) ?>">
-            </div>
+        <label for="v_record_id">Record Number</label>&emsp;<?= "(Internal)" ?>
+        <div class="input-group mb-3">
+            <input type="text" name="v_record_id" class="form-control" value="<?= htmlentities(trim($v_record_id, "'")) ?>">
+        </div>
 
-            <label for="v_val">IP or Value</label>
-            <div class="input-group mb-3">
-                <input type="text" name="v_val" class="form-control" value="<?= htmlentities(trim($v_val, "'")) ?>">
-            </div>
+        <button type="submit" class="btn btn-primary btn-block">Confirm</button>
 
-            <label for="v_priority">Priority</label>&emsp;<?= "(Optional)" ?>
-            <div class="input-group mb-3">
-                <input type="text" name="v_priority" class="form-control" value="<?= htmlentities(trim($v_priority, "'")) ?>">
-            </div>
+        <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/dns" class="btn btn-default btn-block">Back</a>
 
-            <label for="v_record_id">Record Number</label>&emsp;<?= "(Internal)" ?>
-            <div class="input-group mb-3">
-                <input type="text" name="v_record_id" class="form-control" value="<?= htmlentities(trim($v_record_id, "'")) ?>">
-            </div>
-
-            <button type="submit" class="btn btn-primary btn-block">Confirm</button>
-
-            <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/dns" class="btn btn-default btn-block">Back</a>
-
-            <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
-            <input type="hidden" name="save" value="save">
-        </form>
-    </div>
-
-</body>
-
+        <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
+        <input type="hidden" name="save" value="save">
+    </form>
+</div>
 <?php
     // echo "<pre>", print_r($data);

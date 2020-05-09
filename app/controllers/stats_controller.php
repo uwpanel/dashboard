@@ -14,13 +14,13 @@ class StatsController extends AppController
         $user = $_SESSION['user'];
         // Data
         if ($user == 'admin') {
-            if (empty($_GET['user'])) {
+            if (empty($_SESSION['look'])) {
                 exec(VESTA_CMD . "v-list-users-stats json", $output, $return_var);
                 $data = json_decode(implode('', $output), true);
                 $this->data = array_reverse($data, true);
                 unset($output);
             } else {
-                $v_user = escapeshellarg($_GET['user']);
+                $v_user = escapeshellarg($user);
                 exec(VESTA_CMD . "v-list-user-stats $v_user json", $output, $return_var);
                 $data = json_decode(implode('', $output), true);
                 $this->data = array_reverse($data, true);
@@ -37,10 +37,6 @@ class StatsController extends AppController
             unset($output);
         }
 
-        // echo "<pre>",print_r($this->data);die();
-
-        // Render page
-        render_page($user, $TAB, 'list_stats');
 
         // Back uri
         $_SESSION['back'] = $_SERVER['REQUEST_URI'];

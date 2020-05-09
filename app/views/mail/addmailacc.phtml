@@ -1,108 +1,87 @@
-<!DOCTYPE html>
-<html lang="en">
+<div class="col-4">
+    <p class="login-box-msg"><b>Adding Mail Account</b></p>
+    <p class="text-center">
+        <?php
+        echo $_SESSION['error_msg'];
+        $_SESSION['error_msg'] = NULL;
+        ?>
+    </p>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+    <form name="v_add_mail_account" action="https://<?= $_SERVER['HTTP_HOST'] ?>/mail/addmailaccount" method="post">
+        <label for="v_domain">Domain</label>
+        <div class="input-group mb-3">
+            <input type="text" name="v_domain" class="form-control" placeholder="Domain" value="<?= $domain ?>" disabled>
+            <input type="hidden" name="v_domain" class="form-control" placeholder="Domain" value="<?= $domain ?>">
+        </div>
+        <label for="v_account">Account</label> <span style="color:red">*</span>
+        <div class="input-group mb-3">
+            <input type="text" name="v_account" class="form-control" placeholder="Account" required>
+        </div>
+        <label for="v_password">Password </label> <span style="color:red">*</span>
+        <div class="input-group mb-3">
+            <input type="text" name="v_password" class="form-control" placeholder="Password" required>
+        </div>
+        <div class="input-group mb-3">
+            <b><u><a href="javascript:elementHideShow('advtable');" style="text-decoration: none;color : #000;">Advanced options</a></u></b>
+        </div>
 
-<body>
-    <?
-    // echo "<pre>", print_r($data, true), "</pre>";
-    ?>
+        <table style="display:<?php if (empty($v_adv)) echo 'none'; ?> ;" id="advtable">
+            <tr>
+                <td class="vst-text input-label">
+                    <?php print __('Quota'); ?> <span class="optional">(<?= __('in megabytes') ?>)</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" size="20" class="vst-input" name="v_quota" value="<?= htmlentities(trim($v_quota, "'")) ?>">
+                    <img class="unlim-trigger" id="unlim-quota" src="/images/unlim.png" />
+                </td>
+            </tr>
+            <tr>
+                <td class="vst-text input-label">
+                    <?php print __('Aliases'); ?> <span class="optional">(<?= __('use local-part') ?>)</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <textarea size="20" class="vst-textinput" name="v_aliases"><?= htmlentities(trim($v_aliases, "'")) ?></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td class="vst-text input-label">
+                    <?php print __('Forward to'); ?> <span class="optional">(<?= __('one or more email addresses') ?>)</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <textarea size="20" class="vst-textinput" name="v_fwd"><?= htmlentities(trim($v_fwd, "'")) ?></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td class="vst-text input-label">
+                    <label><input type="checkbox" size="20" class="vst-checkbox" name="v_fwd_only" <?php if ($v_fwd_only == 'yes') echo "checked=yes" ?>>
+                        <?php print __('Do not store forwarded mail'); ?></label>
+                </td>
+            </tr>
+        </table>
 
-    <title>Add Mail Account</title>
+        <label for="v_send_email">Send login credentials to email address</label>
+        <div class="input-group mb-3">
+            <input type="text" name="v_send_email" class="form-control" placeholder="Send Login credentials to this email">
+        </div>
 
-    <div class="col-4">
-        <p class="login-box-msg"><b>Adding Mail Account</b></p>
-        <p class="text-center">
-            <?php
-            echo $_SESSION['error_msg'];
-            $_SESSION['error_msg'] = NULL;
-            ?>
-        </p>
+        <div class="row">
+            <!-- /.col -->
+            <!-- /.col -->
+        </div>
 
-        <form name="v_add_mail_account" action="https://<?= $_SERVER['HTTP_HOST'] ?>/mail/addmailaccount" method="post">
-            <label for="v_domain">Domain</label>
-            <div class="input-group mb-3">
-                <input type="text" name="v_domain" class="form-control" placeholder="Domain" value="<?= $domain ?>" disabled>
-                <input type="hidden" name="v_domain" class="form-control" placeholder="Domain" value="<?= $domain ?>">
-            </div>
-            <label for="v_account">Account</label> <span style="color:red">*</span>
-            <div class="input-group mb-3">
-                <input type="text" name="v_account" class="form-control" placeholder="Account" required>
-            </div>
-            <label for="v_password">Password </label> <span style="color:red">*</span>
-            <div class="input-group mb-3">
-                <input type="text" name="v_password" class="form-control" placeholder="Password" required>
-            </div>
-            <div class="input-group mb-3">
-                <b><u><a href="javascript:elementHideShow('advtable');" style="text-decoration: none;color : #000;">Advanced options</a></u></b>
-            </div>
+        <button type="submit" class="btn btn-primary btn-block">Confirm</button>
+        <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/mail" class="btn btn-default btn-block">Back</a>
+        <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
+        <input type="hidden" name="ok_acc" value="Add">
 
-            <table style="display:<?php if (empty($v_adv)) echo 'none'; ?> ;" id="advtable">
-                <tr>
-                    <td class="vst-text input-label">
-                        <?php print __('Quota'); ?> <span class="optional">(<?= __('in megabytes') ?>)</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="text" size="20" class="vst-input" name="v_quota" value="<?= htmlentities(trim($v_quota, "'")) ?>">
-                        <img class="unlim-trigger" id="unlim-quota" src="/images/unlim.png" />
-                    </td>
-                </tr>
-                <tr>
-                    <td class="vst-text input-label">
-                        <?php print __('Aliases'); ?> <span class="optional">(<?= __('use local-part') ?>)</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <textarea size="20" class="vst-textinput" name="v_aliases"><?= htmlentities(trim($v_aliases, "'")) ?></textarea>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="vst-text input-label">
-                        <?php print __('Forward to'); ?> <span class="optional">(<?= __('one or more email addresses') ?>)</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <textarea size="20" class="vst-textinput" name="v_fwd"><?= htmlentities(trim($v_fwd, "'")) ?></textarea>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="vst-text input-label">
-                        <label><input type="checkbox" size="20" class="vst-checkbox" name="v_fwd_only" <?php if ($v_fwd_only == 'yes') echo "checked=yes" ?>>
-                            <?php print __('Do not store forwarded mail'); ?></label>
-                    </td>
-                </tr>
-            </table>
-
-            <label for="v_send_email">Send login credentials to email address</label>
-            <div class="input-group mb-3">
-                <input type="text" name="v_send_email" class="form-control" placeholder="Send Login credentials to this email">
-            </div>
-
-            <div class="row">
-                <!-- /.col -->
-                <!-- /.col -->
-            </div>
-
-            <button type="submit" class="btn btn-primary btn-block">Confirm</button>
-            <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/mail" class="btn btn-default btn-block">Back</a>
-            <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
-            <input type="hidden" name="ok_acc" value="Add">
-
-        </form>
-    </div>
-
-</body>
-
-
-</html>
+    </form>
+</div>
 
 <?php
 // echo "mail/add", "<pre>", print_r($data, true);

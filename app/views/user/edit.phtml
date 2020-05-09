@@ -1,97 +1,95 @@
-<body>
-    <div class="col-4">
-        <p class="text-center">
-            <?php
-            echo $_SESSION['error_msg'];
-            $_SESSION['error_msg'] = NULL;
-            $value = $data[array_keys($data)[0]];
-            // echo "<pre>", $v_ns1, print_r($_SESSION), print_r($shells);
+<div class="col-4">
+    <p class="text-center">
+        <?php
+        echo $_SESSION['error_msg'];
+        $_SESSION['error_msg'] = NULL;
+        $value = $data[array_keys($data)[0]];
+        // echo "<pre>", $v_ns1, print_r($_SESSION), print_r($shells);
 
-            ?>
-        </p>
+        ?>
+    </p>
 
-        <form name="v_edit_user" action="https://<?= $_SERVER['HTTP_HOST'] ?>/user/edit/<?= $v_username ?>/<?= $_SESSION['token'] ?>" method="post">
-            <label for="v_user">Username</label>
-            <div class="input-group mb-3">
-                <input type="text" name="v_user" class="form-control" placeholder="Username" value="<?= htmlentities(trim($v_username, "'")) ?>" disabled>
-                <input type="hidden" name="v_user" class="form-control" placeholder="Domain" value="<?= htmlentities(trim($v_username, "'")) ?>">
-            </div>
-            <label for="v_password">Password </label>
-            <div class="input-group mb-3">
-                <input type="password" name="v_password" class="form-control" placeholder="Password" value="<?= htmlentities(trim($v_password, "'")) ?>">
-            </div>
-            <label for="v_email">Email</label>
-            <div class="input-group mb-3">
-                <input type="text" name="v_email" class="form-control" placeholder="Email" value="<?= htmlentities(trim($v_email, "'")) ?>">
-            </div>
-            <label for="v_package">Package</label>
-            <div class="input-group mb-3">
-                <select name="v_package" class="form-control">
-                    <?php
-                    foreach ($packages as $key => $package) { ?>
-                        <option value="<?= $key ?>" <?php if ($key == $v_package) {
-                                                        echo 'selected';
-                                                    } ?>><?= $key; ?></option>
-                    <?php } ?>
-                </select>
-            </div>
+    <form name="v_edit_user" action="https://<?= $_SERVER['HTTP_HOST'] ?>/user/edit/<?= $v_username ?>/<?= $_SESSION['token'] ?>" method="post">
+        <label for="v_user">Username</label>
+        <div class="input-group mb-3">
+            <input type="text" name="v_user" class="form-control" placeholder="Username" value="<?= htmlentities(trim($v_username, "'")) ?>" disabled>
+            <input type="hidden" name="v_user" class="form-control" placeholder="Domain" value="<?= htmlentities(trim($v_username, "'")) ?>">
+        </div>
+        <label for="v_password">Password </label>
+        <div class="input-group mb-3">
+            <input type="password" name="v_password" class="form-control" placeholder="Password" value="<?= htmlentities(trim($v_password, "'")) ?>">
+        </div>
+        <label for="v_email">Email</label>
+        <div class="input-group mb-3">
+            <input type="text" name="v_email" class="form-control" placeholder="Email" value="<?= htmlentities(trim($v_email, "'")) ?>">
+        </div>
+        <label for="v_package">Package</label>
+        <div class="input-group mb-3">
+            <select name="v_package" class="form-control">
+                <?php
+                foreach ($packages as $key => $package) { ?>
+                    <option value="<?= $key ?>" <?php if ($key == $v_package) {
+                                                    echo 'selected';
+                                                } ?>><?= $key; ?></option>
+                <?php } ?>
+            </select>
+        </div>
 
-            <label for="v_language">Language</label>
-            <div class="input-group mb-3">
-                <select name="v_language" class="form-control">
-                    <?php
-                    foreach ($languages as $key => $language) { ?>
-                        <option value="<?= $language ?>" <?php if ($language == $v_language) {
-                                                                echo 'selected';
-                                                            } ?>><?= $language; ?></option>
-                        <?= $language; ?>
-                        </option>
-                    <?php } ?>
-                </select>
-            </div>
-
-            <label for="v_fname">First Name</label>
-            <div class="input-group mb-3">
-                <input type="text" name="v_fname" class="form-control" placeholder="First Name" value="<?= $value['FNAME'] ?>">
-            </div>
-            <label for="v_lname">Last Name</label>
-            <div class="input-group mb-3">
-                <input type="text" name="v_lname" class="form-control" placeholder="Last Name" value="<?= $value['LNAME'] ?>">
-            </div>
-            <label for="v_shell">SSH Access</label>
-            <div class="input-group mb-3">
-                <select name="v_shell" class="form-control">
-                    <?php
-                    foreach ($shells as $key => $shell) { ?>
-                        <option value="<?= $shell ?>" <?php
-                                                        if ($shell == $v_shell) {
+        <label for="v_language">Language</label>
+        <div class="input-group mb-3">
+            <select name="v_language" class="form-control">
+                <?php
+                foreach ($languages as $key => $language) { ?>
+                    <option value="<?= $language ?>" <?php if ($language == $v_language) {
                                                             echo 'selected';
-                                                        }
-                                                        ?>>
-                            <?= htmlentities(trim($shell)); ?>
-                        </option>
-                    <?php } ?>
-                </select>
-            </div>
-            <label for="">Default Name Servers</label>
-            <div class="input-group mb-3">
-                <input type="text" name="v_ns1" class="form-control" placeholder="Name Server 1" value="<?= $v_ns1 ?>">
-            </div>
+                                                        } ?>><?= $language; ?></option>
+                    <?= $language; ?>
+                    </option>
+                <?php } ?>
+            </select>
+        </div>
 
-            <div class="input-group mb-3">
-                <input type="text" name="v_ns2" class="form-control" placeholder="Name Server 2" value="<?= $v_ns2 ?>">
-            </div>
+        <label for="v_fname">First Name</label>
+        <div class="input-group mb-3">
+            <input type="text" name="v_fname" class="form-control" placeholder="First Name" value="<?= $value['FNAME'] ?>">
+        </div>
+        <label for="v_lname">Last Name</label>
+        <div class="input-group mb-3">
+            <input type="text" name="v_lname" class="form-control" placeholder="Last Name" value="<?= $value['LNAME'] ?>">
+        </div>
+        <label for="v_shell">SSH Access</label>
+        <div class="input-group mb-3">
+            <select name="v_shell" class="form-control">
+                <?php
+                foreach ($shells as $key => $shell) { ?>
+                    <option value="<?= $shell ?>" <?php
+                                                    if ($shell == $v_shell) {
+                                                        echo 'selected';
+                                                    }
+                                                    ?>>
+                        <?= htmlentities(trim($shell)); ?>
+                    </option>
+                <?php } ?>
+            </select>
+        </div>
+        <label for="">Default Name Servers</label>
+        <div class="input-group mb-3">
+            <input type="text" name="v_ns1" class="form-control" placeholder="Name Server 1" value="<?= $v_ns1 ?>">
+        </div>
 
-            <div class="row">
-                <!-- /.col -->
+        <div class="input-group mb-3">
+            <input type="text" name="v_ns2" class="form-control" placeholder="Name Server 2" value="<?= $v_ns2 ?>">
+        </div>
 
-                <!-- /.col -->
-            </div>
+        <div class="row">
+            <!-- /.col -->
 
-            <button type="submit" class="btn btn-primary btn-block">Confirm</button>
-            <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/user" class="btn btn-default btn-block">Back</a>
-            <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
-            <input type="hidden" name="save" value="save">
-        </form>
-    </div>
-</body>
+            <!-- /.col -->
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">Confirm</button>
+        <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/user" class="btn btn-default btn-block">Back</a>
+        <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
+        <input type="hidden" name="save" value="save">
+    </form>
+</div>
