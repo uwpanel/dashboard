@@ -1,38 +1,36 @@
-    <title>Reset Password</title>
-
-    <p class="login-box-msg"><b>Set New Password</b></p>
-    <p class="text-danger text-center">
-        <?php
-        echo $_SESSION['error_msg'];
-        $_SESSION['error_msg'] = NULL;
-        ?>
-    </p>
-    <form action="<?= $_SERVER['REMOTE_HOST'] ?>" method="post">
-        <div class="input-group mb-3">
-            <input type="password" name="password" class="form-control" placeholder="New Password">
-            <div class="input-group-append">
-                <div class="input-group-text">
-                    <span class="fas fa-unlock"></span>
-                </div>
+<p class="login-box-msg"><b>Set New Password</b></p>
+<p class="text-danger text-center">
+    <?php
+    echo $_SESSION['error_msg'];
+    $_SESSION['error_msg'] = NULL;
+    ?>
+</p>
+<form action="<?= $_SERVER['REMOTE_HOST'] ?>" method="post">
+    <div class="input-group mb-3">
+        <input type="password" name="password" class="form-control" placeholder="New Password">
+        <div class="input-group-append">
+            <div class="input-group-text">
+                <span class="fas fa-unlock"></span>
             </div>
         </div>
-        <div class="input-group mb-3">
-            <input type="password" name="password_confirm" class="form-control" placeholder="Confirm Password">
-            <div class="input-group-append">
-                <div class="input-group-text">
-                    <span class="fas fa-unlock-alt"></span>
-                </div>
+    </div>
+    <div class="input-group mb-3">
+        <input type="password" name="password_confirm" class="form-control" placeholder="Confirm Password">
+        <div class="input-group-append">
+            <div class="input-group-text">
+                <span class="fas fa-unlock-alt"></span>
             </div>
         </div>
-        <div class="row">
-            <!-- /.col -->
-            <div class="col-12">
-                <p class="text-danger text-center"><?= $ERROR ?></p>
-            </div>
-            <!-- /.col -->
-        </div>
+    </div>
+    <div class="row">
+        <!-- /.col -->
         <div class="col-12">
-            <button type="submit" class="btn btn-primary btn-block">Confirm</button>
-            <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/reset" class="btn btn-default btn-block">Back</a>
+            <p class="text-danger text-center"><?= $ERROR ?></p>
         </div>
-    </form>
+        <!-- /.col -->
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary btn-block">Confirm</button>
+        <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/reset" class="btn btn-default btn-block">Back</a>
+    </div>
+</form>

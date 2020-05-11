@@ -20,7 +20,7 @@
             <input type="hidden" name="v_account" value="<?= htmlentities(trim($v_account, "'")) ?>">
         </div>
 
-        <label for="v_password">Password</label>
+        <label for="v_password">Password</label>&nbsp; / &nbsp; <a href="javascript:randomString();" class="generate"><?php print __('generate'); ?></a>
         <div class="input-group mb-3">
             <input type="text" name="v_password" class="form-control" value="<?= htmlentities(trim($v_password, "'")) ?>">
         </div>

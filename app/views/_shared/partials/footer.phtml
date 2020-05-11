@@ -41,7 +41,17 @@
     <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/extensions/export/bootstrap-table-export.min.js"></script>
 
     <?= Tag::js('misc'); ?>
-    <?= Tag::js('pages/user/add'); ?>
+    <?php
+    $uri = explode('/', $_SERVER['REQUEST_URI']);
+    $controller = $uri[1];
+    $method = $uri[2];
+    if ($controller != '') {
+        if (isset($controller) != NULL && isset($method) != NULL) {
+            echo Tag::js('pages/' . $controller . '/' . $method);
+            // echo Tag::js('pages/' . $controller . '/index');
+        }
+    }
+    ?>
 
     </body>
 

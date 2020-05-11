@@ -12,12 +12,13 @@
             <input type="text" name="v_username" class="form-control" placeholder="Username" required>
         </div>
         <label for="v_password">Password </label> <span style="color:red">*</span>
+        &nbsp; / &nbsp; <a href="javascript:randomString();" class="generate"><?php print __('generate'); ?></a>
         <div class="input-group mb-3">
-            <input type="password" name="v_password" class="form-control" placeholder="Password" required>
+            <input type="text" name="v_password" class="form-control" placeholder="Password" data-lpignore="true" required>
         </div>
         <label for="v_email">Email</label> <span style="color:red">*</span>
         <div class="input-group mb-3">
-            <input type="text" name="v_email" class="form-control" placeholder="Email" required>
+            <input type="text" id="v_email" name="v_email" class="form-control" placeholder="Email" required>
         </div>
         <label for="v_package">Package</label>
         <div class="input-group mb-3">
@@ -54,7 +55,7 @@
         </div>
         <label for="v_notify">Send login credentials to email address</label>
         <div class="input-group mb-3">
-            <input type="text" name="v_notify" class="form-control" placeholder="Send login credentials to this email">
+            <input type="text" id="v_notify" name="v_notify" class="form-control" placeholder="Send login credentials to this email">
         </div>
         <div class="row">
             <!-- /.col -->

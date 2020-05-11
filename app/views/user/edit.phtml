@@ -15,9 +15,9 @@
             <input type="text" name="v_user" class="form-control" placeholder="Username" value="<?= htmlentities(trim($v_username, "'")) ?>" disabled>
             <input type="hidden" name="v_user" class="form-control" placeholder="Domain" value="<?= htmlentities(trim($v_username, "'")) ?>">
         </div>
-        <label for="v_password">Password </label>
+        <label for="v_password">Password </label>&nbsp; / &nbsp; <a href="javascript:randomString();" class="generate"><?php print __('generate'); ?></a>
         <div class="input-group mb-3">
-            <input type="password" name="v_password" class="form-control" placeholder="Password" value="<?= htmlentities(trim($v_password, "'")) ?>">
+            <input type="text" name="v_password" id="v_password" class="form-control" placeholder="Password" value="<?= htmlentities(trim($v_password, "'")) ?>">
         </div>
         <label for="v_email">Email</label>
         <div class="input-group mb-3">

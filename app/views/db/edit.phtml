@@ -1,65 +1,65 @@
-    <div class="col-4">
-        <p class="login-box-msg"><b>Editing Database</b></p>
-        <p class="text-center">
-            <?php
-            echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
-            $_SESSION['error_msg'] = NULL;
-            $_SESSION['ok_msg'] = NULL;
-            ?>
-        </p>
+<div class="col-4">
+    <p class="login-box-msg"><b>Editing Database</b></p>
+    <p class="text-center">
+        <?php
+        echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
+        $_SESSION['error_msg'] = NULL;
+        $_SESSION['ok_msg'] = NULL;
+        ?>
+    </p>
 
-        <form name="v_edit_db" action="https://<?= $_SERVER['HTTP_HOST'] ?>/db/edit/<?php if (isset($_SESSION['look'])) {
-                                                                                                echo $_SESSION['look'];
-                                                                                            } else {
-                                                                                                echo $_SESSION['user'];
-                                                                                            } ?>/<?= trim($v_database, "'") ?>" method="post">
-            <label for="v_database">Database</label>
-            <div class="input-group mb-3">
-                <input type="text" name="v_database" class="form-control" value="<?= trim($v_database, "'") ?>" placeholder="Database" disabled>
-                <input type="hidden" name="v_database" value="<?= trim($v_database, "'") ?>">
-            </div>
+    <form name="v_edit_db" action="https://<?= $_SERVER['HTTP_HOST'] ?>/db/edit/<?php if (isset($_SESSION['look'])) {
+                                                                                    echo $_SESSION['look'];
+                                                                                } else {
+                                                                                    echo $_SESSION['user'];
+                                                                                } ?>/<?= trim($v_database, "'") ?>" method="post">
+        <label for="v_database">Database</label>
+        <div class="input-group mb-3">
+            <input type="text" name="v_database" class="form-control" value="<?= trim($v_database, "'") ?>" placeholder="Database" disabled>
+            <input type="hidden" name="v_database" value="<?= trim($v_database, "'") ?>">
+        </div>
 
-            <!-- <p>maximum 16 characters length, including prefix</p> -->
-            <label for="v_dbuser">Username</label>
-            <div class="input-group mb-3">
-                <input type="text" name="v_dbuser" class="form-control" value="<?= trim($v_dbuser, "'") ?>" placeholder="Username">
-            </div>
+        <!-- <p>maximum 16 characters length, including prefix</p> -->
+        <label for="v_dbuser">Username</label>
+        <div class="input-group mb-3">
+            <input type="text" name="v_dbuser" class="form-control" value="<?= trim($v_dbuser, "'") ?>" placeholder="Username">
+        </div>
 
-            <label for="v_password">Password</label>
-            <div class="input-group mb-3">
-                <input type="password" name="v_password" class="form-control" placeholder="Password">
-            </div>
+        <label for="v_password">Password</label>&nbsp; / &nbsp; <a href="javascript:randomString();" class="generate"><?php print __('generate'); ?></a>
+        <div class="input-group mb-3">
+            <input type="text" name="v_password" class="form-control" placeholder="Password">
+        </div>
 
-            <label for="v_type">Type</label>
-            <div class="input-group mb-3">
-                <input type="text" name="v_type" class="form-control" value="<?= trim($v_type, "'") ?>" disabled>
-                <input type="hidden" name="v_type" value="<?= trim($v_type, "'") ?>" >
-            </div>
+        <label for="v_type">Type</label>
+        <div class="input-group mb-3">
+            <input type="text" name="v_type" class="form-control" value="<?= trim($v_type, "'") ?>" disabled>
+            <input type="hidden" name="v_type" value="<?= trim($v_type, "'") ?>">
+        </div>
 
-            <label for="v_host">Host</label>
-            <div class="input-group mb-3">
-                <input type="text" name="v_host" class="form-control" value="<?= trim($v_host, "'") ?>"  disabled>
-                <input type="hidden" name="v_host" value="<?= trim($v_host, "'") ?>">
-            </div>
+        <label for="v_host">Host</label>
+        <div class="input-group mb-3">
+            <input type="text" name="v_host" class="form-control" value="<?= trim($v_host, "'") ?>" disabled>
+            <input type="hidden" name="v_host" value="<?= trim($v_host, "'") ?>">
+        </div>
 
-            <label for="v_charset">Charset</label>
-            <div class="input-group mb-3">
-                <input type="text" name="v_charset" class="form-control" value="<?= trim($v_charset, "'") ?>"  disabled>
-                <input type="hidden" name="v_charset" value="<?= trim($v_charset, "'") ?>">
-            </div>
+        <label for="v_charset">Charset</label>
+        <div class="input-group mb-3">
+            <input type="text" name="v_charset" class="form-control" value="<?= trim($v_charset, "'") ?>" disabled>
+            <input type="hidden" name="v_charset" value="<?= trim($v_charset, "'") ?>">
+        </div>
 
-            <div class="row">
-                <!-- /.col -->
+        <div class="row">
+            <!-- /.col -->
 
-                <!-- /.col -->
-            </div>
+            <!-- /.col -->
+        </div>
 
-            <button type="submit" class="btn btn-primary btn-block">Confirm</button>
-            <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/db" class="btn btn-default btn-block">Back</a>
+        <button type="submit" class="btn btn-primary btn-block">Confirm</button>
+        <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/db" class="btn btn-default btn-block">Back</a>
 
-            <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
-            <input type="hidden" name="save" value="save">
-        </form>
-    </div>
+        <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
+        <input type="hidden" name="save" value="save">
+    </form>
+</div>
 <?php
 // echo "<pre>", print_r($data, true);

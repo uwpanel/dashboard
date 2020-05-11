@@ -7,7 +7,7 @@
         ?>
     </p>
 
-    <form name="v_add_mail_account" action="https://<?= $_SERVER['HTTP_HOST'] ?>/mail/addmailaccount" method="post">
+    <form name="v_add_mail_acc" action="https://<?= $_SERVER['HTTP_HOST'] ?>/mail/addmailaccount" method="post">
         <label for="v_domain">Domain</label>
         <div class="input-group mb-3">
             <input type="text" name="v_domain" class="form-control" placeholder="Domain" value="<?= $domain ?>" disabled>
@@ -17,7 +17,7 @@
         <div class="input-group mb-3">
             <input type="text" name="v_account" class="form-control" placeholder="Account" required>
         </div>
-        <label for="v_password">Password </label> <span style="color:red">*</span>
+        <label for="v_password">Password </label> <span style="color:red">*</span>&nbsp; / &nbsp; <a href="javascript:randomString();" class="generate"><?php print __('generate'); ?></a>
         <div class="input-group mb-3">
             <input type="text" name="v_password" class="form-control" placeholder="Password" required>
         </div>
@@ -82,6 +82,3 @@
 
     </form>
 </div>
-
-<?php
-// echo "mail/add", "<pre>", print_r($data, true);
