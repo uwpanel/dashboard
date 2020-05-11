@@ -5,10 +5,8 @@
         $_SESSION['error_msg'] = NULL;
         $value = $data[array_keys($data)[0]];
         // echo "<pre>", $v_ns1, print_r($_SESSION), print_r($shells);
-
         ?>
     </p>
-
     <form name="v_edit_user" action="https://<?= $_SERVER['HTTP_HOST'] ?>/user/edit/<?= $v_username ?>/<?= $_SESSION['token'] ?>" method="post">
         <label for="v_user">Username</label>
         <div class="input-group mb-3">
@@ -48,14 +46,13 @@
                 <?php } ?>
             </select>
         </div>
-
         <label for="v_fname">First Name</label>
         <div class="input-group mb-3">
-            <input type="text" name="v_fname" class="form-control" placeholder="First Name" value="<?= $value['FNAME'] ?>">
+            <input type="text" name="v_fname" class="form-control" placeholder="First Name" value="<?= $v_fname ?>">
         </div>
         <label for="v_lname">Last Name</label>
         <div class="input-group mb-3">
-            <input type="text" name="v_lname" class="form-control" placeholder="Last Name" value="<?= $value['LNAME'] ?>">
+            <input type="text" name="v_lname" class="form-control" placeholder="Last Name" value="<?= $v_lname ?>">
         </div>
         <label for="v_shell">SSH Access</label>
         <div class="input-group mb-3">
