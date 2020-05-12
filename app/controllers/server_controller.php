@@ -46,7 +46,7 @@ class ServerController extends AppController
 
             // CPU info
             if ($param_type == 'cpu') {
-                $TAB = 'CPU';
+                $_SESSION['title'] = 'CPU';
                 include($_SERVER['DOCUMENT_ROOT'] . '/templates/admin/list_server_info.html');
                 exec(VESTA_CMD . 'v-list-sys-cpu-status', $output, $return_var);
                 $this->data = $output;
@@ -54,7 +54,7 @@ class ServerController extends AppController
 
             // Memory info
             if ($param_type == 'mem') {
-                $TAB = 'MEMORY';
+                $_SESSION['title'] = 'MEMORY';
                 include($_SERVER['DOCUMENT_ROOT'] . '/templates/admin/list_server_info.html');
                 exec(VESTA_CMD . 'v-list-sys-memory-status', $output, $return_var);
                 $this->data = $output;
@@ -62,7 +62,7 @@ class ServerController extends AppController
 
             // Disk info
             if ($param_type == 'disk') {
-                $TAB = 'DISK';
+                $_SESSION['title'] = 'DISK';
                 include($_SERVER['DOCUMENT_ROOT'] . '/templates/admin/list_server_info.html');
                 exec(VESTA_CMD . 'v-list-sys-disk-status', $output, $return_var);
                 $this->data = $output;
@@ -70,7 +70,7 @@ class ServerController extends AppController
 
             // Network info
             if ($param_type == 'net') {
-                $TAB = 'NETWORK';
+                $_SESSION['title'] = 'NETWORK';
                 include($_SERVER['DOCUMENT_ROOT'] . '/templates/admin/list_server_info.html');
                 exec(VESTA_CMD . 'v-list-sys-network-status', $output, $return_var);
                 $this->data = $output;
@@ -78,7 +78,7 @@ class ServerController extends AppController
 
             // Web info
             if ($param_type == 'web') {
-                $TAB = 'WEB';
+                $_SESSION['title'] = 'WEB';
                 include($_SERVER['DOCUMENT_ROOT'] . '/templates/admin/list_server_info.html');
                 exec(VESTA_CMD . 'v-list-sys-web-status', $output, $return_var);
                 $this->data = $output;
@@ -87,7 +87,7 @@ class ServerController extends AppController
 
             // DNS info
             if ($param_type == 'dns') {
-                $TAB = 'DNS';
+                $_SESSION['title'] = 'DNS';
                 include($_SERVER['DOCUMENT_ROOT'] . '/templates/admin/list_server_info.html');
                 exec(VESTA_CMD . 'v-list-sys-dns-status', $output, $return_var);
                 $this->data = $output;
@@ -95,7 +95,7 @@ class ServerController extends AppController
 
             // Mail info
             if ($param_type == 'mail') {
-                $TAB = 'MAIL';
+                $_SESSION['title'] = 'MAIL';
                 include($_SERVER['DOCUMENT_ROOT'] . '/templates/admin/list_server_info.html');
                 exec(VESTA_CMD . 'v-list-sys-mail-status', $output, $return_var);
                 if ($return_var == 0) {
@@ -105,7 +105,7 @@ class ServerController extends AppController
 
             // DB info
             if ($param_type == 'db') {
-                $TAB = 'DB';
+                $_SESSION['title'] = 'DB';
                 include($_SERVER['DOCUMENT_ROOT'] . '/templates/admin/list_server_info.html');
                 exec(VESTA_CMD . 'v-list-sys-db-status', $output, $return_var);
                 if ($return_var == 0) {

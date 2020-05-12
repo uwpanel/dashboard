@@ -54,21 +54,24 @@
         <div class="input-group mb-3">
             <input type="text" name="v_lname" class="form-control" placeholder="Last Name" value="<?= $v_lname ?>">
         </div>
-        <label for="v_shell">SSH Access</label>
-        <div class="input-group mb-3">
-            <select name="v_shell" class="form-control">
-                <?php
-                foreach ($shells as $key => $shell) { ?>
-                    <option value="<?= $shell ?>" <?php
-                                                    if ($shell == $v_shell) {
-                                                        echo 'selected';
-                                                    }
-                                                    ?>>
-                        <?= htmlentities(trim($shell)); ?>
-                    </option>
-                <?php } ?>
-            </select>
-        </div>
+        <?php if ($_SESSION['user'] == 'admin' && empty($_SESSION['look'])) { ?>
+            <!-- Change SSH (admin only) -->
+            <label for="v_shell">SSH Access</label>
+            <div class="input-group mb-3">
+                <select name="v_shell" class="form-control">
+                    <?php
+                    foreach ($shells as $key => $shell) { ?>
+                        <option value="<?= $shell ?>" <?php
+                                                        if ($shell == $v_shell) {
+                                                            echo 'selected';
+                                                        }
+                                                        ?>>
+                            <?= htmlentities(trim($shell)); ?>
+                        </option>
+                    <?php } ?>
+                </select>
+            </div>
+        <?php } ?>
         <label for="">Default Name Servers</label>
         <div class="input-group mb-3">
             <input type="text" name="v_ns1" class="form-control" placeholder="Name Server 1" value="<?= $v_ns1 ?>">
