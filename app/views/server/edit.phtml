@@ -1,7 +1,6 @@
 <?php
 if ($uri[3] == NULL) { ?>
     <div class="col-4">
-        <p class="login-box-msg"><b>Configuring Server</b></p>
         <p class="text-center">
             <?php
             echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
@@ -91,7 +90,6 @@ if ($uri[3] == NULL) { ?>
 
 <?php
 if ($uri[3] == 'apache2' || $uri[3] == 'httpd') { ?>
-    <title>Edit Server</title>
     <div class="col-8">
         <p class="login-box-msg"><b>Configuring Server <?= strtoupper($v_service_name) ?></b></p>
         <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/server/edit/php">Configure php.ini</a>
@@ -133,7 +131,6 @@ if ($uri[3] == 'apache2' || $uri[3] == 'httpd') { ?>
 } ?>
 
 <?php if ($uri[3] == 'bind9') { ?>
-    <title>Edit Server</title>
     <div class="col-8">
         <p class="login-box-msg"><b>Configuring Server <?= strtoupper($v_service_name) ?></b></p>
         <p class="text-center">
@@ -180,7 +177,6 @@ if ($uri[3] == 'apache2' || $uri[3] == 'httpd') { ?>
 } ?>
 
 <?php if ($uri[3] == 'dovecot') { ?>
-    <title>Edit Server</title>
     <div class="col-8">
         <p class="login-box-msg"><b>Configuring Server <?= strtoupper($v_service_name) ?></b></p>
         <p class="text-center">
@@ -268,8 +264,6 @@ if ($uri[3] == 'apache2' || $uri[3] == 'httpd') { ?>
 
 
 <?php if ($uri[3] == 'mysql' || $uri[3] == 'mariadb' || $uri[3] == 'mysqld') { ?>
-    <title>Edit Server</title>
-
     <p class="login-box-msg"><b>Configuring Server <?= strtoupper($v_service_name) ?></b></p>
     <p class="text-center">
         <?php
@@ -350,8 +344,6 @@ if ($uri[3] == 'apache2' || $uri[3] == 'httpd') { ?>
 } ?>
 
 <?php if ($uri[3] == 'nginx') { ?>
-    <title>Edit Server</title>
-
     <p class="login-box-msg"><b>Configuring Server <?= strtoupper($uri[3]) ?></b></p>
     <p class="text-center">
         <?php
@@ -457,8 +449,6 @@ if ($uri[3] == 'apache2' || $uri[3] == 'httpd') { ?>
 
 
 <?php if ($uri[3] == 'php' || $uri[3] == 'php-fpm' || $uri[3] == 'php5-fpm') { ?>
-    <title>Edit Server</title>
-
     <p class="login-box-msg"><b>Configuring Server <?= strtoupper($uri[3]) ?></b></p>
     <p class="text-center">
         <?php
@@ -555,7 +545,6 @@ if ($uri[3] == 'apache2' || $uri[3] == 'httpd') { ?>
 } ?>
 
 <?php if ($uri[3] == 'spamassassin') { ?>
-    <title>Edit Server</title>
     <div class="col-8">
         <p class="login-box-msg"><b>Configuring Server <?= strtoupper($v_service_name) ?></b></p>
         <p class="text-center">
@@ -597,7 +586,6 @@ if ($uri[3] == 'apache2' || $uri[3] == 'httpd') { ?>
 } ?>
 
 <?php if ($uri[3] == 'vsftpd' || $uri[3] == 'cron' || $uri[3] == 'clamd' || $uri[3] == 'crond' || $uri[3] == 'exim' || $uri[3] == 'exim4' || $uri[3] == 'fail2ban' || $uri[3] == 'named' || $uri[3] == 'proftpd' || $uri[3] == 'spamd') { ?>
-    <title>Edit Server</title>
     <div class="col-8">
         <p class="login-box-msg"><b>Configuring Server <?= strtoupper($v_service_name) ?></b></p>
         <p class="text-center">

@@ -17,8 +17,9 @@ function responseHandler(res) {
 
 function initTable() {
     $table.bootstrapTable('destroy').bootstrapTable({
-        height: 550,
-        locale: 'en-US'
+        height: 600,
+        locale: 'en-US',
+        exportTypes: ['csv','excel', 'txt']
     })
     $table.on('check.bs.table uncheck.bs.table ' +
         'check-all.bs.table uncheck-all.bs.table',

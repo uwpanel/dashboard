@@ -25,26 +25,28 @@
                             </p>
                         </a>
                     </li>
-                    <li class=" nav-item ">
-                        <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/user" class="nav-link <?php if ($active[1] == 'user') echo "active"; ?>">
-                            <i class="nav-icon fas fa-users"></i>
-                            <p>
-                                Users
-                                <?php if ($_SESSION['user'] == 'admin' && empty($_SESSION['look'])) { ?>
-                                    <span class="right ">
-                                        <span class=" badge badge-success" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Users"><?= $each['U_USERS'] ?></span>
-                                        <span class=" badge badge-danger" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Suspended"><?= $each['SUSPENDED_USERS'] ?></span>
-                                    </span>
+                    <?php if ($_SESSION['user'] == 'admin' && empty($_SESSION['look'])) { ?>
+                        <li class=" nav-item ">
+                            <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/user" class="nav-link <?php if ($active[1] == 'user') echo "active"; ?>">
+                                <i class="nav-icon fas fa-users"></i>
+                                <p>
+                                    Users
+                                    <?php if ($_SESSION['user'] == 'admin' && empty($_SESSION['look'])) { ?>
+                                        <span class="right ">
+                                            <span class=" badge badge-success" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Users"><?= $each['U_USERS'] ?></span>
+                                            <span class=" badge badge-danger" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Suspended"><?= $each['SUSPENDED_USERS'] ?></span>
+                                        </span>
 
-                                <? } else { ?>
-                                    <span class="right">
-                                        <span class="badge badge-success" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Disk"><?= $each['U_DISK'] ?></span>
-                                        <span class="badge badge-info" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Bandwidth"><?= $each['U_BANDWIDTH'] ?></span>
-                                    </span>
-                                <? } ?>
-                            </p>
-                        </a>
-                    </li>
+                                    <? } else { ?>
+                                        <span class="right">
+                                            <span class="badge badge-success" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Disk"><?= $each['U_DISK'] ?></span>
+                                            <span class="badge badge-info" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Bandwidth"><?= $each['U_BANDWIDTH'] ?></span>
+                                        </span>
+                                    <? } ?>
+                                </p>
+                            </a>
+                        </li>
+                    <?php } ?>
                     <li class="nav-item">
                         <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/web" class="nav-link <?php if ($active[1] == 'web' || $active[1] == 'weblog') echo "active"; ?>">
                             <i class="nav-icon fas fa-globe"></i>
@@ -120,6 +122,60 @@
                             </p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/log" class="nav-link <?php if ($active[1] == 'log') echo "active"; ?>">
+                            <i class="nav-icon fas fa-history"></i>
+                            <p>
+                                Logs
+                                <span class="right">
+                                    <span class="badge badge-success" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Logs"><?= $each['U_BACKUPS'] ?></span>
+                                </span>
+                            </p>
+                        </a>
+                    </li>
+                    <?php if ($_SESSION['user'] == 'admin' && empty($_SESSION['look'])) { ?>
+                        <li class="nav-item has-treeview <?php if ($active[1] == 'server') echo "menu-open"; ?>">
+                            <a href="#" class="nav-link <?php if ($active[1] == 'server') echo "active"; ?>">
+                                <i class="nav-icon fas fa-server"></i>
+                                <p>
+                                    Server
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/server" class="nav-link <?php if ($active[1] == 'server' && empty($active[2])) echo "active"; ?>">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Dashboard</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/server/info/cpu" class="nav-link <?php if ($active[2] == 'info') echo "active"; ?>">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Server Info</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link <?php if ($active[2] == 'graph' && empty($active[2])) echo "active"; ?>">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Graph</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/stats" class="nav-link <?php if ($active[1] == 'stats' && empty($active[1])) echo "active"; ?>">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Statastics</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/updates" class="nav-link <?php if ($active[1] == 'updates' && empty($active[1])) echo "active"; ?>">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Updates</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    <?php } ?>
                 </ul>
             </nav>
         <?php
