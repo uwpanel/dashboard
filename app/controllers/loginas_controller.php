@@ -6,8 +6,6 @@ class LoginasController extends AuthController
     {
         // Main include
         include(APP_PATH . 'libs/inc/main.php');
-
-
         $uri = explode('/', $_SERVER['REQUEST_URI']);
 
         // Login as someone else
@@ -19,9 +17,11 @@ class LoginasController extends AuthController
                     reset($data);
                     $_SESSION['look'] = key($data);
                     $_SESSION['look_alert'] = 'yes';
+                    header("Location: /");
+                    exit;
                 }
             }
-            header("Location: /user ");
+            header("Location: /user");
             exit;
         }
     }
