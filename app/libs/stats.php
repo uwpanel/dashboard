@@ -18,3 +18,7 @@ unset($output);
 exec("date '+%A %B-%d, %Y %T '", $output, $return_var);
 $time_data = implode('', $output);
 unset($output);
+
+exec(VESTA_CMD . "v-list-user-log $user json", $output, $return_var);
+$log_count_data = json_decode(implode('', $output), true);
+unset($output);
