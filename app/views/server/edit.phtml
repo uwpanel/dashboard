@@ -1,17 +1,15 @@
 <?php
 if ($uri[3] == NULL) { ?>
     <div class="col-4">
-        <p class="text-center">
-            <?php
-            echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
-            $_SESSION['error_msg'] = NULL;
-            $_SESSION['ok_msg'] = NULL;
-
-            //echo "<pre>", print_r($v_timezones), "</pre>";
-
-            ?>
-        </p>
-
+        <?php if (!empty($_SESSION['error_msg']) || !empty($_SESSION['ok_msg'])) { ?>
+            <p class="text-center">
+                <?php
+                echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
+                $_SESSION['error_msg'] = NULL;
+                $_SESSION['ok_msg'] = NULL;
+                ?>
+            </p>
+        <?php } ?>
         <form name="v_configure_server" action="https://<?= $_SERVER['HTTP_HOST'] ?>/server/edit/" method="post">
             <label for="v_hostname">Hostname</label>
             <div class="input-group mb-3">
@@ -93,16 +91,15 @@ if ($uri[3] == 'apache2' || $uri[3] == 'httpd') { ?>
     <div class="col-8">
         <p class="login-box-msg"><b>Configuring Server <?= strtoupper($v_service_name) ?></b></p>
         <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/server/edit/php">Configure php.ini</a>
-        <p class="text-center">
-            <?php
-            echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
-            $_SESSION['error_msg'] = NULL;
-            $_SESSION['ok_msg'] = NULL;
-
-            //echo "<pre>", print_r($v_timezones), "</pre>";
-
-            ?>
-        </p>
+        <?php if (!empty($_SESSION['error_msg']) || !empty($_SESSION['ok_msg'])) { ?>
+            <p class="text-center">
+                <?php
+                echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
+                $_SESSION['error_msg'] = NULL;
+                $_SESSION['ok_msg'] = NULL;
+                ?>
+            </p>
+        <?php } ?>
 
         <form name="v_configure_server" action="https://<?= $_SERVER['HTTP_HOST'] ?>/server/edit/<?= strtolower($v_service_name) ?>" method="post">
             <label for="v_config"><?= $v_config_path ?></label>
@@ -133,17 +130,15 @@ if ($uri[3] == 'apache2' || $uri[3] == 'httpd') { ?>
 <?php if ($uri[3] == 'bind9') { ?>
     <div class="col-8">
         <p class="login-box-msg"><b>Configuring Server <?= strtoupper($v_service_name) ?></b></p>
-        <p class="text-center">
-            <?php
-            echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
-            $_SESSION['error_msg'] = NULL;
-            $_SESSION['ok_msg'] = NULL;
-
-            //echo "<pre>", print_r($v_timezones), "</pre>";
-
-            ?>
-        </p>
-
+        <?php if (!empty($_SESSION['error_msg']) || !empty($_SESSION['ok_msg'])) { ?>
+            <p class="text-center">
+                <?php
+                echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
+                $_SESSION['error_msg'] = NULL;
+                $_SESSION['ok_msg'] = NULL;
+                ?>
+            </p>
+        <?php } ?>
         <form name="v_configure_server" action="https://<?= $_SERVER['HTTP_HOST'] ?>/server/edit/<?= strtolower($v_service_name) ?>" method="post">
 
             <label for="v_config"><?= $v_options_path ?></label>
@@ -179,16 +174,15 @@ if ($uri[3] == 'apache2' || $uri[3] == 'httpd') { ?>
 <?php if ($uri[3] == 'dovecot') { ?>
     <div class="col-8">
         <p class="login-box-msg"><b>Configuring Server <?= strtoupper($v_service_name) ?></b></p>
-        <p class="text-center">
-            <?php
-            echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
-            $_SESSION['error_msg'] = NULL;
-            $_SESSION['ok_msg'] = NULL;
-
-            //echo "<pre>", print_r($v_timezones), "</pre>";
-
-            ?>
-        </p>
+        <?php if (!empty($_SESSION['error_msg']) || !empty($_SESSION['ok_msg'])) { ?>
+            <p class="text-center">
+                <?php
+                echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
+                $_SESSION['error_msg'] = NULL;
+                $_SESSION['ok_msg'] = NULL;
+                ?>
+            </p>
+        <?php } ?>
 
         <form name="v_configure_server" action="https://<?= $_SERVER['HTTP_HOST'] ?>/server/edit/<?= $v_service_name ?>" method="post">
 
@@ -265,16 +259,15 @@ if ($uri[3] == 'apache2' || $uri[3] == 'httpd') { ?>
 
 <?php if ($uri[3] == 'mysql' || $uri[3] == 'mariadb' || $uri[3] == 'mysqld') { ?>
     <p class="login-box-msg"><b>Configuring Server <?= strtoupper($v_service_name) ?></b></p>
-    <p class="text-center">
-        <?php
-        echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
-        $_SESSION['error_msg'] = NULL;
-        $_SESSION['ok_msg'] = NULL;
-
-        //echo "<pre>", print_r($v_timezones), "</pre>";
-
-        ?>
-    </p>
+    <?php if (!empty($_SESSION['error_msg']) || !empty($_SESSION['ok_msg'])) { ?>
+        <p class="text-center">
+            <?php
+            echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
+            $_SESSION['error_msg'] = NULL;
+            $_SESSION['ok_msg'] = NULL;
+            ?>
+        </p>
+    <?php } ?>
 
     <form name="v_configure_server" action="https://<?= $_SERVER['HTTP_HOST'] ?>/server/edit/<?= strtolower($v_service_name) ?>" method="post">
 
@@ -345,17 +338,15 @@ if ($uri[3] == 'apache2' || $uri[3] == 'httpd') { ?>
 
 <?php if ($uri[3] == 'nginx') { ?>
     <p class="login-box-msg"><b>Configuring Server <?= strtoupper($uri[3]) ?></b></p>
-    <p class="text-center">
-        <?php
-        echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
-        $_SESSION['error_msg'] = NULL;
-        $_SESSION['ok_msg'] = NULL;
-
-        //echo "<pre>", print_r($v_timezones), "</pre>";
-
-        ?>
-    </p>
-
+    <?php if (!empty($_SESSION['error_msg']) || !empty($_SESSION['ok_msg'])) { ?>
+        <p class="text-center">
+            <?php
+            echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
+            $_SESSION['error_msg'] = NULL;
+            $_SESSION['ok_msg'] = NULL;
+            ?>
+        </p>
+    <?php } ?>
     <form name="v_configure_server" action="https://<?= $_SERVER['HTTP_HOST'] ?>/server/edit/<? strtolower($uri[3]) ?>" method="post">
 
         <div class="col-4">
@@ -450,17 +441,15 @@ if ($uri[3] == 'apache2' || $uri[3] == 'httpd') { ?>
 
 <?php if ($uri[3] == 'php' || $uri[3] == 'php-fpm' || $uri[3] == 'php5-fpm') { ?>
     <p class="login-box-msg"><b>Configuring Server <?= strtoupper($uri[3]) ?></b></p>
-    <p class="text-center">
-        <?php
-        echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
-        $_SESSION['error_msg'] = NULL;
-        $_SESSION['ok_msg'] = NULL;
-
-        //echo "<pre>", print_r($v_timezones), "</pre>";
-
-        ?>
-    </p>
-
+    <?php if (!empty($_SESSION['error_msg']) || !empty($_SESSION['ok_msg'])) { ?>
+        <p class="text-center">
+            <?php
+            echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
+            $_SESSION['error_msg'] = NULL;
+            $_SESSION['ok_msg'] = NULL;
+            ?>
+        </p>
+    <?php } ?>
     <form name="v_configure_server" action="https://<?= $_SERVER['HTTP_HOST'] ?>/server/edit/<?= $uri[3] ?>" method="post">
 
         <div class="col-4">
@@ -547,16 +536,15 @@ if ($uri[3] == 'apache2' || $uri[3] == 'httpd') { ?>
 <?php if ($uri[3] == 'spamassassin') { ?>
     <div class="col-8">
         <p class="login-box-msg"><b>Configuring Server <?= strtoupper($v_service_name) ?></b></p>
-        <p class="text-center">
-            <?php
-            echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
-            $_SESSION['error_msg'] = NULL;
-            $_SESSION['ok_msg'] = NULL;
-
-            //echo "<pre>", print_r($v_timezones), "</pre>";
-
-            ?>
-        </p>
+        <?php if (!empty($_SESSION['error_msg']) || !empty($_SESSION['ok_msg'])) { ?>
+            <p class="text-center">
+                <?php
+                echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
+                $_SESSION['error_msg'] = NULL;
+                $_SESSION['ok_msg'] = NULL;
+                ?>
+            </p>
+        <?php } ?>
 
         <form name="v_configure_server" action="https://<?= $_SERVER['HTTP_HOST'] ?>/server/edit/<?= strtolower($v_service_name) ?>" method="post">
 
@@ -588,17 +576,15 @@ if ($uri[3] == 'apache2' || $uri[3] == 'httpd') { ?>
 <?php if ($uri[3] == 'vsftpd' || $uri[3] == 'cron' || $uri[3] == 'clamd' || $uri[3] == 'crond' || $uri[3] == 'exim' || $uri[3] == 'exim4' || $uri[3] == 'fail2ban' || $uri[3] == 'named' || $uri[3] == 'proftpd' || $uri[3] == 'spamd') { ?>
     <div class="col-8">
         <p class="login-box-msg"><b>Configuring Server <?= strtoupper($v_service_name) ?></b></p>
-        <p class="text-center">
-            <?php
-            echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
-            $_SESSION['error_msg'] = NULL;
-            $_SESSION['ok_msg'] = NULL;
-
-            //echo "<pre>", print_r($v_timezones), "</pre>";
-
-            ?>
-        </p>
-
+        <?php if (!empty($_SESSION['error_msg']) || !empty($_SESSION['ok_msg'])) { ?>
+            <p class="text-center">
+                <?php
+                echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
+                $_SESSION['error_msg'] = NULL;
+                $_SESSION['ok_msg'] = NULL;
+                ?>
+            </p>
+        <?php } ?>
         <form name="v_configure_server" action="https://<?= $_SERVER['HTTP_HOST'] ?>/server/edit/<?= strtolower($v_service_name) ?>" method="post">
 
             <label for="v_config"><?= $v_config_path ?></label>

@@ -1,10 +1,13 @@
 <p class="login-box-msg"><b>Reset Code</b></p>
-<p class="text-danger text-center">
-    <?php
-    echo $_SESSION['error_msg'];
-    $_SESSION['error_msg'] = NULL;
-    ?>
-</p>
+<?php if (!empty($_SESSION['error_msg']) || !empty($_SESSION['ok_msg'])) { ?>
+    <p class="text-danger text-center">
+        <?php
+        echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
+        $_SESSION['error_msg'] = NULL;
+        $_SESSION['ok_msg'] = NULL;
+        ?>
+    </p>
+<?php } ?>
 <form action="https://<?= $_SERVER['HTTP_HOST'] ?>/reset/r2" method="post">
     <div class="input-group mb-3">
         <input type="text" name="code" class="form-control" placeholder="Reset code">

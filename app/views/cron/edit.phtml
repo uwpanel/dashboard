@@ -1,11 +1,13 @@
 <div class="col-10">
-    <p class="text-center">
-        <?php
-        echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
-        $_SESSION['error_msg'] = NULL;
-        $_SESSION['ok_msg'] = NULL;
-        ?>
-    </p>
+    <?php if (!empty($_SESSION['error_msg']) || !empty($_SESSION['ok_msg'])) { ?>
+        <p class="text-center">
+            <?php
+            echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
+            $_SESSION['error_msg'] = NULL;
+            $_SESSION['ok_msg'] = NULL;
+            ?>
+        </p>
+    <?php } ?>
     <form name="v_add_user" action="https://<?= $_SERVER['HTTP_HOST'] ?>/cron/edit/<?php if (isset($_SESSION['look'])) {
                                                                                         echo $_SESSION['look'];
                                                                                     } else {

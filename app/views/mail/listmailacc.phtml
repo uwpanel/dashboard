@@ -1,3 +1,10 @@
+<?php if (!empty($_SESSION['error_msg']) || !empty($_SESSION['ok_msg'])) { ?>
+    <?php
+    echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
+    $_SESSION['error_msg'] = NULL;
+    $_SESSION['ok_msg'] = NULL;
+    ?>
+<?php } ?>
 <div id="toolbar">
     <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/mail/addmailacc/<?= $domain ?>" id="add" class="btn btn-primary">
         <i class="fas fa-plus-circle status-icon"></i> Add Mail Account

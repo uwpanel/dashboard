@@ -1,59 +1,59 @@
-    <? include(APP_PATH . 'libs/stats.php'); ?>
-    <!-- Main Footer -->
-    <footer class="main-footer">
-        <!-- To the right -->
-        <div class="float-right d-none d-sm-inline">
-            <?= 'Executed in ', round((microtime(1) - $_SERVER['REQUEST_TIME_FLOAT']) * 1000, 4), ' ms. using ', number_format(memory_get_usage() / 1048576, 3), ' MB of memory'; ?> </div>
-        <!-- Default to the left -->
-        <strong>Powered by <a href="https://uwpanel.com">UWPanel.com</a></strong> &nbsp; | &nbsp; Server Time: <em> <?= print_r($time_data, true); ?></em> &nbsp; Time Zone: <em><?= print_r($timezone_data, true); ?> </em>
-        <div class="col-12 text-center"> </div>
-    </footer>
-    </div>
-    <!-- ./wrapper -->
+<? include(APP_PATH . 'libs/stats.php'); ?>
+<!-- Main Footer -->
+<footer class="main-footer">
+    <!-- To the right -->
+    <div class="float-right d-none d-sm-inline">
+        <?= 'Executed in ', round((microtime(1) - $_SERVER['REQUEST_TIME_FLOAT']) * 1000, 4), ' ms. using ', number_format(memory_get_usage() / 1048576, 3), ' MB of memory'; ?> </div>
+    <!-- Default to the left -->
+    <strong>Powered by <a href="https://uwpanel.com">UWPanel.com</a></strong> &nbsp; | &nbsp; Server Time: <em> <?= print_r($time_data, true); ?></em> &nbsp; Time Zone: <em><?= print_r($timezone_data, true); ?> </em>
+    <div class="col-12 text-center"> </div>
+</footer>
+</div>
+<!-- ./wrapper -->
 
-    <!-- <? //php Tag::js('jquery.min') //php is not working 
-            ?> -->
+<!-- <? //php Tag::js('jquery.min') //php is not working 
+        ?> -->
 
-    <!-- jQuery -->
-    <? //= Tag::js('jquery/jquery.min'); 
-    ?>
+<!-- jQuery -->
+<? //= Tag::js('jquery/jquery.min'); 
+?>
 
-    <!-- Bootstrap 4 -->
-    <? //= Tag::js('bootstrap.bundle.min'); 
-    ?>
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <!-- Popper -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <!-- Bootstrap 4 -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <!-- AdminLTE App -->
-    <?= Tag::js('adminlte.min'); ?>
+<!-- Bootstrap 4 -->
+<? //= Tag::js('bootstrap.bundle.min'); 
+?>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!-- Popper -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!-- AdminLTE App -->
+<?= Tag::js('adminlte.min'); ?>
 
-    <!-- REQUIRED SCRIPTS -->
-    <?= Tag::js('app'); ?>
+<!-- REQUIRED SCRIPTS -->
+<?= Tag::js('app'); ?>
 
-    <!-- Bootstrap Table -->
-    <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
-    <!-- Bootstrap Table add-ons -->
-    <script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>
-    <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
-    <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table-locale-all.min.js"></script>
-    <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/extensions/export/bootstrap-table-export.min.js"></script>
+<!-- Bootstrap Table -->
+<script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
+<!-- Bootstrap Table add-ons -->
+<script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table-locale-all.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.16.0/dist/extensions/export/bootstrap-table-export.min.js"></script>
 
-    <?= Tag::js('misc'); ?>
-    <?php
-    $uri = explode('/', $_SERVER['REQUEST_URI']);
-    $controller = $uri[1];
-    $method = $uri[2];
-    if ($controller != '') {
-        if (isset($controller) != NULL && isset($method) != NULL) {
-            echo Tag::js('pages/' . $controller . '/' . $method);
-            // echo Tag::js('pages/' . $controller . '/index');
-        }
+<?= Tag::js('misc'); ?>
+<?php
+$uri = explode('/', $_SERVER['REQUEST_URI']);
+$controller = $uri[1];
+$method = $uri[2];
+if ($controller != '') {
+    if (isset($controller) != NULL && isset($method) != NULL) {
+        echo Tag::js('pages/' . $controller . '/' . $method);
+        // echo Tag::js('pages/' . $controller . '/index');
     }
-    ?>
+}
+?>
 
-    </body>
+</body>
 
-    </html>
+</html>

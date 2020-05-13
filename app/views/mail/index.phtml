@@ -1,9 +1,12 @@
-<p class="text-center">
-    <?php
-    echo $_SESSION['error_msg'];
-    $_SESSION['error_msg'] = NULL;
-    ?>
-</p>
+<?php if (!empty($_SESSION['error_msg']) || !empty($_SESSION['ok_msg'])) { ?>
+    <p class="text-center">
+        <?php
+        echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
+        $_SESSION['error_msg'] = NULL;
+        $_SESSION['ok_msg'] = NULL;
+        ?>
+    </p>
+<?php } ?>
 <div id="toolbar">
     <button id="remove" class="btn btn-danger" disabled>
         <i class="fas fa-trash status-icon red status-icon dim do_delete"></i> Delete

@@ -1,12 +1,14 @@
 <div class="col-4">
-    <p class="text-center">
-        <?php
-        echo $_SESSION['error_msg'];
-        $_SESSION['error_msg'] = NULL;
-        $value = $data[array_keys($data)[0]];
-        // echo "<pre>", $v_ns1, print_r($_SESSION), print_r($shells);
-        ?>
-    </p>
+    <?php if (!empty($_SESSION['error_msg']) || !empty($_SESSION['ok_msg'])) { ?>
+        <p class="text-center">
+            <?php
+            echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
+            $_SESSION['error_msg'] = NULL;
+            $_SESSION['ok_msg'] = NULL;
+            $value = $data[array_keys($data)[0]];
+            ?>
+        </p>
+    <?php } ?>
     <form name="v_edit_user" action="https://<?= $_SERVER['HTTP_HOST'] ?>/user/edit/<?= $v_username ?>/<?= $_SESSION['token'] ?>" method="post">
         <label for="v_user">Username</label>
         <div class="input-group mb-3">

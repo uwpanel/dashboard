@@ -1,11 +1,12 @@
-<p class="text-center">
-    <?php
-    echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
-    $_SESSION['error_msg'] = NULL;
-    $_SESSION['ok_msg'] = NULL;
-    $uri = explode('/', $_SERVER['REQUEST_URI']);
-    ?>
-</p>
+<?php if (!empty($_SESSION['error_msg']) || !empty($_SESSION['ok_msg'])) { ?>
+    <p class="text-center">
+        <?php
+        echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
+        $_SESSION['error_msg'] = NULL;
+        $_SESSION['ok_msg'] = NULL;
+        ?>
+    </p>
+<?php } ?>
 <div>
     <p>Listing <b><?= $uri[3]; ?></b></p>
 </div>

@@ -1,10 +1,13 @@
 <div class="col-4">
-    <p class="text-center">
-        <?php
-        echo $_SESSION['error_msg'];
-        $_SESSION['error_msg'] = NULL;
-        ?>
-    </p>
+    <?php if (!empty($_SESSION['error_msg']) || !empty($_SESSION['ok_msg'])) { ?>
+        <p class="text-center">
+            <?php
+            echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
+            $_SESSION['error_msg'] = NULL;
+            $_SESSION['ok_msg'] = NULL;
+            ?>
+        </p>
+    <?php } ?>
 
     <form name="v_add_dns_rec" action="https://<?= $_SERVER['HTTP_HOST'] ?>/dns/addrecord/<?= $domain ?>" method="post">
 

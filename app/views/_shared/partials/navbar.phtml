@@ -6,25 +6,35 @@
         <li class="nav-item">
             <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
         </li>
-        <?php if ($_SESSION['user'] == 'admin' && empty($_SESSION['look'])) { ?>
-            <li class="nav-item d-none d-sm-inline-block">
+        <? //php if ($_SESSION['user'] == 'admin' && empty($_SESSION['look'])) { 
+        ?>
+        <!-- <li class="nav-item d-none d-sm-inline-block">
                 <a href="#" class="nav-link">Graph</a>
-            </li>
-        <?php } ?>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/stats" class="nav-link <?php if ($uri['1'] == 'stats') echo "active"; ?>">Statistics</a>
+            </li> -->
+        <? //php } 
+        ?>
+        <!-- <li class="nav-item d-none d-sm-inline-block">
+            <a href="https://<? //= $_SERVER['HTTP_HOST'] 
+                                ?>/stats" class="nav-link <? //php if ($uri['1'] == 'stats') echo "active"; 
+                                                            ?>">Statistics</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/log" class="nav-link <?php if ($uri['1'] == 'log') echo "active"; ?>">Log</a>
-        </li>
-        <?php if ($_SESSION['user'] == 'admin' && empty($_SESSION['look'])) { ?>
+            <a href="https://<? //= $_SERVER['HTTP_HOST'] 
+                                ?>/log" class="nav-link <? //php if ($uri['1'] == 'log') echo "active"; 
+                                                        ?>">Log</a>
+        </li> -->
+        <!-- <? //php if ($_SESSION['user'] == 'admin' && empty($_SESSION['look'])) { 
+                ?>
             <li class="nav-item d-none d-sm-inline-block">
                 <a href="#" class="nav-link">Updates</a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/server" class="nav-link <?php if ($uri['1'] == 'server') echo "active"; ?>">Server</a>
+                <a href="https://<? //= $_SERVER['HTTP_HOST'] 
+                                    ?>/server" class="nav-link <? //php if ($uri['1'] == 'server') echo "active"; 
+                                                                ?>">Server</a>
             </li>
-        <?php } ?>
+        <? //php } 
+        ?> -->
     </ul>
 
     <!-- Right navbar links -->

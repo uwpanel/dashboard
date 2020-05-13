@@ -4,13 +4,15 @@
                     echo $_SESSION['user'];
                 } ?>_</b> will be automaticaly added to database name and database user.</p>
 <div class="col-4">
-    <p class="text-center">
-        <?php
-        echo $_SESSION['error_msg'];
-        $_SESSION['error_msg'] = NULL;
-        ?>
-
-    </p>
+    <?php if (!empty($_SESSION['error_msg']) || !empty($_SESSION['ok_msg'])) { ?>
+        <p class="text-center">
+            <?php
+            echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
+            $_SESSION['error_msg'] = NULL;
+            $_SESSION['ok_msg'] = NULL;
+            ?>
+        </p>
+    <?php } ?>
     <form name="v_add_db" action="https://<?= $_SERVER['HTTP_HOST'] ?>/db/add" method="post">
         <label for="v_database">Database</label> <span style="color:red">*</span>
         <div class="input-group mb-3">
