@@ -5,7 +5,7 @@ class ServerController extends AppController
     public function index()
     {
         error_reporting(NULL);
-        $_SESSION['title'] = 'Server';
+        $_SESSION['title'] = 'Server Info';
 
         // Main include
         include(APP_PATH . 'libs/inc/main.php');
@@ -26,6 +26,33 @@ class ServerController extends AppController
 
         // Back uri
         $_SESSION['back'] = $_SERVER['REQUEST_URI'];
+    }
+    
+    public function dash()
+    {
+        error_reporting(NULL);
+        $_SESSION['title'] = 'Server - Dashboard';
+
+        // Main include
+        include(APP_PATH . 'libs/inc/main.php');
+    }
+    
+    public function graph()
+    {
+        error_reporting(NULL);
+        $_SESSION['title'] = 'Server - Graph';
+
+        // Main include
+        include(APP_PATH . 'libs/inc/main.php');
+    }
+    
+    public function updates()
+    {
+        error_reporting(NULL);
+        $_SESSION['title'] = 'Server - Updates';
+
+        // Main include
+        include(APP_PATH . 'libs/inc/main.php');
     }
 
     public function info($param_type)
