@@ -16,9 +16,6 @@ class CronController extends AppController
         $this->data = array_reverse($data, true);
         unset($output);
 
-        // Render page
-        render_page($user, $TAB, 'list_cron');
-
         // Back uri
         $_SESSION['back'] = $_SERVER['REQUEST_URI'];
     }
@@ -88,9 +85,6 @@ class CronController extends AppController
             }
             header('Location: /cron');
         }
-
-        // Render
-        render_page($user, $TAB, 'add_cron');
 
         // Flush session messages
         unset($_SESSION['error_msg']);
@@ -178,9 +172,6 @@ class CronController extends AppController
 
             header("Location: /cron");
         }
-
-        // Render page
-        render_page($user, $TAB, 'edit_cron');
 
         // Flush session messages
         unset($_SESSION['error_msg']);

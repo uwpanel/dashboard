@@ -16,9 +16,6 @@ class DbController extends AppController
         $this->data = array_reverse($data, true);
         unset($output);
 
-        // Render page
-        render_page($user, $TAB, 'list_db');
-
         // Back uri
         $_SESSION['back'] = $_SERVER['REQUEST_URI'];
     }
@@ -155,8 +152,6 @@ class DbController extends AppController
         unset($db_hosts_tmp1);
         unset($db_hosts_tmp2);
 
-        render_page($user, $TAB, 'add_db');
-
         // Flush session messages
         unset($_SESSION['error_msg']);
         unset($_SESSION['ok_msg']);
@@ -250,9 +245,6 @@ class DbController extends AppController
             }
             header("Location: /db");
         }
-
-        // Render page
-        render_page($user, $TAB, 'edit_db');
 
         // Flush session messages
         unset($_SESSION['error_msg']);

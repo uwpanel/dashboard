@@ -16,9 +16,6 @@ class WebController extends AppController
         $this->data = array_reverse($data, true);
         $ips = json_decode(shell_exec(VESTA_CMD . 'v-list-sys-ips json'), true);
 
-        // Render page
-        render_page($user, $TAB, 'list_web');
-
         // Back uri
         $_SESSION['back'] = $_SERVER['REQUEST_URI'];
     }
@@ -1140,9 +1137,6 @@ class WebController extends AppController
             }
         }
         header("Location: /web");
-
-        // Render page
-        render_page($user, $TAB, 'edit_web');
 
         // Flush session messages
         unset($_SESSION['error_msg']);

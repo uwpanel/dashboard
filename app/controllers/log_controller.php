@@ -17,8 +17,5 @@ class LogController extends AppController
         $data = json_decode(implode('', $output), true);
         $this->data = array_reverse($data);
         unset($output);
-
-        // Render page
-        render_page($user, $TAB, 'list_log');
     }
 }

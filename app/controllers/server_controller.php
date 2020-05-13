@@ -757,10 +757,6 @@ class ServerController extends AppController
                 $_SESSION[$key] = $value;
             }
 
-
-            // Render page
-            render_page($user, $TAB, 'edit_server');
-
             // Flush session messages
             unset($_SESSION['error_msg']);
             unset($_SESSION['ok_msg']);
@@ -805,9 +801,6 @@ class ServerController extends AppController
 
             // Read config
             $this->v_config = shell_exec(VESTA_CMD . "v-open-fs-config " . $this->v_config_path);
-
-            // Render page
-            render_page($user, $TAB, 'edit_server_httpd');
 
             // Flush session messages
             unset($_SESSION['error_msg']);
@@ -869,9 +862,6 @@ class ServerController extends AppController
             $this->v_options = shell_exec(VESTA_CMD . "v-open-fs-config " . $this->v_options_path);
             $this->v_config = shell_exec(VESTA_CMD . "v-open-fs-config " . $this->v_config_path);
 
-            // Render page
-            render_page($user, $TAB, 'edit_server_bind9');
-
             // Flush session messages
             unset($_SESSION['error_msg']);
             unset($_SESSION['ok_msg']);
@@ -916,9 +906,6 @@ class ServerController extends AppController
 
             // Read config
             $this->v_config = shell_exec(VESTA_CMD . "v-open-fs-config " . $this->v_config_path);
-
-            // Render page
-            render_page($user, $TAB, 'edit_server_service');
 
             // Flush session messages
             unset($_SESSION['error_msg']);
@@ -965,9 +952,6 @@ class ServerController extends AppController
             // Read config
             $this->v_config = shell_exec(VESTA_CMD . "v-open-fs-config " . $this->v_config_path);
 
-            // Render page
-            render_page($user, $TAB, 'edit_server_service');
-
             // Flush session messages
             unset($_SESSION['error_msg']);
             unset($_SESSION['ok_msg']);
@@ -1012,9 +996,6 @@ class ServerController extends AppController
 
             // Read config
             $this->v_config = shell_exec(VESTA_CMD . "v-open-fs-config " . $this->v_config_path);
-
-            // Render page
-            render_page($user, $TAB, 'edit_server_service');
 
             // Flush session messages
             unset($_SESSION['error_msg']);
@@ -1186,9 +1167,6 @@ class ServerController extends AppController
             if (!empty($this->v_config_path7)) $this->v_config7 = shell_exec(VESTA_CMD . "v-open-fs-config " . $this->v_config_path7);
             if (!empty($this->v_config_path8)) $this->v_config8 = shell_exec(VESTA_CMD . "v-open-fs-config " . $this->v_config_path8);
 
-            // Render page
-            render_page($user, $TAB, 'edit_server_dovecot');
-
             // Flush session messages
             unset($_SESSION['error_msg']);
             unset($_SESSION['ok_msg']);
@@ -1233,9 +1211,6 @@ class ServerController extends AppController
 
             // Read config
             $this->v_config = shell_exec(VESTA_CMD . "v-open-fs-config " . $this->v_config_path);
-
-            // Render page
-            render_page($user, $TAB, 'edit_server_service');
 
             // Flush session messages
             unset($_SESSION['error_msg']);
@@ -1282,9 +1257,6 @@ class ServerController extends AppController
             // Read config
             $this->v_config = shell_exec(VESTA_CMD . "v-open-fs-config " . $this->v_config_path);
 
-            // Render page
-            render_page($user, $TAB, 'edit_server_service');
-
             // Flush session messages
             unset($_SESSION['error_msg']);
             unset($_SESSION['ok_msg']);
@@ -1330,9 +1302,6 @@ class ServerController extends AppController
             // Read config
             $this->v_config = shell_exec(VESTA_CMD . "v-open-fs-config " . $this->v_config_path);
 
-            // Render page
-            render_page($user, $TAB, 'edit_server_service');
-
             // Flush session messages
             unset($_SESSION['error_msg']);
             unset($_SESSION['ok_msg']);
@@ -1377,9 +1346,6 @@ class ServerController extends AppController
 
             // Read config
             $this->v_config = shell_exec(VESTA_CMD . "v-open-fs-config " . $this->v_config_path);
-
-            // Render page
-            render_page($user, $TAB, 'edit_server_httpd');
 
             // Flush session messages
             unset($_SESSION['error_msg']);
@@ -1441,9 +1407,6 @@ class ServerController extends AppController
             # Read config
             $this->v_config = shell_exec(VESTA_CMD . "v-open-fs-config " . $this->v_config_path);
 
-            // Render page
-            render_page($user, $TAB, 'edit_server_mysql');
-
             // Flush session messages
             unset($_SESSION['error_msg']);
             unset($_SESSION['ok_msg']);
@@ -1497,9 +1460,6 @@ class ServerController extends AppController
 
             # Read config
             $this->v_config = shell_exec(VESTA_CMD . "v-open-fs-config " . $this->v_config_path);
-
-            // Render page
-            render_page($user, $TAB, 'edit_server_mysql');
 
             // Flush session messages
             unset($_SESSION['error_msg']);
@@ -1555,9 +1515,6 @@ class ServerController extends AppController
             # Read config
             $this->v_config = shell_exec(VESTA_CMD . "v-open-fs-config " . $this->v_config_path);
 
-            // Render page
-            render_page($user, $TAB, 'edit_server_mysql');
-
             // Flush session messages
             unset($_SESSION['error_msg']);
             unset($_SESSION['ok_msg']);
@@ -1602,9 +1559,6 @@ class ServerController extends AppController
 
             // Read config
             $this->v_config = shell_exec(VESTA_CMD . "v-open-fs-config " . $this->v_config_path);
-
-            // Render page
-            render_page($user, $TAB, 'edit_server_service');
 
             // Flush session messages
             unset($_SESSION['error_msg']);
@@ -1665,9 +1619,6 @@ class ServerController extends AppController
             // Read config
             $this->v_config = shell_exec(VESTA_CMD . "v-open-fs-config " . $this->v_config_path);
 
-            // Render page
-            render_page($user, $TAB, 'edit_server_nginx');
-
             // Flush session messages
             unset($_SESSION['error_msg']);
             unset($_SESSION['ok_msg']);
@@ -1722,9 +1673,6 @@ class ServerController extends AppController
 
             # Read config
             $this->v_config = shell_exec(VESTA_CMD . "v-open-fs-config " . $this->v_config_path);
-
-            // Render page
-            render_page($user, $TAB, 'edit_server_php');
 
             // Flush session messages
             unset($_SESSION['error_msg']);
@@ -1781,9 +1729,6 @@ class ServerController extends AppController
             # Read config
             $this->v_config = shell_exec(VESTA_CMD . "v-open-fs-config " . $this->v_config_path);
 
-            // Render page
-            render_page($user, $TAB, 'edit_server_php');
-
             // Flush session messages
             unset($_SESSION['error_msg']);
             unset($_SESSION['ok_msg']);
@@ -1838,9 +1783,6 @@ class ServerController extends AppController
 
             # Read config
             $this->v_config = shell_exec(VESTA_CMD . "v-open-fs-config " . $this->v_config_path);
-
-            // Render page
-            render_page($user, $TAB, 'edit_server_php');
 
             // Flush session messages
             unset($_SESSION['error_msg']);
@@ -1907,9 +1849,6 @@ class ServerController extends AppController
             $this->v_options = shell_exec(VESTA_CMD . "v-open-fs-config " . $this->v_options_path);
             $this->v_config = shell_exec(VESTA_CMD . "v-open-fs-config " . $this->v_config_path);
 
-            // Render page
-            render_page($user, $TAB, 'edit_server_pgsql');
-
             // Flush session messages
             unset($_SESSION['error_msg']);
             unset($_SESSION['ok_msg']);
@@ -1954,9 +1893,6 @@ class ServerController extends AppController
 
             // Read config
             $this->v_config = shell_exec(VESTA_CMD . "v-open-fs-config " . $this->v_config_path);
-
-            // Render page
-            render_page($user, $TAB, 'edit_server_service');
 
             // Flush session messages
             unset($_SESSION['error_msg']);
@@ -2004,9 +1940,6 @@ class ServerController extends AppController
             // Read config
             $this->v_config = shell_exec(VESTA_CMD . "v-open-fs-config " . $this->v_config_path);
 
-            // Render page
-            render_page($user, $TAB, 'edit_server_service');
-
             // Flush session messages
             unset($_SESSION['error_msg']);
             unset($_SESSION['ok_msg']);
@@ -2052,9 +1985,6 @@ class ServerController extends AppController
             // Read config
             $this->v_config = shell_exec(VESTA_CMD . "v-open-fs-config " . $this->v_config_path);
 
-            // Render page
-            render_page($user, $TAB, 'edit_server_service');
-
             // Flush session messages
             unset($_SESSION['error_msg']);
             unset($_SESSION['ok_msg']);
@@ -2099,9 +2029,6 @@ class ServerController extends AppController
 
             // Read config
             $this->v_config = shell_exec(VESTA_CMD . "v-open-fs-config " . $this->v_config_path);
-
-            // Render page
-            render_page($user, $TAB, 'edit_server_service');
 
             // Flush session messages
             unset($_SESSION['error_msg']);

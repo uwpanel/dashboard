@@ -17,8 +17,6 @@ class BackController extends AppController
         $this->data = array_reverse($data, true);
         unset($output);
 
-        render_page($user, $TAB, 'list_backup');
-
         // Back uri
         $_SESSION['back'] = $_SERVER['REQUEST_URI'];
     }
@@ -46,7 +44,6 @@ class BackController extends AppController
             $this->backup = explode(',', $this->data[$param_backup]['BACKUP']);
             $this->udir = explode(',', $this->data[$param_backup]['UDIR']);
 
-            render_page($user, $TAB, 'list_backup_detail');
         }
         // Back uri
         $_SESSION['back'] = $_SERVER['REQUEST_URI'];
