@@ -47,10 +47,10 @@
                                                                             } ?>/<?= $key ?>" title="Edit Web Domain">
                         <i class="fas fa-pencil-alt status-icon orange status-icon dim"></i>
                     </a>&nbsp;
-                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/weblog/index/<?= $key ?>/access" title="Access Log">
+                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/weblog/index/<?= $key ?>/access" title="Access Log" target="_blank">
                         <i class="fas fa-binoculars status-icon purple status-icon dim"></i>
                     </a>&nbsp;
-                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/weblog/index/<?= $key ?>/error" title="Error Log">
+                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/weblog/index/<?= $key ?>/error" title="Error Log" target="_blank">
                         <i class="fa fa-exclamation" aria-hidden="true"></i>
                     </a>&nbsp;
                     <?php if ($_SESSION['user'] == 'admin') {
