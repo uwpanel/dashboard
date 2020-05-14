@@ -33,14 +33,7 @@
                                     Users
                                     <?php if ($_SESSION['user'] == 'admin' && empty($_SESSION['look'])) { ?>
                                         <span class="right ">
-                                            <span class=" badge badge-success" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Users"><?= $each['U_USERS'] ?></span>
-                                            <span class=" badge badge-danger" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Suspended"><?= $each['SUSPENDED_USERS'] ?></span>
-                                        </span>
-
-                                    <? } else { ?>
-                                        <span class="right">
-                                            <span class="badge badge-success" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Disk"><?= $each['U_DISK'] ?></span>
-                                            <span class="badge badge-info" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Bandwidth"><?= $each['U_BANDWIDTH'] ?></span>
+                                            <span class=" badge badge-success" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Users &nbsp; :&nbsp; <?= $each['U_USERS'] ?><br>Suspended&nbsp; :&nbsp; <?= $each['SUSPENDED_USERS'] ?>"><?= $each['U_USERS'] ?></span>
                                         </span>
                                     <? } ?>
                                 </p>
@@ -53,9 +46,7 @@
                             <p>
                                 Web
                                 <span class="right">
-                                    <span class="badge badge-success" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Web Domains"><?= $each['U_WEB_DOMAINS'] ?></span>
-                                    <span class="badge badge-info" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Aliases"><?= $each['U_WEB_ALIASES'] ?></span>
-                                    <span class="badge badge-danger" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Suspended"><?= $each['SUSPENDED_WEB'] ?></span>
+                                    <span class="badge badge-success" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Web Domains &nbsp; :&nbsp; <?= $each['U_WEB_DOMAINS'] ?><br>Aliases &nbsp; :&nbsp; <?= $each['U_WEB_ALIASES'] ?><br>Suspended&nbsp; :&nbsp; <?= $each['SUSPENDED_WEB'] ?>"><?= $each['U_WEB_DOMAINS'] ?></span>
                                 </span>
                             </p>
                         </a>
@@ -67,9 +58,7 @@
                             <p>
                                 DNS
                                 <span class="right">
-                                    <span class="badge badge-success" data-toggle="tooltip" data-placement="bottom" data-html="true" title="DNS Domains"><?= $each['U_DNS_DOMAINS'] ?></span>
-                                    <span class="badge badge-info" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Records"><?= $each['U_DNS_RECORDS'] ?></span>
-                                    <span class="badge badge-danger" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Suspended"><?= $each['SUSPENDED_DNS'] ?></span>
+                                    <span class="badge badge-success" data-toggle="tooltip" data-placement="bottom" data-html="true" title="DNS Domains &nbsp; :&nbsp; <?= $each['U_DNS_DOMAINS'] ?><br>Records &nbsp; :&nbsp; <?= $each['U_DNS_RECORDS'] ?><br>Suspended&nbsp; :&nbsp; <?= $each['SUSPENDED_DNS'] ?>"><?= $each['U_DNS_DOMAINS'] ?></span>
                                 </span>
                             </p>
                         </a>
@@ -80,9 +69,7 @@
                             <p>
                                 Mail
                                 <span class="right">
-                                    <span class="badge badge-success" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Mail Domains"><?= $each['U_MAIL_DOMAINS'] ?></span>
-                                    <span class="badge badge-info" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Mail Accounts"><?= $each['U_MAIL_ACCOUNTS'] ?></span>
-                                    <span class="badge badge-danger" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Suspended"><?= $each['SUSPENDED_MAIL'] ?></span>
+                                    <span class="badge badge-success" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Mail Domains &nbsp; :&nbsp; <?= $each['U_MAIL_DOMAINS'] ?><br>Mail Accounts &nbsp; :&nbsp; <?= $each['U_MAIL_ACCOUNTS'] ?><br>Suspended&nbsp; :&nbsp; <?= $each['SUSPENDED_MAIL'] ?>"><?= $each['U_MAIL_DOMAINS'] ?></span>
                                 </span>
                             </p>
                         </a>
@@ -93,8 +80,7 @@
                             <p>
                                 Database
                                 <span class="right">
-                                    <span class="badge badge-success" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Databases"><?= $each['U_DATABASES'] ?></span>
-                                    <span class="badge badge-danger" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Suspended"><?= $each['SUSPENDED_DB'] ?></span>
+                                    <span class="badge badge-success" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Databases &nbsp; :&nbsp; <?= $each['U_DATABASES'] ?><br>Suspended&nbsp; :&nbsp; <?= $each['SUSPENDED_DB'] ?>"><?= $each['U_DATABASES'] ?></span>
                                 </span>
                             </p>
                         </a>
@@ -105,8 +91,7 @@
                             <p>
                                 Cron Jobs
                                 <span class="right">
-                                    <span class="badge badge-success" data-toggle="tooltip" data-placement="bottom" data-html="true" title="CRON Jobss"><?= $each['U_CRON_JOBS'] ?></span>
-                                    <span class="badge badge-danger" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Suspended"><?= $each['SUSPENDED_CRON'] ?></span>
+                                    <span class="badge badge-success" data-toggle="tooltip" data-placement="bottom" data-html="true" title="CRON Jobs&nbsp; :&nbsp; <?= $each['U_CRON_JOBS'] ?><br>Suspended&nbsp; :&nbsp; <?= $each['SUSPENDED_CRON'] ?>"><?= $each['U_CRON_JOBS'] ?></span>
                                 </span>
                             </p>
                         </a>
@@ -185,4 +170,3 @@
     </div>
     <!-- /.sidebar -->
 </aside>
-<?= sizeof($log_count_data); ?>
