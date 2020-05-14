@@ -5,7 +5,7 @@
     <div class="float-right d-none d-sm-inline">
         <?= 'Executed in ', round((microtime(1) - $_SERVER['REQUEST_TIME_FLOAT']) * 1000, 4), ' ms. using ', number_format(memory_get_usage() / 1048576, 3), ' MB of memory'; ?> </div>
     <!-- Default to the left -->
-    <strong>Powered by <a href="https://uwpanel.com">UWPanel.com</a></strong> &nbsp; | &nbsp; Server Time: <em> <?= print_r($time_data, true); ?></em> &nbsp; Time Zone: <em><?= print_r($timezone_data, true); ?> </em>
+    <strong>Powered by <a href="https://uwpanel.com">UWPanel.com</a></strong> &nbsp; | &nbsp; Server Time: <b> <?= print_r($time_data, true); ?></b> &nbsp; Time Zone: <b><?= print_r($timezone_data, true); ?> </b>
     <div class="col-12 text-center"> </div>
 </footer>
 </div>
