@@ -77,10 +77,55 @@
         <label for="">Default Name Servers</label>
         <div class="input-group mb-3">
             <input type="text" name="v_ns1" class="form-control" placeholder="Name Server 1" value="<?= $v_ns1 ?>">
+            <span class="remove-ns additional-control delete"><?= __('delete') ?></span>
         </div>
 
         <div class="input-group mb-3">
             <input type="text" name="v_ns2" class="form-control" placeholder="Name Server 2" value="<?= $v_ns2 ?>">
+            <span class="remove-ns additional-control delete"><?= __('delete') ?></span>
+        </div>
+
+        <?php if ($v_ns3) { ?>
+            <div class="input-group mb-3">
+                <input type="text" size="20" class="vst-input" name="v_ns3" value="<?= htmlentities(trim($v_ns3, "'")) ?>">
+                <span class=" remove-ns additional-control delete"><?php __('delete') ?></span>
+            </div>
+        <?php }
+
+        if ($v_ns4) { ?>
+            <div class="input-group mb-3">
+                <input type="text" size="20" class="vst-input" name="v_ns4" value="<?= htmlentities(trim($v_ns4, "'")) ?>">
+                <span class="remove-ns additional-control delete"><?= __('delete') ?></span>
+            </div>
+        <?php }
+        if ($v_ns5) {
+        ?>
+            <div class="input-group mb-3">
+                <input type="text" size="20" class="vst-input" name="v_ns5" value="<?= htmlentities(trim($v_ns5, "'")) ?>">
+                <span class=" remove-ns additional-control delete"><?= __('delete') ?></span>
+            </div>
+        <?php }
+        if ($v_ns6) { ?>
+            <div class="input-group mb-3">
+                <input type="text" size="20" class="vst-input" name="v_ns6" value="<?= htmlentities(trim($v_ns6, "'")) ?>">
+                <span class=" remove-ns additional-control delete"><?= __('delete') ?></span>
+            </div>
+        <?php }
+        if ($v_ns7) { ?>
+            <div class="input-group mb-3">
+                <input type="text" size="20" class="vst-input" name="v_ns7" value="<?= htmlentities(trim($v_ns7, "'")) ?>">
+                <span class=" remove-ns additional-control delete"><?= __('delete') ?></span>
+            </div>
+        <?php }
+        if ($v_ns8) { ?>
+            <div class="input-group mb-3">
+                <input type="text" size="20" class="vst-input" name="v_ns8" value="<?= htmlentities(trim($v_ns8, "'")) ?>">
+                <span class=" remove-ns additional-control delete"><?= __('delete') ?></span>
+            </div>
+        <?php } ?>
+
+        <div class="input-group mb-3" <? if ($v_ns8) echo 'style="display:none;"'; ?>>
+            <span class="add-ns-button additional-control add"><?= __('Add one more Name Server') ?></span>
         </div>
 
         <div class="row">

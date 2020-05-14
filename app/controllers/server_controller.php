@@ -12,7 +12,7 @@ class ServerController extends AppController
 
         // Check user
         if ($_SESSION['user'] != 'admin' || isset($_SESSION['look'])) {
-            header("Location: /user");
+            header("Location: /");
             exit;
         }
 
@@ -27,7 +27,7 @@ class ServerController extends AppController
         // Back uri
         $_SESSION['back'] = $_SERVER['REQUEST_URI'];
     }
-    
+
     public function dash()
     {
         error_reporting(NULL);
@@ -36,7 +36,7 @@ class ServerController extends AppController
         // Main include
         include(APP_PATH . 'libs/inc/main.php');
     }
-    
+
     public function graph()
     {
         error_reporting(NULL);
@@ -44,8 +44,24 @@ class ServerController extends AppController
 
         // Main include
         include(APP_PATH . 'libs/inc/main.php');
+
+        error_reporting(NULL);
+
+        // Check user
+        if ($_SESSION['user'] != 'admin' || isset($_SESSION['look'])) {
+            header('Location: /');
+            exit;
+        }
+
+        // Data
+        exec(VESTA_CMD . "v-list-sys-rrd json", $output, $return_var);
+        $this->data = json_decode(implode('', $output), true);
+        unset($output);
+
+        // Back uri
+        $_SESSION['back'] = $_SERVER['REQUEST_URI'];
     }
-    
+
     public function updates()
     {
         error_reporting(NULL);
@@ -53,6 +69,40 @@ class ServerController extends AppController
 
         // Main include
         include(APP_PATH . 'libs/inc/main.php');
+    }
+
+    public function stats()
+    {
+        error_reporting(NULL);
+        $_SESSION['title'] = 'Server - Statistics';
+
+        // Main include
+        include(APP_PATH . 'libs/inc/main.php');
+
+        // Data
+        if ($user == 'admin') {
+            if (empty($_SESSION['look'])) {
+                exec(VESTA_CMD . "v-list-users-stats json", $output, $return_var);
+                $data = json_decode(implode('', $output), true);
+                $this->data = array_reverse($data, true);
+                unset($output);
+            } else {
+                $v_user = escapeshellarg($user);
+                exec(VESTA_CMD . "v-list-user-stats $v_user json", $output, $return_var);
+                $data = json_decode(implode('', $output), true);
+                $this->data = array_reverse($data, true);
+                unset($output);
+            }
+
+            exec(VESTA_CMD . "v-list-sys-users json", $output, $return_var);
+            $this->users = json_decode(implode('', $output), true);
+            unset($output);
+        } else {
+            exec(VESTA_CMD . "v-list-user-stats $user json", $output, $return_var);
+            $data = json_decode(implode('', $output), true);
+            $this->data = array_reverse($data, true);
+            unset($output);
+        }
     }
 
     public function info($param_type)
