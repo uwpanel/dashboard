@@ -11,12 +11,6 @@
 </div>
 <!-- ./wrapper -->
 
-<!-- <? //php Tag::js('jquery.min') //php is not working 
-        ?> -->
-
-<!-- jQuery -->
-<? //= Tag::js('jquery/jquery.min'); 
-?>
 
 <!-- Bootstrap 4 -->
 <? //= Tag::js('bootstrap.bundle.min'); 
@@ -42,6 +36,7 @@
 <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/extensions/export/bootstrap-table-export.min.js"></script>
 
 <?= Tag::js('misc'); ?>
+
 <?php
 $uri = explode('/', $_SERVER['REQUEST_URI']);
 $controller = $uri[1];
