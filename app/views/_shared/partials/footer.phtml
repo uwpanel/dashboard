@@ -11,16 +11,18 @@
 </div>
 <!-- ./wrapper -->
 
-
 <!-- Bootstrap 4 -->
 <? //= Tag::js('bootstrap.bundle.min'); 
 ?>
 <!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://<?= $_SERVER['HTTP_HOST'] ?>/javascript/jquery.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
 <!-- Popper -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://<?= $_SERVER['HTTP_HOST'] ?>/javascript/popper.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script> -->
 <!-- Bootstrap 4 -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://<?= $_SERVER['HTTP_HOST'] ?>/javascript/bootstrap.min.js"></script>
+<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> -->
 <!-- AdminLTE App -->
 <?= Tag::js('adminlte.min'); ?>
 
@@ -28,12 +30,17 @@
 <?= Tag::js('app'); ?>
 
 <!-- Bootstrap Table -->
-<script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
+<script src="https://<?= $_SERVER['HTTP_HOST'] ?>/javascript/bootstrap-table.min.js"></script>
+<!-- <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script> -->
 <!-- Bootstrap Table add-ons -->
-<script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>
-<script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
-<script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table-locale-all.min.js"></script>
-<script src="https://unpkg.com/bootstrap-table@1.16.0/dist/extensions/export/bootstrap-table-export.min.js"></script>
+<script src="https://<?= $_SERVER['HTTP_HOST'] ?>/javascript/tableExport.min.js"></script>
+<!-- <script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script> -->
+<script src="https://<?= $_SERVER['HTTP_HOST'] ?>/javascript/bootstrap-table.min.js"></script>
+<!-- <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script> -->
+<script src="https://<?= $_SERVER['HTTP_HOST'] ?>/javascript/bootstrap-table-locale-all.min.js"></script>
+<!-- <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table-locale-all.min.js"></script> -->
+<script src="https://<?= $_SERVER['HTTP_HOST'] ?>/javascript/bootstrap-table-export.min.js"></script>
+<!-- <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/extensions/export/bootstrap-table-export.min.js"></script> -->
 
 <?= Tag::js('misc'); ?>
 
@@ -44,7 +51,6 @@ $method = $uri[2];
 if ($controller != '') {
     if (isset($controller) != NULL && isset($method) != NULL) {
         echo Tag::js('pages/' . $controller . '/' . $method);
-        // echo Tag::js('pages/' . $controller . '/index');
     }
 }
 ?>
