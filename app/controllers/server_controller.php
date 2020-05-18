@@ -37,6 +37,30 @@ class ServerController extends AppController
         include(APP_PATH . 'libs/inc/main.php');
     }
 
+    public function ip()
+    {
+        error_reporting(NULL);
+        $_SESSION['title'] = 'Server - IP';
+
+        // Main include
+        include(APP_PATH . 'libs/inc/main.php');
+
+        // Check user
+        if ($_SESSION['user'] != 'admin' || isset($_SESSION['look'])) {
+            header('Location: /');
+            exit;
+        }
+
+        // Data
+        exec(VESTA_CMD . "v-list-sys-ips json", $output, $return_var);
+        $data = json_decode(implode('', $output), true);
+        $this->data = array_reverse($data, true);
+        unset($output);
+
+        // Back uri
+        $_SESSION['back'] = $_SERVER['REQUEST_URI'];
+    }
+
     public function graph()
     {
         error_reporting(NULL);
@@ -69,7 +93,7 @@ class ServerController extends AppController
 
         // Main include
         include(APP_PATH . 'libs/inc/main.php');
-        $this->query_string = '/rrd/'.$param_type.'/'. $param_img_name . '.png';
+        $this->query_string = '/rrd/' . $param_type . '/' . $param_img_name . '.png';
     }
 
     public function updates()

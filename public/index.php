@@ -12,31 +12,6 @@
  * @license    GPL-3.0
  */
 
-/*
-|--------------------------------------------------------------------------
-| Register The Auto Loader
-|--------------------------------------------------------------------------
-|
-*/
-
-require_once dirname(__DIR__) . '/vendor/autoload.php';
-
-/**
- * This section prepares the environment. All this can be done from the configuration of the
- * Server / PHP, in case you cannot use it from there. You can uncomment these lines.
- */
-
-
-/*
-|--------------------------------------------------------------------------
-| Register The Auto Loader
-|--------------------------------------------------------------------------
-|
-*/
-
-//require_once dirname(__DIR__) . '/vendor/autoload.php';
-
-
 //*Locale*
 //setlocale(LC_ALL, 'es_ES');
 

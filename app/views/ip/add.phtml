@@ -1,0 +1,59 @@
+<div class="col-4">
+    <?php if (!empty($_SESSION['error_msg']) || !empty($_SESSION['ok_msg'])) { ?>
+        <p class="text-center">
+            <?php
+            echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
+            $_SESSION['error_msg'] = NULL;
+            $_SESSION['ok_msg'] = NULL;
+            ?>
+        </p>
+    <?php } ?>
+    <form name="v_edit_dns" action="https://<?= $_SERVER['HTTP_HOST'] ?>/ip/add" method="post">
+
+        <label for="v_ip">IP</label>
+        <div class="input-group mb-3">
+            <input type="text" name="v_ip" class="form-control" placeholder="IP" required>
+        </div>
+
+        <label for="v_netmask">Netmask</label>
+        <div class="input-group mb-3">
+            <input type="text" name="v_netmask" class="form-control" placeholder="Netmask" required>
+        </div>
+
+        <label for="v_interace">Interface</label>
+        <div class="input-group mb-3">
+            <select name="v_interace" class="form-control" required>
+                <?php
+                foreach ($interfaces as $key ) { ?>
+                    <option value="<?= $key ?>" <?php if ($key == 'ens33') {
+                                                    echo 'selected';
+                                                } ?>><?= $key; ?></option>
+                <?php } ?>
+            </select>
+        </div>
+
+        <div class="input-group form-control mb-3">
+            <input type="checkbox" name="v_dns" id="dns" checked=yes>
+            <label class="" for="dns"> &nbsp; Shared</label>
+        </div>
+
+        <label for="v_name">Assigned domain</label>&emsp;<em>(<?= __("Optional") ?>)</em>
+        <div class="input-group mb-3">
+            <input type="text" name="v_name" class="form-control" placeholder="Assigned domain">
+        </div>
+
+        <label for="v_nat">NAT IP association</label>&emsp;<em>(<?= __("Optional") ?>)</em>
+        <div class="input-group mb-3">
+            <input type="text" name="v_nat" class="form-control" placeholder="NAT IP association">
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">Confirm</button>
+
+        <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/server/ip" class="btn btn-default btn-block">Back</a>
+
+        <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
+        <input type="hidden" name="ok" value="Add">
+    </form>
+</div>
+<?php
+    // echo "<pre>", print_r($data);
