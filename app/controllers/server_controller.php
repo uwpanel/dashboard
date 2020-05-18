@@ -62,6 +62,16 @@ class ServerController extends AppController
         $_SESSION['back'] = $_SERVER['REQUEST_URI'];
     }
 
+    public function graphimage($param_type, $param_img_name)
+    {
+        error_reporting(NULL);
+        session_start();
+
+        // Main include
+        include(APP_PATH . 'libs/inc/main.php');
+        $this->query_string = '/rrd/'.$param_type.'/'. $param_img_name . '.png';
+    }
+
     public function updates()
     {
         error_reporting(NULL);

@@ -29,4 +29,5 @@ sonar-project.properties
 composer.lock
 
 #files
+rrd
 

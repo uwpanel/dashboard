@@ -1,0 +1,14 @@
+<?php
+// echo $query_string;
+// die();
+error_reporting(NULL);
+session_start();
+// if ($_SESSION['user'] != 'admin') exit;
+// $real_path = realpath($_SERVER["DOCUMENT_ROOT"].$query_string);
+// if (empty($real_path)) exit;
+// $dir_name = dirname($real_path);
+// $dir_name = dirname($dir_name);
+// if ($dir_name != $_SERVER["DOCUMENT_ROOT"].'/rrd') exit;
+header("X-Accel-Redirect: ".$query_string);
+header("Content-Type: image/png");
+?>
