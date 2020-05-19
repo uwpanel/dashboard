@@ -200,7 +200,29 @@ class IpController extends AppController
         unset($_SESSION['ok_msg']);
     }
 
-    public function delete($param_ip,$param_token)
+    public function reread($param_token)
+    {
+        // Main include
+        include(APP_PATH . 'libs/inc/main.php');
+
+        //Check token
+        if ((!isset($param_token)) || ($_SESSION['token'] != $param_token)) {
+            header('location: /login');
+            exit();
+        }
+
+        if ($user == 'admin') {
+            exec(VESTA_CMD . "v-update-sys-ip");
+            header("Location: /server/ip");
+        } else {
+            header("Location: /server/ip");
+            exit;
+        }
+
+        header("Location: /server/ip");
+    }
+
+    public function delete($param_ip, $param_token)
     {
         // Main include
         include(APP_PATH . 'libs/inc/main.php');
@@ -213,7 +235,7 @@ class IpController extends AppController
             exit();
         }
 
-        if ($_SESSION['user'] == 'admin' ) {
+        if ($_SESSION['user'] == 'admin') {
             if (!empty($param_ip)) {
                 $v_ip = escapeshellarg($param_ip);
                 exec(VESTA_CMD . "v-delete-sys-ip " . $v_ip, $output, $return_var);

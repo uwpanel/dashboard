@@ -16,9 +16,10 @@
     </a>
 </div>
 
-<table id="table" data-toggle="table" data-toolbar="#toolbar" data-search="true" data-show-refresh="true" data-show-toggle="false" data-show-fullscreen="true" data-show-columns="true" data-show-columns-toggle-all="true" data-show-export="true" data-click-to-select="true" data-minimum-count-columns="2" data-id-field="name" data-page-list="[10, 25, 50, 100, all]" data-show-footer="false" data-response-handler="responseHandler">
+<table id="table" data-toggle="table" data-toolbar="#toolbar" data-search="true" data-show-refresh="true" data-show-toggle="false" data-show-fullscreen="true" data-show-columns="true" data-show-columns-toggle-all="true" data-show-export="true" data-click-to-select="true" data-minimum-count-columns="2" data-id-field="ip" data-page-list="[10, 25, 50, 100, all]" data-show-footer="false" data-response-handler="responseHandler">
     <thead>
         <tr>
+            <th data-field="state" data-checkbox="true"></th>
             <th data-field="date" data-filter-control="input" data-sortable="true">Date</th>
             <th data-field="action" data-filter-control="input" data-sortable="false">Action</th>
             <th data-field="name" data-filter-control="input" data-sortable="true">IP</th>
@@ -30,11 +31,15 @@
         foreach ($data as $key => $each) {
         ?>
             <tr>
+                <td></td>
                 <td>
                     <?= translate_date($each['DATE']) ?><br>
                     <?= $each['TIME'] ?>
                 </td>
                 <td>
+                    <a class="edit" href="https://<?= $_SERVER['HTTP_HOST'] ?>/ip/reread/<?= $_SESSION['token'] ?>" title="Re-read IP">
+                        <i class="fas fa-eye"></i>
+                    </a>&nbsp;
                     <a class="edit" href="https://<?= $_SERVER['HTTP_HOST'] ?>/ip/edit/<?= $key ?>" title="Edit">
                         <i class="fas fa-pencil-alt status-icon orange status-icon dim"></i>
                     </a>&nbsp;
