@@ -139,6 +139,47 @@ class ServerController extends AppController
         }
     }
 
+    public function packages()
+    {
+        error_reporting(NULL);
+        $_SESSION['title'] = 'Server - Packages';
+
+        // Main include
+        include(APP_PATH . 'libs/inc/main.php');
+
+        // Check user
+        if ($user != 'admin' || isset($_SESSION['look'])) {
+            header("Location: /list/user");
+            exit;
+        }
+
+        // Data
+        exec(VESTA_CMD . "v-list-user-packages json", $output, $return_var);
+        $this->data = json_decode(implode('', $output), true);
+        unset($output);
+    }
+
+    public function firewall()
+    {
+        error_reporting(NULL);
+        $_SESSION['title'] = 'Server - Firewall';
+
+        // Main include
+        include(APP_PATH . 'libs/inc/main.php');
+
+        // Check user
+        if ($user != 'admin' || isset($_SESSION['look'])) {
+            header("Location: /list/user");
+            exit;
+        }
+
+        // Data
+        exec(VESTA_CMD . "v-list-firewall json", $output, $return_var);
+        $data = json_decode(implode('', $output), true);
+        $this->data = array_reverse($data, true);
+        unset($output);
+    }
+
     public function info($param_type)
     {
         error_reporting(NULL);

@@ -1,5 +1,5 @@
 <!-- Main Sidebar Container -->
-<aside class="main-sidebar sidebar-dark-primary elevation-4" style="position: fixed">
+<aside class="main-sidebar sidebar-dark-primary elevation-4 overlayscrollbar" style="position: fixed;top: 0;bottom: 0;">
     <!-- Brand Logo -->
     <a href="https://<?= $_SERVER['HTTP_HOST'] ?>" class="brand-link" style="padding: 8px 5px 10px 35px;">
         <?= Html::img('uwpanel-logo-light.png', 'UWpanel', 'width="180px"') ?>
@@ -156,6 +156,18 @@
                                     <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/server/stats" class="nav-link <?php if ($active[2] == 'stats') echo "active"; ?>">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Statastics</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/server/packages" class="nav-link <?php if ($active[2] == 'packages') echo "active"; ?>">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Packages</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/server/firewall" class="nav-link <?php if ($active[2] == 'firewall') echo "active"; ?>">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Firewall</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">

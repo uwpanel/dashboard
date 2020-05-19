@@ -1,0 +1,113 @@
+<?php if (!empty($_SESSION['error_msg']) || !empty($_SESSION['ok_msg'])) { ?>
+    <p class="text-center">
+        <?php
+        echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
+        $_SESSION['error_msg'] = NULL;
+        $_SESSION['ok_msg'] = NULL;
+        ?>
+    </p>
+<?php } ?>
+<div id="toolbar">
+    <button id="remove" class="btn btn-danger" disabled>
+        <i class="fas fa-trash status-icon red status-icon dim do_delete"></i> Delete
+    </button>
+    <?php if ($_SESSION['user'] == 'admin' && empty($_SESSION['look'])) { ?>
+        <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/user/add" id="add" class="btn btn-primary">
+            <i class="fas fa-plus-circle status-icon"></i> Add user
+        </a>
+    <?php } ?>
+
+</div>
+
+<table id="table" data-toggle="table" data-toolbar="#toolbar" data-search="true" data-show-refresh="true" data-show-toggle="false" data-show-fullscreen="true" data-show-columns="true" data-show-columns-toggle-all="true" data-show-export="true" data-click-to-select="true" data-minimum-count-columns="2" data-id-field="name" data-page-list="[10, 25, 50, 100, all]" data-show-footer="false" data-response-handler="responseHandler">
+    <thead>
+        <tr>
+            <th data-field="state" data-checkbox="true"></th>
+            <th data-field="name" data-filter-control="input" data-sortable="true">Name</th>
+            <th data-field="action" data-filter-control="input" data-sortable="true">Action</th>
+            <th data-field="package" data-filter-control="input" data-sortable="true">Package</th>
+            <th data-field="ip" data-filter-control="input" data-sortable="true">IP</th>
+            <th data-field="disk" data-filter-control="input" data-sortable="true" title="Disk"><i class="fas fa-hdd"></i></th>
+            <th data-field="bandwidth" data-filter-control="input" data-sortable="true" title="Bandwidth"><i class="fas fa-exchange-alt"></i></th>
+            <th data-field="web" data-filter-control="input" data-sortable="true" title="Web"><i class="fas fa-globe"></i></th>
+            <th data-field="mail" data-filter-control="input" data-sortable="true" title="Mail"><i class="fas fa-mail-bulk"></i></th>
+            <th data-field="dns" data-filter-control="input" data-sortable="true" title="DNS"><i class="nav-icon fas fa-sitemap"></i></th>
+            <th data-field="db" data-filter-control="input" data-sortable="true" title="Databases"><i class="nav-icon fas fa-database"></i></th>
+            <th data-field="cron" data-filter-control="input" data-sortable="true" title="Cron"><i class="nav-icon fas fa-cogs"></i></th>
+            <th data-field="backup" data-filter-control="input" data-sortable="true" title="Backup"><i class="nav-icon fas fa-upload"></i></th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        $index = 0;
+        foreach ($data as $key => $each) {
+        ?>
+            <tr>
+                <td></td>
+                <td> <b><? echo $key ?></b><br>Email :&ensp;<? echo $each['CONTACT'] ?></td>
+                <td>
+                    <a class="edit" href="https://<?= $_SERVER['HTTP_HOST'] ?>/user/edit/<?= $key ?>" title="Edit">
+                        <i class="fas fa-pencil-alt status-icon orange status-icon dim"></i>
+                    </a>
+                    &nbsp;
+                    <?php if ($_SESSION['user'] == 'admin') {
+
+                        if ($each['SUSPENDED'] != 'yes') { ?>
+                            <a class="suspend" href="https://<?= $_SERVER['HTTP_HOST'] ?>/user/suspend/<?= $key ?>/<?= $_SESSION['token']; ?>" title="Suspend">
+                                <i class="fas fa-pause status-icon highlight status-icon dim do_suspend"></i>
+                            </a>&nbsp;
+                        <?php } else { ?>
+                            <a class="suspend" href="https://<?= $_SERVER['HTTP_HOST'] ?>/user/unsuspend/<?= $key ?>/<?= $_SESSION['token']; ?>" title="Unsuspend">
+                                <i class="fas fa-play status-icon highlight status-icon dim do_suspend"></i>
+                            </a>&nbsp;
+                    <?php }
+                    } ?>
+
+                    <a href="" data-toggle="modal" data-target="#Modal<?= $index ?>" title="Delete">
+                        <i class="fas fa-trash"></i>
+                    </a>
+
+                    <!-- Modal -->
+                    <div class="modal danger" id="Modal<?= $index ?>" tabindex="-1" role="dialog" aria-labelledby="Modal<?= $index ?>Title" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="Modal<?= $index ?>Title">Confirmation</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure want to delete <b><?= $key ?></b> .
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <a class="btn btn-danger" href="https://<?= $_SERVER['HTTP_HOST'] ?>/user/delete/<?= $key ?>/<?= $_SESSION['token']; ?>" title="Delete">
+                                        Delete
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td><? echo $each['PACKAGE'] ?></td>
+                <td><? echo $each['IP_AVAIL'] ?></td>
+                <td><? echo $each['DISK_QUOTA'] ?> MB</td>
+                <td><? echo $each['U_BANDWIDTH'] ?> MB</td>
+                <td><? echo $each['U_DISK_WEB'] ?></td>
+                <td><? echo $each['U_DISK_MAIL'] ?></td>
+                <td><? echo $each['U_DNS_DOMAINS'] ?></td>
+                <td><? echo $each['U_DATABASES'] ?></td>
+                <td><? echo $each['U_CRON_JOBS'] ?></td>
+                <td><? echo $each['U_BACKUPS'] ?></td>
+            </tr>
+        <?php
+            $index++;
+        }
+        ?>
+    </tbody>
+</table>
+
+<?php
+echo "<pre>", print_r($data, true);
+?>
