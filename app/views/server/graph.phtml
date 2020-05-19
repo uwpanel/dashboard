@@ -9,12 +9,26 @@
 <?php } ?>
 <div id="toolbar">
 </div>
-
-<table id="table" data-toggle="table" data-toolbar="#toolbar" data-search="true" data-show-refresh="true" data-show-toggle="false" data-show-fullscreen="true" data-show-columns="true" data-show-columns-toggle-all="true" data-show-export="true" data-click-to-select="true" data-minimum-count-columns="2" data-id-field="name" data-page-list="[10, 25, 50, 100, all]" data-show-footer="false" data-response-handler="responseHandler">
+<ul class="nav nav-tabs" id="custom-content-above-tab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="daily-home-tab" data-toggle="pill" href="#daily-home" role="tab" aria-controls="custom-content-above-home" aria-selected="true">Daily</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="weekly-tab" data-toggle="pill" href="#weekly" role="tab" aria-controls="weekly" aria-selected="false">Weekly</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="monthly-tab" data-toggle="pill" href="#monthly" role="tab" aria-controls="monthly" aria-selected="false">Monthly</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="yearly-tab" data-toggle="pill" href="#yearly" role="tab" aria-controls="yearly" aria-selected="false">Yearly</a>
+    </li>
+</ul>
+<!-- <table id="table" data-toggle="table" data-toolbar="#toolbar" data-search="false" data-show-refresh="false" data-show-toggle="false" data-show-fullscreen="false" data-show-columns="false" data-show-columns-toggle-all="false" data-show-export="false" data-click-to-select="false" data-minimum-count-columns="2" data-id-field="name" " data-show-footer="false" data-show-export="false" data-response-handler="responseHandler"> -->
+<table class="table table-condensed tab-custom-content">
     <thead>
         <tr>
-            <th data-field="action" data-filter-control="input" data-sortable="true">Date</th>
-            <th data-field="name" data-filter-control="input" data-sortable="true">Name</th>
+            <th data-field="action" data-filter-control="input" data-sortable="false">Date</th>
+            <th data-field="name" data-filter-control="input" data-sortable="false">Name</th>
         </tr>
     </thead>
     <tbody>
