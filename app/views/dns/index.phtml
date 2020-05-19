@@ -45,6 +45,7 @@
     </thead>
     <tbody>
         <?php
+        $index = 0;
         foreach ($data as $key => $each) {
         ?>
             <tr>
@@ -86,16 +87,16 @@
                             </a>&nbsp;
                     <?php }
                     } ?>
-                    <a href="" data-toggle="modal" data-target="#exampleModalLong" title="Delete">
+                    <a href="" data-toggle="modal" data-target="#Modal<?= $index ?>" title="Delete">
                         <i class="fas fa-trash"></i>
                     </a>
 
                     <!-- Modal -->
-                    <div class="modal danger" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div class="modal danger" id="Modal<?= $index ?>" tabindex="-1" role="dialog" aria-labelledby="Modal<?= $index ?>Title" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLongTitle">Confirmation</h5>
+                                    <h5 class="modal-title" id="Modal<?= $index ?>Title">Confirmation</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -124,6 +125,7 @@
                 <td><? echo translate_date($each['EXP']) ?></td>
             </tr>
         <?php
+            $index++;
         }
         ?>
     </tbody>

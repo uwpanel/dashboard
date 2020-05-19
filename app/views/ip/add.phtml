@@ -20,9 +20,9 @@
             <input type="text" name="v_netmask" class="form-control" placeholder="Netmask" required>
         </div>
 
-        <label for="v_interace">Interface</label>
+        <label for="v_interface">Interface</label>
         <div class="input-group mb-3">
-            <select name="v_interace" class="form-control" required>
+            <select name="v_interface" class="form-control" required>
                 <?php
                 foreach ($interfaces as $key ) { ?>
                     <option value="<?= $key ?>" <?php if ($key == 'ens33') {
@@ -33,8 +33,8 @@
         </div>
 
         <div class="input-group form-control mb-3">
-            <input type="checkbox" name="v_dns" id="dns" checked=yes>
-            <label class="" for="dns"> &nbsp; Shared</label>
+            <input type="checkbox" name="v_shared" id="dns" checked=yes>
+            <label class="" for="v_shared"> &nbsp; Shared</label>
         </div>
 
         <label for="v_name">Assigned domain</label>&emsp;<em>(<?= __("Optional") ?>)</em>
