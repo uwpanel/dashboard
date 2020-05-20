@@ -12,8 +12,8 @@
         <i class="fas fa-trash status-icon red status-icon dim do_delete"></i> Delete
     </button>
     <?php if ($_SESSION['user'] == 'admin' && empty($_SESSION['look'])) { ?>
-        <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/user/add" id="add" class="btn btn-primary">
-            <i class="fas fa-plus-circle status-icon"></i> Add user
+        <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/firewall/add" id="add" class="btn btn-primary">
+            <i class="fas fa-plus-circle status-icon"></i> Add Rule
         </a>
     <?php } ?>
 
@@ -23,18 +23,13 @@
     <thead>
         <tr>
             <th data-field="state" data-checkbox="true"></th>
-            <th data-field="name" data-filter-control="input" data-sortable="true">Name</th>
+            <th data-field="" data-filter-control="input" data-sortable="true">No.</th>
             <th data-field="action" data-filter-control="input" data-sortable="true">Action</th>
-            <th data-field="package" data-filter-control="input" data-sortable="true">Package</th>
-            <th data-field="ip" data-filter-control="input" data-sortable="true">IP</th>
-            <th data-field="disk" data-filter-control="input" data-sortable="true" title="Disk"><i class="fas fa-hdd"></i></th>
-            <th data-field="bandwidth" data-filter-control="input" data-sortable="true" title="Bandwidth"><i class="fas fa-exchange-alt"></i></th>
-            <th data-field="web" data-filter-control="input" data-sortable="true" title="Web"><i class="fas fa-globe"></i></th>
-            <th data-field="mail" data-filter-control="input" data-sortable="true" title="Mail"><i class="fas fa-mail-bulk"></i></th>
-            <th data-field="dns" data-filter-control="input" data-sortable="true" title="DNS"><i class="nav-icon fas fa-sitemap"></i></th>
-            <th data-field="db" data-filter-control="input" data-sortable="true" title="Databases"><i class="nav-icon fas fa-database"></i></th>
-            <th data-field="cron" data-filter-control="input" data-sortable="true" title="Cron"><i class="nav-icon fas fa-cogs"></i></th>
-            <th data-field="backup" data-filter-control="input" data-sortable="true" title="Backup"><i class="nav-icon fas fa-upload"></i></th>
+            <th data-field="package" data-filter-control="input" data-sortable="true">Firewall Action</th>
+            <th data-field="ip" data-filter-control="input" data-sortable="true">Protocol</th>
+            <th data-field="web" data-filter-control="input" data-sortable="true">Port</th>
+            <th data-field="disk" data-filter-control="input" data-sortable="true">Comment</i></th>
+            <th data-field="bandwidth" data-filter-control="input" data-sortable="true">IP</i></th>
         </tr>
     </thead>
     <tbody>
@@ -44,20 +39,20 @@
         ?>
             <tr>
                 <td></td>
-                <td> <b><? echo $key ?></b><br>Email :&ensp;<? echo $each['CONTACT'] ?></td>
+                <td><b><?= $key ?></b></td>
                 <td>
-                    <a class="edit" href="https://<?= $_SERVER['HTTP_HOST'] ?>/user/edit/<?= $key ?>" title="Edit">
+                    <a class="edit" href="https://<?= $_SERVER['HTTP_HOST'] ?>/firewall/edit/<?= $key ?>" title="Edit">
                         <i class="fas fa-pencil-alt status-icon orange status-icon dim"></i>
                     </a>
                     &nbsp;
                     <?php if ($_SESSION['user'] == 'admin') {
 
                         if ($each['SUSPENDED'] != 'yes') { ?>
-                            <a class="suspend" href="https://<?= $_SERVER['HTTP_HOST'] ?>/user/suspend/<?= $key ?>/<?= $_SESSION['token']; ?>" title="Suspend">
+                            <a class="suspend" href="https://<?= $_SERVER['HTTP_HOST'] ?>/firewall/suspend/<?= $key ?>/<?= $_SESSION['token']; ?>" title="Suspend">
                                 <i class="fas fa-pause status-icon highlight status-icon dim do_suspend"></i>
                             </a>&nbsp;
                         <?php } else { ?>
-                            <a class="suspend" href="https://<?= $_SERVER['HTTP_HOST'] ?>/user/unsuspend/<?= $key ?>/<?= $_SESSION['token']; ?>" title="Unsuspend">
+                            <a class="suspend" href="https://<?= $_SERVER['HTTP_HOST'] ?>/firewall/unsuspend/<?= $key ?>/<?= $_SESSION['token']; ?>" title="Unsuspend">
                                 <i class="fas fa-play status-icon highlight status-icon dim do_suspend"></i>
                             </a>&nbsp;
                     <?php }
@@ -78,11 +73,11 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    Are you sure want to delete <b><?= $key ?></b> .
+                                    Are you sure want to delete rule <b><?= $key ?></b> .
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <a class="btn btn-danger" href="https://<?= $_SERVER['HTTP_HOST'] ?>/user/delete/<?= $key ?>/<?= $_SESSION['token']; ?>" title="Delete">
+                                    <a class="btn btn-danger" href="https://<?= $_SERVER['HTTP_HOST'] ?>/firewall/delete/<?= $key ?>/<?= $_SESSION['token']; ?>" title="Delete">
                                         Delete
                                     </a>
                                 </div>
@@ -90,16 +85,11 @@
                         </div>
                     </div>
                 </td>
-                <td><? echo $each['PACKAGE'] ?></td>
-                <td><? echo $each['IP_AVAIL'] ?></td>
-                <td><? echo $each['DISK_QUOTA'] ?> MB</td>
-                <td><? echo $each['U_BANDWIDTH'] ?> MB</td>
-                <td><? echo $each['U_DISK_WEB'] ?></td>
-                <td><? echo $each['U_DISK_MAIL'] ?></td>
-                <td><? echo $each['U_DNS_DOMAINS'] ?></td>
-                <td><? echo $each['U_DATABASES'] ?></td>
-                <td><? echo $each['U_CRON_JOBS'] ?></td>
-                <td><? echo $each['U_BACKUPS'] ?></td>
+                <td><? echo $each['ACTION'] ?></td>
+                <td><? echo $each['PROTOCOL'] ?></td>
+                <td><? echo $each['PORT'] ?></td>
+                <td>/ &nbsp;<? echo $each['COMMENT'] ?></td>
+                <td><? echo $each['IP'] ?></td>
             </tr>
         <?php
             $index++;
@@ -109,5 +99,5 @@
 </table>
 
 <?php
-echo "<pre>", print_r($data, true);
+// echo "<pre>", print_r($data, true);
 ?>

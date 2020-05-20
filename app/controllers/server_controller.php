@@ -149,7 +149,7 @@ class ServerController extends AppController
 
         // Check user
         if ($user != 'admin' || isset($_SESSION['look'])) {
-            header("Location: /list/user");
+            header("Location: /");
             exit;
         }
 
@@ -169,7 +169,7 @@ class ServerController extends AppController
 
         // Check user
         if ($user != 'admin' || isset($_SESSION['look'])) {
-            header("Location: /list/user");
+            header("Location: /");
             exit;
         }
 

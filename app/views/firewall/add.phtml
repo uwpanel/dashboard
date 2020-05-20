@@ -1,0 +1,58 @@
+<div class="col-4">
+    <?php if (!empty($_SESSION['error_msg']) || !empty($_SESSION['ok_msg'])) { ?>
+        <p class="text-center">
+            <?php
+            echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
+            $_SESSION['error_msg'] = NULL;
+            $_SESSION['ok_msg'] = NULL;
+            ?>
+        </p>
+    <?php } ?>
+    <form name="v_add_firewall" action="https://<?= $_SERVER['HTTP_HOST'] ?>/firewall/add" method="post">
+        <label for="v_action">Action</label>
+        <div class="input-group mb-3">
+            <select name="v_action" class="form-control">
+                <option value="DROP" <?php if ((!empty($v_action)) && ($v_action == "'DROP'")) echo 'selected' ?>><?= __('DROP') ?></option>
+                <option value="ACCEPT" <?php if ((!empty($v_action)) && ($v_action == "'ACCEPT'")) echo 'selected' ?>><?= __('ACCEPT') ?></option>
+            </select>
+        </div>
+        <label for="v_protocol">Protocol</label>
+        <div class="input-group mb-3">
+            <select name="v_protocol" class="form-control">
+                <option value="TCP" <?php if ((!empty($v_protocol)) && ($v_protocol == "'TCP'")) echo 'selected' ?>><?= __('TCP') ?></option>
+                <option value="UDP" <?php if ((!empty($v_protocol)) && ($v_protocol == "'UDP'")) echo 'selected' ?>><?= __('UDP') ?></option>
+                <option value="ICMP" <?php if ((!empty($v_protocol)) && ($v_protocol == "'ICMP'")) echo 'selected' ?>><?= __('ICMP') ?></option>
+            </select>
+        </div>
+
+        <label for="v_port">Port </label> <span style="color:red">*</span>
+        &nbsp; <?= __('(ranges are acceptable)') ?>
+        <div class="input-group mb-3">
+            <input type="text" name="v_port" class="form-control" placeholder="Port" value="<?= htmlentities(trim($v_port, "'")) ?>" required>
+        </div>
+        <label for="v_ip">IP address </label> <span style="color:red">*</span>
+        &nbsp; <?= __('(CIDR format is supported)') ?>
+        <div class="input-group mb-3">
+            <input type="text" name="v_ip" class="form-control" placeholder="IP address" value="<?= htmlentities(trim($v_ip, "'")) ?>" required>
+        </div>
+        <label for="v_comment">Comment </label>
+        &nbsp; <?= __('(Optional)') ?>
+        <div class="input-group mb-3">
+            <input type="text" name="v_comment" class="form-control" placeholder="Comment" value="<?= htmlentities(trim($v_comment, "'")) ?>" required>
+        </div>
+
+        <div class="row">
+            <!-- /.col -->
+
+            <!-- /.col -->
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">Confirm</button>
+        <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/user" class="btn btn-default btn-block">Back</a>
+        <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
+        <input type="hidden" name="ok" value="Add">
+    </form>
+</div>
+
+<?php
+// echo "<pre>", print_r($data);
