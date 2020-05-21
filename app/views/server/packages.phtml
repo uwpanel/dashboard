@@ -12,8 +12,8 @@
         <i class="fas fa-trash status-icon red status-icon dim do_delete"></i> Delete
     </button>
     <?php if ($_SESSION['user'] == 'admin' && empty($_SESSION['look'])) { ?>
-        <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/user/add" id="add" class="btn btn-primary">
-            <i class="fas fa-plus-circle status-icon"></i> Add user
+        <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/packages/add" id="add" class="btn btn-primary">
+            <i class="fas fa-plus-circle status-icon"></i> Add Package
         </a>
     <?php } ?>
 
@@ -25,16 +25,7 @@
             <th data-field="state" data-checkbox="true"></th>
             <th data-field="name" data-filter-control="input" data-sortable="true">Name</th>
             <th data-field="action" data-filter-control="input" data-sortable="true">Action</th>
-            <th data-field="package" data-filter-control="input" data-sortable="true">Package</th>
-            <th data-field="ip" data-filter-control="input" data-sortable="true">IP</th>
-            <th data-field="disk" data-filter-control="input" data-sortable="true" title="Disk"><i class="fas fa-hdd"></i></th>
-            <th data-field="bandwidth" data-filter-control="input" data-sortable="true" title="Bandwidth"><i class="fas fa-exchange-alt"></i></th>
-            <th data-field="web" data-filter-control="input" data-sortable="true" title="Web"><i class="fas fa-globe"></i></th>
-            <th data-field="mail" data-filter-control="input" data-sortable="true" title="Mail"><i class="fas fa-mail-bulk"></i></th>
-            <th data-field="dns" data-filter-control="input" data-sortable="true" title="DNS"><i class="nav-icon fas fa-sitemap"></i></th>
-            <th data-field="db" data-filter-control="input" data-sortable="true" title="Databases"><i class="nav-icon fas fa-database"></i></th>
-            <th data-field="cron" data-filter-control="input" data-sortable="true" title="Cron"><i class="nav-icon fas fa-cogs"></i></th>
-            <th data-field="backup" data-filter-control="input" data-sortable="true" title="Backup"><i class="nav-icon fas fa-upload"></i></th>
+            <th data-field="info" data-filter-control="input" data-sortable="true">Info</th>
         </tr>
     </thead>
     <tbody>
@@ -44,25 +35,14 @@
         ?>
             <tr>
                 <td></td>
-                <td> <b><? echo $key ?></b><br>Email :&ensp;<? echo $each['CONTACT'] ?></td>
                 <td>
-                    <a class="edit" href="https://<?= $_SERVER['HTTP_HOST'] ?>/user/edit/<?= $key ?>" title="Edit">
+                    <b><? echo $key ?></b>
+                </td>
+                <td>
+                    <a class="edit" href="https://<?= $_SERVER['HTTP_HOST'] ?>/packages/edit/<?= $key ?>" title="Edit">
                         <i class="fas fa-pencil-alt status-icon orange status-icon dim"></i>
                     </a>
                     &nbsp;
-                    <?php if ($_SESSION['user'] == 'admin') {
-
-                        if ($each['SUSPENDED'] != 'yes') { ?>
-                            <a class="suspend" href="https://<?= $_SERVER['HTTP_HOST'] ?>/user/suspend/<?= $key ?>/<?= $_SESSION['token']; ?>" title="Suspend">
-                                <i class="fas fa-pause status-icon highlight status-icon dim do_suspend"></i>
-                            </a>&nbsp;
-                        <?php } else { ?>
-                            <a class="suspend" href="https://<?= $_SERVER['HTTP_HOST'] ?>/user/unsuspend/<?= $key ?>/<?= $_SESSION['token']; ?>" title="Unsuspend">
-                                <i class="fas fa-play status-icon highlight status-icon dim do_suspend"></i>
-                            </a>&nbsp;
-                    <?php }
-                    } ?>
-
                     <a href="" data-toggle="modal" data-target="#Modal<?= $index ?>" title="Delete">
                         <i class="fas fa-trash"></i>
                     </a>
@@ -78,11 +58,11 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    Are you sure want to delete <b><?= $key ?></b> .
+                                    Are you sure want to delete package <b><?= $key ?></b> ?
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <a class="btn btn-danger" href="https://<?= $_SERVER['HTTP_HOST'] ?>/user/delete/<?= $key ?>/<?= $_SESSION['token']; ?>" title="Delete">
+                                    <a class="btn btn-danger" href="https://<?= $_SERVER['HTTP_HOST'] ?>/packages/delete/<?= $key ?>/<?= $_SESSION['token']; ?>" title="Delete">
                                         Delete
                                     </a>
                                 </div>
@@ -90,16 +70,64 @@
                         </div>
                     </div>
                 </td>
-                <td><? echo $each['PACKAGE'] ?></td>
-                <td><? echo $each['IP_AVAIL'] ?></td>
-                <td><? echo $each['DISK_QUOTA'] ?> MB</td>
-                <td><? echo $each['U_BANDWIDTH'] ?> MB</td>
-                <td><? echo $each['U_DISK_WEB'] ?></td>
-                <td><? echo $each['U_DISK_MAIL'] ?></td>
-                <td><? echo $each['U_DNS_DOMAINS'] ?></td>
-                <td><? echo $each['U_DATABASES'] ?></td>
-                <td><? echo $each['U_CRON_JOBS'] ?></td>
-                <td><? echo $each['U_BACKUPS'] ?></td>
+                <td>
+                    <h3 class="card-title"><? echo $key ?></h3>
+                    <br>
+                    <div class="table-responsive">
+                        <table style="width:100%;border:none;">
+                            <tbody>
+                                <tr>
+                                    <th>Web - Template</th>
+                                    <td><?= $each['WEB_TEMPLATE'] ?></td>
+                                    <th>DNS Domain</th>
+                                    <td><?= $each['DNS_DOMAINS'] ?></td>
+                                    <th>Backups</th>
+                                    <td><?= $each['BACKUPS'] ?></td>
+                                </tr>
+                                <tr>
+                                    <th></th>
+                                    <td></td>
+                                    <th>DNS Records</th>
+                                    <td><?= $each['DNS_RECORDS'] ?></td>
+                                    <th>Bandwidth</th>
+                                    <td><?= $each['BANDWIDTH'] ?></td>
+                                </tr>
+                                <tr>
+                                    <th>DNS - Template</th>
+                                    <td><?= $each['DNS_TEMPLATE'] ?></td>
+                                    <th>Mail - Domains</th>
+                                    <td><?= $each['MAIL_DOMAINS'] ?></td>
+                                    <th>Disk</th>
+                                    <td><?= $each['DISK_QUOTA'] ?></td>
+                                </tr>
+                                <tr>
+                                    <th>SSH - Access</th>
+                                    <td><?= $each['SHELL'] ?></td>
+                                    <th>Mail - Accounts</th>
+                                    <td><?= $each['MAIL_ACCOUNTS'] ?></td>
+                                    <th>Name Servers</th>
+                                    <td><?= $each['NS'] ?></td>
+                                </tr>
+                                <tr>
+                                    <th>Web - Domains</th>
+                                    <td><?= $each['WEB_DOMAINS'] ?></td>
+                                    <th>Databases</th>
+                                    <td><?= $each['DATABASES'] ?></td>
+                                    <th></th>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th>Web - Aliases</th>
+                                    <td><?= $each['WEB_ALIASES'] ?></td>
+                                    <th>Cron Jobs</th>
+                                    <td><?= $each['CRON_JOBS'] ?></td>
+                                    <th></th>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </td>
             </tr>
         <?php
             $index++;
@@ -109,5 +137,5 @@
 </table>
 
 <?php
-echo "<pre>", print_r($data, true);
+// echo "<pre>", print_r($data, true);
 ?>

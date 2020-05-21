@@ -1,0 +1,194 @@
+<div class="col-4">
+    <?php if (!empty($_SESSION['error_msg']) || !empty($_SESSION['ok_msg'])) { ?>
+        <p class="text-center">
+            <?php
+            echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
+            $_SESSION['error_msg'] = NULL;
+            $_SESSION['ok_msg'] = NULL;
+            ?>
+        </p>
+    <?php } ?>
+    <form name="v_edit_package" action="https://<?= $_SERVER['HTTP_HOST'] ?>/packages/edit/<?= htmlentities(trim($v_package, "'")) ?>" method="post">
+        <label for="v_package">Package Name</label> <span style="color:red">*</span>
+        <div class="input-group mb-3">
+            <input type="text" name="v_package" class="form-control" placeholder="Package Name" value="<?= htmlentities(trim($v_package, "'")) ?>" disabled>
+            <input type="hidden" name="v_package" value="<?= htmlentities(trim($v_package, "'")) ?>">
+        </div>
+        <label for="v_web_template">Web Template</label>
+        &nbsp;<?= strtoupper($_SESSION['WEB_SYSTEM']) ?>
+        <div class="input-group mb-3">
+            <select name="v_web_template" class="form-control">
+                <?php
+                foreach ($web_templates as $value) { ?>
+                    <option value="<?= $value ?>" <?php if ($value == $v_web_template) {
+                                                        echo 'selected';
+                                                    } ?>><?= $value; ?></option>
+                <?php } ?>
+            </select>
+        </div>
+        <?php if (!empty($_SESSION['WEB_BACKEND'])) {  ?>
+            <label for="v_backend_template">Backend Template</label>
+            &nbsp;<?= strtoupper($_SESSION['WEB_BACKEND']) ?>
+            <div class="input-group mb-3">
+                <select name="v_backend_template" class="form-control">
+                    <?php
+                    foreach ($backend_templates as $value) { ?>
+                        <option value="<?= $value ?>" <?php if ($value == $v_backend_template) {
+                                                            echo 'selected';
+                                                        } ?>><?= $value; ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+        <? } ?>
+        <?php if (!empty($_SESSION['PROXY_SYSTEM'])) { ?>
+            <label for="v_proxy_template">Proxy Template</label>
+            &nbsp;<?= strtoupper($_SESSION['PROXY_SYSTEM']) ?>
+            <div class="input-group mb-3">
+                <select name="v_proxy_template" class="form-control">
+                    <?php
+                    foreach ($proxy_templates as $value) { ?>
+                        <option value="<?= $value ?>" <?php if ($value == $v_proxy_template) {
+                                                            echo 'selected';
+                                                        } ?>><?= $value; ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+        <? } ?>
+        <label for="v_dns_template">DNS Template</label>
+        &nbsp;<?= strtoupper($_SESSION['DNS_SYSTEM']) ?>
+        <div class="input-group mb-3">
+            <select name="v_dns_template" class="form-control">
+                <?php
+                foreach ($dns_templates as $value) { ?>
+                    <option value="<?= $value ?>" <?php if ($value == $v_dns_template) {
+                                                        echo 'selected';
+                                                    } ?>><?= $value; ?></option>
+                <?php } ?>
+            </select>
+        </div>
+        <label for="v_shell">SSH Access</label>
+        <div class="input-group mb-3">
+            <select name="v_shell" class="form-control">
+                <?php
+                foreach ($shells as $key => $value) { ?>
+                    <option value="<?= $value ?>" <?php if ($value == $v_shell) {
+                                                        echo 'selected';
+                                                    } ?>><?= $value; ?></option>
+                <?php } ?>
+            </select>
+        </div>
+        <label for="v_web_domains">Web Domains</label> <span style="color:red">*</span>
+        <div class="input-group mb-3">
+            <input type="text" name="v_web_domains" class="form-control" placeholder="Web Domains" value="<?= htmlentities(trim($v_web_domains, "'")) ?>" required>
+        </div>
+        <label for="v_web_aliases">Web Aliases</label> <span style="color:red">*</span>
+        <div class="input-group mb-3">
+            <input type="text" name="v_web_aliases" class="form-control" placeholder="Web Aliases" value="<?= htmlentities(trim($v_web_aliases, "'")) ?>" required>
+        </div>
+        <label for="v_dns_domains">DNS Domains</label> <span style="color:red">*</span>
+        <div class="input-group mb-3">
+            <input type="text" name="v_dns_domains" class="form-control" placeholder="DNS Domains" value="<?= htmlentities(trim($v_dns_domains, "'")) ?>" required>
+        </div>
+        <label for="v_dns_records">DNS Records</label> <span style="color:red">*</span>
+        <div class="input-group mb-3">
+            <input type="text" name="v_dns_records" class="form-control" placeholder="DNS Records" value="<?= htmlentities(trim($v_dns_records, "'")) ?>" required>
+        </div>
+        <label for="v_mail_domains">Mail Domains</label> <span style="color:red">*</span>
+        <div class="input-group mb-3">
+            <input type="text" name="v_mail_domains" class="form-control" placeholder="Mail Domains" value="<?= htmlentities(trim($v_mail_domains, "'")) ?>" required>
+        </div>
+        <label for="v_mail_accounts">Mail Accounts</label> <span style="color:red">*</span>
+        <div class="input-group mb-3">
+            <input type="text" name="v_mail_accounts" class="form-control" placeholder="Mail Accounts" value="<?= htmlentities(trim($v_mail_accounts, "'"))  ?>" required>
+        </div>
+        <label for="v_databases">Databases</label> <span style="color:red">*</span>
+        <div class="input-group mb-3">
+            <input type="text" name="v_databases" class="form-control" placeholder="Databases" value="<?= htmlentities(trim($v_databases, "'"))  ?>" required>
+        </div>
+        <label for="v_cron_jobs">Cron Jobs</label> <span style="color:red">*</span>
+        <div class="input-group mb-3">
+            <input type="text" name="v_cron_jobs" class="form-control" placeholder="Cron Jobs" value="<?= htmlentities(trim($v_cron_jobs, "'")) ?>" required>
+        </div>
+        <label for="v_backups">Backups</label> <span style="color:red">*</span>
+        <div class="input-group mb-3">
+            <input type="text" name="v_backups" class="form-control" placeholder="Backups" value="<?= htmlentities(trim($v_backups, "'")) ?>" required>
+        </div>
+        <label for="v_disk_quota">Quota </label> <span style="color:red">*</span>
+        <div class="input-group mb-3">
+            <input type="text" name="v_disk_quota" class="form-control" placeholder="Quota" value="<?= htmlentities(trim($v_disk_quota, "'")) ?>" required>
+        </div>
+        <label for="v_bandwidth">Bandwidth </label> <span style="color:red">*</span>
+        <div class="input-group mb-3">
+            <input type="text" name="v_bandwidth" class="form-control" placeholder="Bandwidth" value="<?= htmlentities(trim($v_bandwidth, "'"))  ?>" required>
+        </div>
+
+        <label for="">Default Name Servers</label>
+        <div class="input-group mb-3">
+            <input type="text" name="v_ns1" class="form-control" placeholder="Name Server 1" value="<?= $v_ns1 ?>">
+            <span class="remove-ns additional-control delete"><?= __('delete') ?></span>
+        </div>
+
+        <div class="input-group mb-3">
+            <input type="text" name="v_ns2" class="form-control" placeholder="Name Server 2" value="<?= $v_ns2 ?>">
+            <span class="remove-ns additional-control delete"><?= __('delete') ?></span>
+        </div>
+
+        <?php if ($v_ns3) { ?>
+            <div class="input-group mb-3">
+                <input type="text" size="20" class="vst-input" name="v_ns3" value="<?= htmlentities(trim($v_ns3, "'")) ?>">
+                <span class=" remove-ns additional-control delete"><?php __('delete') ?></span>
+            </div>
+        <?php }
+
+        if ($v_ns4) { ?>
+            <div class="input-group mb-3">
+                <input type="text" size="20" class="vst-input" name="v_ns4" value="<?= htmlentities(trim($v_ns4, "'")) ?>">
+                <span class="remove-ns additional-control delete"><?= __('delete') ?></span>
+            </div>
+        <?php }
+        if ($v_ns5) {
+        ?>
+            <div class="input-group mb-3">
+                <input type="text" size="20" class="vst-input" name="v_ns5" value="<?= htmlentities(trim($v_ns5, "'")) ?>">
+                <span class=" remove-ns additional-control delete"><?= __('delete') ?></span>
+            </div>
+        <?php }
+        if ($v_ns6) { ?>
+            <div class="input-group mb-3">
+                <input type="text" size="20" class="vst-input" name="v_ns6" value="<?= htmlentities(trim($v_ns6, "'")) ?>">
+                <span class=" remove-ns additional-control delete"><?= __('delete') ?></span>
+            </div>
+        <?php }
+        if ($v_ns7) { ?>
+            <div class="input-group mb-3">
+                <input type="text" size="20" class="vst-input" name="v_ns7" value="<?= htmlentities(trim($v_ns7, "'")) ?>">
+                <span class=" remove-ns additional-control delete"><?= __('delete') ?></span>
+            </div>
+        <?php }
+        if ($v_ns8) { ?>
+            <div class="input-group mb-3">
+                <input type="text" size="20" class="vst-input" name="v_ns8" value="<?= htmlentities(trim($v_ns8, "'")) ?>">
+                <span class=" remove-ns additional-control delete"><?= __('delete') ?></span>
+            </div>
+        <?php } ?>
+
+        <div class="input-group mb-3" <? if ($v_ns8) echo 'style="display:none;"'; ?>>
+            <span class="add-ns-button additional-control add"><?= __('Add one more Name Server') ?></span>
+        </div>
+
+        <div class="row">
+            <!-- /.col -->
+
+            <!-- /.col -->
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">Confirm</button>
+        <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/user" class="btn btn-default btn-block">Back</a>
+        <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
+        <input type="hidden" name="save" value="save">
+    </form>
+</div>
+
+<?php
+// echo "<pre>", print_r($data);
+?>
