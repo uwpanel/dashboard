@@ -1,12 +1,12 @@
 <!-- Main Sidebar Container -->
-<aside class="main-sidebar sidebar-dark-primary elevation-4 overlayscrollbar" style="position: fixed;top: 0;bottom: 0;">
+<aside class="main-sidebar sidebar-dark-primary elevation-4" style="position: fixed;top: 0;bottom: 0;">
     <!-- Brand Logo -->
     <a href="https://<?= $_SERVER['HTTP_HOST'] ?>" class="brand-link" style="padding: 8px 5px 10px 35px;">
         <?= Html::img('uwpanel-logo-light.png', 'UWpanel', 'width="180px"') ?>
         <!-- <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> -->
     </a>
     <!-- Sidebar -->
-    <div class="sidebar">
+    <div class="sidebar overlayscrollbar">
         <?php
         include(APP_PATH . 'libs/stats.php');
         $active = explode('/', $_SERVER['REQUEST_URI']);

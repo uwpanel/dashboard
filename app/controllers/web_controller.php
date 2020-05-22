@@ -1087,6 +1087,7 @@ class WebController extends AppController
             // Set success message
             if (empty($_SESSION['error_msg'])) {
                 $_SESSION['ok_msg'] = __('Changes has been saved.');
+                header("Location: /web");
             }
         }
 
@@ -1136,7 +1137,6 @@ class WebController extends AppController
                 );
             }
         }
-        header("Location: /web");
 
         // Flush session messages
         unset($_SESSION['error_msg']);

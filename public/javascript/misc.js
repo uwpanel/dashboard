@@ -19,7 +19,7 @@ function initTable() {
     $table.bootstrapTable('destroy').bootstrapTable({
         height: 600,
         locale: 'en-US',
-        exportTypes: ['csv','excel', 'txt']
+        exportTypes: ['csv', 'excel', 'txt']
     })
     $table.on('check.bs.table uncheck.bs.table ' +
         'check-all.bs.table uncheck-all.bs.table',
@@ -63,7 +63,8 @@ $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip({
         animation: true,
         html: true
-    })
-})
+    });
 
-$('.container123').overlayScrollbars();
+    $('.overlayscrollbar').overlayScrollbars({className : "os-theme-light"});
+
+})
