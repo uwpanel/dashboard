@@ -446,9 +446,9 @@ class WebController extends AppController
         if (empty($v_letsencrypt)) $v_letsencrypt = 'no';
         $v_ssl_home = $data[$this->v_domain]['SSL_HOME'];
         $v_backend_template = $data[$this->v_domain]['BACKEND'];
-        $v_proxy = $data[$this->v_domain]['PROXY'];
-        $v_proxy_template = $data[$this->v_domain]['PROXY'];
-        $v_proxy_ext = str_replace(',', ', ', $data[$this->v_domain]['PROXY_EXT']);
+        $this->v_proxy = $data[$this->v_domain]['PROXY'];
+        $this->v_proxy_template = $data[$this->v_domain]['PROXY'];
+        $this->v_proxy_ext = str_replace(',', ', ', $data[$this->v_domain]['PROXY_EXT']);
         $v_stats = $data[$this->v_domain]['STATS'];
         $v_stats_user = $data[$this->v_domain]['STATS_USER'];
         if (!empty($v_stats_user)) $v_stats_password = "";

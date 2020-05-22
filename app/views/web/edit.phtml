@@ -33,11 +33,6 @@
             <textarea name="v_aliases" class="form-control" value="<?= $v_aliases ?>" row=10 col=3></textarea>
         </div>
 
-        <div class="input-group form-control mb-3">
-            <input type="checkbox" name="v_ssl" id="ssl" <?php if ($v_ssl == "yes") echo "checked"; ?>>
-            <label class="" for="dns"> &nbsp; SSL Support</label>
-        </div>
-
         <label for="v_template"> Web Template </label>&emsp;<?= strtoupper($_SESSION['WEB_SYSTEM']) ?>
         <div class="input-group mb-3">
             <select class="form-control" name="v_template">
@@ -45,30 +40,58 @@
                     <option value="<?= $template ?>" <?php
                                                         if ((!empty($v_template)) && ($template == $v_template) || ($template == $v_template)) {
                                                             echo ' selected';
-                                                        } ?>>
-                        <?= $template ?>
+                                                        } ?>><?= $template ?>
                     </option>
                 <?php } ?>
             </select>
         </div>
 
-        <label for="v_template"> Backend Template </label>&emsp;<?= strtoupper($_SESSION['WEB_BACKEND']) ?>
-        <div class="input-group mb-3">
-            <? //php if (!empty($_SESSION['WEB_BACKEND'])) { 
-            ?>
-            <select class="form-control" name="v_backend_template">
-                <?php foreach ($v_backend_template as $back_template) { ?>
-                    <option value="<? $back_template ?>"> <?= $back_template ?></option>
-                <?php } ?>
-            </select>
-            <? //php } 
-            ?>
+        <?php if (!empty($_SESSION['WEB_BACKEND'])) { ?>
+            <label for="v_template"> Backend Template </label>&emsp;<?= strtoupper($_SESSION['WEB_BACKEND']) ?>
+            <div class="input-group mb-3">
+
+                <select class="form-control" name="v_backend_template">
+                    <?php foreach ($v_backend_template as $back_template) { ?>
+                        <option value="<? $back_template ?>"> <?= $back_template ?></option>
+                    <?php } ?>
+                </select>
+
+            </div>
+        <?php } ?>
+
+        <?php if (!empty($_SESSION['PROXY_SYSTEM'])) { ?>
+            <label for="v_template"> Proxy Template </label>
+            <div class="input-group mb-3">
+                <select class="form-control" name="v_backend_template">
+                    <?php foreach ($proxy_templates as $template) { ?>
+                        <option value="<? $template ?>"> <?= $template ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+
+            <label for="v_proxy_ext">Proxy Extensions</label>
+            <div class="input-group mb-3">
+                <textarea name="v_proxy_ext" class="form-control" value="<?= htmlentities(trim($v_proxy_ext, "'")) ?>" row=10 col=3></textarea>
+            </div>
+
+        <?php } ?>
+
+        <div class="input-group form-control mb-3">
+            <input type="checkbox" name="v_ssl" id="ssl" <?php if ($v_ssl == "yes") echo "checked"; ?>>
+            <label class="" for="ssl"> &nbsp; SSL Support</label>
         </div>
 
         <div class="input-group form-control mb-3">
-            <input type="checkbox" name="v_ssl" id="v_ssl">
-            <label class="" for="v_ssl"> &nbsp; SSL Support</label>
+            <input type="checkbox" name="v_ssl" id="ssl" <?php if ($v_ssl == "yes") echo "checked"; ?>>
+            <label class="" for="dns"> &nbsp; Lets Encrypt Support</label>
         </div>
+
+        <?php if (!empty($_SESSION['PROXY_SYSTEM'])) { ?>
+            <div class="input-group form-control mb-3">
+                <input type="checkbox" name="v_proxy" id="proxy" <?php if (!empty($v_proxy)) echo "checked"; ?>>
+                <label class="" for="v_proxy"> &nbsp; Proxy Support</label>
+            </div>
+        <?php } ?>
 
         <table style="display:<?php if ($v_ssl == 'no') {
                                     echo 'none';
