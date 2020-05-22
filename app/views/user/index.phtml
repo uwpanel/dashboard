@@ -54,12 +54,14 @@
                 <td></td>
                 <td> <b><? echo $key ?></b><br>Email :&ensp;<? echo $each['CONTACT'] ?></td>
                 <td>
-                    <?php if (!isset($_SESSION['look'])) { ?>
-                        <a class="login" href="https://<?= $_SERVER['HTTP_HOST'] ?>/loginas/index/<?= $key ?>" title="Login">
-                            <i class="fas fa-sign-in-alt status-icon green status-icon dim icon-large"></i>
-                        </a>
-                        &nbsp;
+                    <? if ($_SESSION['user'] == 'admin') { ?>
+                        <?php if ($key != 'admin' && !isset($_SESSION['look'])) { ?>
+                            <a class="login" href="https://<?= $_SERVER['HTTP_HOST'] ?>/loginas/index/<?= $key ?>" title="Login">
+                                <i class="fas fa-sign-in-alt status-icon green status-icon dim icon-large"></i>
+                            </a>
+                            &nbsp;
                     <?php
+                        }
                     }
                     ?>
                     <a class="edit" href="https://<?= $_SERVER['HTTP_HOST'] ?>/user/edit/<?= $key ?>" title="Edit">

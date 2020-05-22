@@ -11,17 +11,13 @@ class UserController extends AppController
         // Main include
         include(APP_PATH . 'libs/inc/main.php');
         // Data
-        // $user = $_SESSION['user'];
-        if ($user == 'admin') {
+        if ($user == 'admin' ) {
             exec(VESTA_CMD . "v-list-users json", $output, $return_var);
         } else {
             exec(VESTA_CMD . "v-list-user " . $user . " json", $output, $return_var);
         }
         $data = json_decode(implode('', $output), true);
         $this->data = array_reverse($data, true);
-
-        // Back uri
-        $_SESSION['back'] = $_SERVER['REQUEST_URI'];
     }
     public function add()
     {
@@ -240,9 +236,6 @@ class UserController extends AppController
         // Check POST request
         if (!empty($_POST['save'])) {
 
-            // echo "<pre>", print_r($_POST, true);
-            // die();
-
             // Check token
             if ((!isset($_POST['token'])) || ($_SESSION['token'] != $_POST['token'])) {
                 header('location: /login/');
@@ -348,6 +341,7 @@ class UserController extends AppController
             // Set success message
             if (empty($_SESSION['error_msg'])) {
                 $_SESSION['ok_msg'] = __('Changes has been saved.');
+                header("Location: /user");
             }
         }
 
