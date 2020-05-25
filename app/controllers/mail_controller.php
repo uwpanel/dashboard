@@ -11,7 +11,6 @@ class MailController extends AppController
         include(APP_PATH . 'libs/inc/main.php');
 
         // Data & Render page
-        // if (empty($_GET['domain'])) {
         exec(VESTA_CMD . "v-list-mail-domains $user json", $output, $return_var);
 
         $data = json_decode(implode('', $output), true);

@@ -2,16 +2,15 @@
 
 class LoginasController extends AuthController
 {
-    public function index($var)
+    public function index($param_user)
     {
         // Main include
         include(APP_PATH . 'libs/inc/main.php');
-        $uri = explode('/', $_SERVER['REQUEST_URI']);
 
         // Login as someone else
         if (isset($_SESSION['user'])) {
-            if ($_SESSION['user'] == 'admin' && !empty($uri[3])) {
-                exec(VESTA_CMD . "v-list-user " . escapeshellarg($uri[3]) . " json", $output, $return_var);
+            if ($_SESSION['user'] == 'admin' && !empty($param_user)) {
+                exec(VESTA_CMD . "v-list-user " . escapeshellarg($param_user) . " json", $output, $return_var);
                 if ($return_var == 0) {
                     $data = json_decode(implode('', $output), true);
                     reset($data);

@@ -8,10 +8,10 @@
             ?>
         </p>
     <?php } ?>
-    <form name="v_add_web" action="https://<?= $_SERVER['HTTP_HOST'] ?>/web/addweb" method="post">
+    <form name="v_add_web" action="https://<?= $_SERVER['HTTP_HOST'] ?>/web/add" method="post">
         <label for="v_domain">Domain</label> <span style="color:red">*</span>
         <div class="input-group mb-3">
-            <input type="text" name="v_domain" class="form-control" placeholder="Domain" required>
+            <input type="text" name="v_domain" id="v_domain" class="form-control" placeholder="Domain" required>
         </div>
         <label for="v_ip">IP Address</label>
         <div class="input-group mb-3">
@@ -301,5 +301,10 @@
         <input type="hidden" name="ok" value="Add">
     </form>
 </div>
+
+<script>
+      GLOBAL.FTP_USER_PREFIX  = <?= json_encode($user . '_') ?>;
+      GLOBAL.FTP_USER_PREPATH = <?= json_encode($v_ftp_user_prepath) ?>;
+    </script>
 <?php
 // echo "<pre>", print_r($data);

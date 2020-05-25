@@ -18,5 +18,4 @@
  */
 
 // Load the public index.php
-
 include 'public/index.php';

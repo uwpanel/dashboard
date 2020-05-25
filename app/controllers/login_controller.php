@@ -18,16 +18,9 @@ class LoginController extends AuthController
         define('NO_AUTH_REQUIRED', true);
 
         // Main include
-        // include($_SERVER['DOCUMENT_ROOT'] . "/inc/main.php");
-        define('VESTA_CMD', '/usr/bin/sudo /usr/local/vesta/bin/');
-        define('JS_LATEST_UPDATE', '1491697868');
-        
+        include(APP_PATH . 'libs/inc/main.php');
+
         // Basic auth
-
-        // echo "<pre>",print_r($_POST);
-        // die();
-
-
         if (isset($_POST['user']) && isset($_POST['password'])) {
 
             if (isset($_SESSION['token']) && isset($_POST['token']) && $_POST['token'] == $_SESSION['token']) {
@@ -75,8 +68,6 @@ class LoginController extends AuthController
 
 
                     // Check API answer
-
-
                     if ($return_var > 0) {
                         $_SESSION['error_msg'] = "Invalid Credentials";
                     } else {

@@ -17,12 +17,13 @@ class ResetController extends AuthController
         // Main include
         include(APP_PATH . 'libs/inc/main.php');
     }
+
     public function r1()
     {
         $_SESSION['title'] = 'Reset Password';
 
         // Main include
-        // include(APP_PATH . 'libs/inc/main.php');
+        include(APP_PATH . 'libs/inc/main.php');
 
         if ((!empty($_POST['user'])) && (empty($_POST['code']))) {
             $v_user = escapeshellarg($_POST['user']);

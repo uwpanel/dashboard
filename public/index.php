@@ -13,10 +13,10 @@
  */
 
 //*Locale*
-//setlocale(LC_ALL, 'es_ES');
+//setlocale(LC_ALL, 'en_US');
 
 //*Timezone*
-//ini_set('date.timezone', 'America/New_York');
+//ini_set('date.timezone', 'Asia/Kolkata');
 
 /**
  * @TODO
@@ -92,5 +92,5 @@ $url = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '/';
  *
  * @see Bootstrap
  */
-require APP_PATH . 'libs/bootstrap.php'; //app bootstrap
 // require CORE_PATH . 'kumbia/bootstrap.php'; //core bootstrap
+require APP_PATH . 'libs/bootstrap.php'; //app bootstrap

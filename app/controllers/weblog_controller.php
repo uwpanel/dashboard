@@ -11,9 +11,6 @@ class WeblogController extends AppController
 
         include(APP_PATH . 'libs/inc/main.php');
 
-        // Header
-        // include($_SERVER['DOCUMENT_ROOT'] . '/templates/admin/list_weblog.html');
-
         $v_domain = escapeshellarg($param_domain);
 
         if ($param_type == 'access') $type = 'access';

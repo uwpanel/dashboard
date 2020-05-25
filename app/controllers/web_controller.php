@@ -37,16 +37,11 @@ class WebController extends AppController
         exec(VESTA_CMD . "v-list-web-stats json", $output, $return_var);
         $this->stats = json_decode(implode('', $output), true);
         unset($output);
-    }
-
-    public function addweb()
-    {
-        // Main include
-        include(APP_PATH . 'libs/inc/main.php');
 
         // Check POST request
         if (!empty($_POST['ok'])) {
-
+            // echo "<pre>", print_r($_POST), "</pre>";
+            // die();
             // Check token
             if ((!isset($_POST['token'])) || ($_SESSION['token'] != $_POST['token'])) {
                 header('location: /login/');
@@ -382,11 +377,14 @@ class WebController extends AppController
                 unset($v_stats_password);
                 unset($v_ftp);
             }
-        }
+            // Define user variables
+            $v_ftp_user_prepath = $panel[$user]['HOME'] . "/web";
+            $v_ftp_email = $panel[$user]['CONTACT'];
 
-        // Define user variables
-        $v_ftp_user_prepath = $panel[$user]['HOME'] . "/web";
-        $v_ftp_email = $panel[$user]['CONTACT'];
+            if (empty($_SESSION['error_msg'])) {
+                header('Location: /web');
+            }
+        }
     }
 
     public function edit($param_user, $param_domain)
@@ -431,34 +429,34 @@ class WebController extends AppController
             exec(VESTA_CMD . "v-list-web-domain-ssl " . $user . " " . escapeshellarg($this->v_domain) . " json", $output, $return_var);
             $ssl_str = json_decode(implode('', $output), true);
             unset($output);
-            $v_ssl_crt = $ssl_str[$this->v_domain]['CRT'];
-            $v_ssl_key = $ssl_str[$this->v_domain]['KEY'];
-            $v_ssl_ca = $ssl_str[$this->v_domain]['CA'];
-            $v_ssl_subject = $ssl_str[$this->v_domain]['SUBJECT'];
-            $v_ssl_aliases = $ssl_str[$this->v_domain]['ALIASES'];
-            $v_ssl_not_before = $ssl_str[$this->v_domain]['NOT_BEFORE'];
-            $v_ssl_not_after = $ssl_str[$this->v_domain]['NOT_AFTER'];
-            $v_ssl_signature = $ssl_str[$this->v_domain]['SIGNATURE'];
-            $v_ssl_pub_key = $ssl_str[$this->v_domain]['PUB_KEY'];
-            $v_ssl_issuer = $ssl_str[$this->v_domain]['ISSUER'];
+            $this->v_ssl_crt = $ssl_str[$this->v_domain]['CRT'];
+            $this->v_ssl_key = $ssl_str[$this->v_domain]['KEY'];
+            $this->v_ssl_ca = $ssl_str[$this->v_domain]['CA'];
+            $this->v_ssl_subject = $ssl_str[$this->v_domain]['SUBJECT'];
+            $this->v_ssl_aliases = $ssl_str[$this->v_domain]['ALIASES'];
+            $this->v_ssl_not_before = $ssl_str[$this->v_domain]['NOT_BEFORE'];
+            $this->v_ssl_not_after = $ssl_str[$this->v_domain]['NOT_AFTER'];
+            $this->v_ssl_signature = $ssl_str[$this->v_domain]['SIGNATURE'];
+            $this->v_ssl_pub_key = $ssl_str[$this->v_domain]['PUB_KEY'];
+            $this->v_ssl_issuer = $ssl_str[$this->v_domain]['ISSUER'];
         }
-        $v_letsencrypt = $data[$this->v_domain]['LETSENCRYPT'];
+        $this->v_letsencrypt = $data[$this->v_domain]['LETSENCRYPT'];
         if (empty($v_letsencrypt)) $v_letsencrypt = 'no';
-        $v_ssl_home = $data[$this->v_domain]['SSL_HOME'];
-        $v_backend_template = $data[$this->v_domain]['BACKEND'];
+        $this->v_ssl_home = $data[$this->v_domain]['SSL_HOME'];
+        $this->v_backend_template = $data[$this->v_domain]['BACKEND'];
         $this->v_proxy = $data[$this->v_domain]['PROXY'];
         $this->v_proxy_template = $data[$this->v_domain]['PROXY'];
         $this->v_proxy_ext = str_replace(',', ', ', $data[$this->v_domain]['PROXY_EXT']);
-        $v_stats = $data[$this->v_domain]['STATS'];
-        $v_stats_user = $data[$this->v_domain]['STATS_USER'];
+        $this->v_stats = $data[$this->v_domain]['STATS'];
+        $this->v_stats_user = $data[$this->v_domain]['STATS_USER'];
         if (!empty($v_stats_user)) $v_stats_password = "";
-        $v_ftp_user = $data[$this->v_domain]['FTP_USER'];
-        $v_ftp_path = $data[$this->v_domain]['FTP_PATH'];
+        $this->v_ftp_user = $data[$this->v_domain]['FTP_USER'];
+        $this->v_ftp_path = $data[$this->v_domain]['FTP_PATH'];
         if (!empty($v_ftp_user)) $v_ftp_password = "";
-        $v_ftp_user_prepath = $data[$this->v_domain]['DOCUMENT_ROOT'];
-        $v_ftp_user_prepath = str_replace('/public_html', '', $v_ftp_user_prepath, $occurance = 1);
-        $v_ftp_email = $panel[$user]['CONTACT'];
-        $v_suspended = $data[$this->v_domain]['SUSPENDED'];
+        $this->v_ftp_user_prepath = $data[$this->v_domain]['DOCUMENT_ROOT'];
+        $this->v_ftp_user_prepath = str_replace('/public_html', '', $v_ftp_user_prepath, $occurance = 1);
+        $this->v_ftp_email = $panel[$user]['CONTACT'];
+        $this->v_suspended = $data[$this->v_domain]['SUSPENDED'];
         if ($v_suspended == 'yes') {
             $v_status =  'suspended';
         } else {
@@ -498,8 +496,8 @@ class WebController extends AppController
 
         // Check POST request
         if (!empty($_POST['save'])) {
-            echo "<pre>", print_r($_POST), "</pre>";
-            die();
+            // echo "<pre>", print_r($_POST), "</pre>";
+            // die();
             $this->v_domain = escapeshellarg($_POST['v_domain']);
 
             // Check token

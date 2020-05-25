@@ -42,11 +42,6 @@ class UserController extends AppController
         exec(VESTA_CMD . "v-list-sys-languages json", $output, $return_var);
         $this->languages = json_decode(implode('', $output), true);
         unset($output);
-    }
-
-    public function adduser()
-    {
-        include(APP_PATH . 'libs/inc/main.php');
 
         // Check POST request
         if (!empty($_POST['ok'])) {
@@ -148,14 +143,10 @@ class UserController extends AppController
                 unset($v_fname);
                 unset($v_lname);
                 unset($v_notify);
+
+                header("Location: /user");
             }
         }
-
-        // Flush session messages
-        unset($_SESSION['error_msg']);
-        unset($_SESSION['ok_msg']);
-
-        header("Location: /user");
     }
 
     public function edit($param_user, $param_token = NULL)
