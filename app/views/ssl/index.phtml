@@ -1,0 +1,47 @@
+<div class="col-4">
+    <?php if (!empty($_SESSION['error_msg']) || !empty($_SESSION['ok_msg'])) { ?>
+        <p class="text-center">
+            <?php
+            echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
+            $_SESSION['error_msg'] = NULL;
+            $_SESSION['ok_msg'] = NULL;
+            ?>
+        </p>
+    <?php } ?>
+    <form name="v_generate_csr" action="https://<?= $_SERVER['HTTP_HOST'] ?>/ssl/generate" method="post">
+        <label for="v_domain">Domain</label>
+        <div class="input-group mb-3">
+            <input type="text" name="v_domain" class="form-control" placeholder="Domain" value="<?= htmlentities(trim($v_domain, "'")) ?>" required>
+        </div>
+        <label for="v_email">Email</label>
+        <div class="input-group mb-3">
+            <input type="text" name="v_email" class="form-control" placeholder="Email" value="<?= htmlentities(trim($v_email, "'")) ?>" required>
+        </div>
+        <label for="v_country">Country</label>
+        <div class="input-group mb-3">
+            <input type="text" name="v_country" class="form-control" placeholder="Country" value="<?= htmlentities(trim($v_country, "'")) ?>" required>
+        </div>
+        <label for="v_state">State / Province</label>
+        <div class="input-group mb-3">
+            <input type="text" name="v_state" class="form-control" placeholder="State / Province" value="<?= htmlentities(trim($v_state, "'")) ?>" required>
+        </div>
+        <label for="v_locality">City / Locality</label>
+        <div class="input-group mb-3">
+            <input type="text" name="v_locality" class="form-control" placeholder="State / Province" value="<?= htmlentities(trim($v_locality, "'")) ?>" required>
+        </div>
+        <label for="v_org">Organization</label>
+        <div class="input-group mb-3">
+            <input type="text" name="v_org" class="form-control" placeholder="State / Province" value="<?= htmlentities(trim($v_org, "'")) ?>" required>
+        </div>
+        <div class="row">
+            <!-- /.col -->
+
+            <!-- /.col -->
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">Generate</button>
+        <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/web/edit/<? $v_domain ?>" class="btn btn-default btn-block">Back</a>
+        <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
+        <input type="hidden" name="generate" value="generate">
+    </form>
+</div>
