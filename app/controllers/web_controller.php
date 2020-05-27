@@ -40,8 +40,6 @@ class WebController extends AppController
 
         // Check POST request
         if (!empty($_POST['ok'])) {
-            // echo "<pre>", print_r($_POST), "</pre>";
-            // die();
             // Check token
             if ((!isset($_POST['token'])) || ($_SESSION['token'] != $_POST['token'])) {
                 header('location: /login/');

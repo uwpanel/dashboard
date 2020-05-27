@@ -78,7 +78,7 @@
                         <option value='single'>public_shtml</option>
                     </select>
                 </div>
-                <label for="v_ssl_crt">SSL Certificate</label>&nbsp; / &nbsp; <a href="/generate/ssl/<?= $v_domain ?>" class="generate"><?php print __('Generate CSR'); ?></a>
+                <label for="v_ssl_crt">SSL Certificate</label>&nbsp; / &nbsp; <a href="/ssl/index/<?= $v_domain ?>" class="generate" target="_blank" ><?php print __('Generate CSR'); ?></a>
                 <div class="input-group mb-3">
                     <textarea name="v_ssl_crt" class="form-control" value="<?= htmlentities(trim($v_ssl_crt, "'")) ?>" row=10 col=3></textarea>
                 </div>

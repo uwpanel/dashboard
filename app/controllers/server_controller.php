@@ -99,10 +99,25 @@ class ServerController extends AppController
     public function updates()
     {
         error_reporting(NULL);
+
         $_SESSION['title'] = 'Server - Updates';
 
         // Main include
         include(APP_PATH . 'libs/inc/main.php');
+
+        // Check user
+        if ($_SESSION['user'] != 'admin' || !empty($_SESSION['look'])) {
+            header('Location: /');
+            exit;
+        }
+
+        // Data
+        exec(VESTA_CMD . "v-list-sys-vesta-updates json", $output, $return_var);
+        $this->data = json_decode(implode('', $output), true);
+        unset($output);
+        exec(VESTA_CMD . "v-list-sys-vesta-autoupdate plain", $output, $return_var);
+        $this->autoupdate = $output['0'];
+        unset($output);
     }
 
     public function stats()

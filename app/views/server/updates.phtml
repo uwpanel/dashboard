@@ -1,1 +1,62 @@
-9
+<?php if (!empty($_SESSION['error_msg']) || !empty($_SESSION['ok_msg'])) { ?>
+    <p class="text-center">
+        <?php
+        echo $_SESSION['error_msg'], "<br>", $_SESSION['ok_msg'];
+        $_SESSION['error_msg'] = NULL;
+        $_SESSION['ok_msg'] = NULL;
+        ?>
+    </p>
+<?php } ?>
+<div id="toolbar">
+    <button id="remove" class="btn btn-danger" disabled>
+        <i class="fas fa-trash status-icon red status-icon dim do_delete"></i> Delete
+    </button>
+    <?php if ($autoupdate == 'Enabled') { ?>
+        <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/cron/autoupdate/disable/<?= $_SESSION['token'] ?>" id="add" class="btn btn-warning">
+            <i class="fas fa-toggle-off status-icon red"></i> DISABLE AUTOUPDATE
+        </a>
+    <?php } else { ?>
+        <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/cron/autoupdate/enable/<?= $_SESSION['token'] ?>" id="add" class="btn btn-success">
+            <i class="fas fa-toggle-on status-icon green"></i> ENABLE AUTOUPDATE
+        </a>
+    <?php } ?>
+</div>
+<table id="table" data-toggle="table" data-toolbar="#toolbar" data-search="true" data-show-refresh="true" data-show-toggle="false" data-show-fullscreen="true" data-show-columns="true" data-show-columns-toggle-all="true" data-show-export="true" data-click-to-select="true" data-minimum-count-columns="2" data-id-field="name" data-page-list="[10, 25, 50, 100, all]" data-show-footer="false" data-response-handler="responseHandler">
+    <!-- <table class="table table-condensed tab-custom-content"> -->
+    <thead>
+        <tr>
+            <th data-field="state" data-checkbox="true"></th>
+            <th data-field="action" data-filter-control="input" data-sortable="false">Action</th>
+            <th data-field="date" data-filter-control="input" data-sortable="false">Date</th>
+            <th data-field="name" data-filter-control="input" data-sortable="false">Package</th>
+            <th data-field="descr" data-filter-control="input" data-sortable="false">Description</th>
+            <th data-field="version" data-filter-control="input" data-sortable="false">Version</th>
+            <th data-field="release" data-filter-control="input" data-sortable="false">Release</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        foreach ($data as $key => $each) {
+        ?>
+            <tr>
+                <td></td>
+                <td>
+                    <a class="login" href="https://<?= $_SERVER['HTTP_HOST'] ?>/update/index/<?= $key ?>/<?= $_SESSION['token'] ?>" title="Update">
+                        <i class="fas fa-sync"></i>
+                    </a>
+                </td>
+                <td>
+                    <?= translate_date($each['DATE']) ?>
+                    <br>
+                    <?= $each['TIME'] ?>
+                </td>
+                <td><b><?= $key ?></b></td>
+                <td><?= $each['DESCR'] ?></td>
+                <td><?= $each['VERSION'] ?> (<?= $each['ARCH'] ?>)</td>
+                <td><?= $each['RELEASE'] ?></td>
+            </tr>
+        <?php
+        }
+        ?>
+    </tbody>
+</table>

@@ -135,7 +135,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/server" class="nav-link <?php if ($active[1] == 'server' && empty($active[2])) echo "active"; ?>">
+                                    <a href="https://<?= $_SERVER['HTTP_HOST'] ?>/server" class="nav-link <?php if (($active[1] == 'server' && empty($active[2])) || ($active[1] == 'server' && $active[2] == 'info')) echo "active"; ?>">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Server Info</p>
                                     </a>

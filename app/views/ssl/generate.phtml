@@ -10,7 +10,7 @@
 <div>
     <label for="v_csr">SSL CSR</label>
     <div class="input-group mb-3">
-        <textarea rows=5 class="form-control" name="v_csr" id="v_csr"><?= htmlentities(trim($v_csr, "'")) ?></textarea>
+        <textarea rows=3 class="form-control" name="v_csr" id="v_csr"><?= htmlentities(trim($v_csr, "'")) ?></textarea>
     </div>
     <button id="button_v_csr" type="button" class="btn btn-outline-info">Copy CSR</button>
 </div>
@@ -18,15 +18,15 @@
 <div>
     <label for="v_crt">SSL Certificate</label>
     <div class="input-group mb-3">
-        <textarea rows=5 class="form-control" name="v_crt" id="v_crt"><?= htmlentities(trim($v_crt, "'")) ?></textarea>
+        <textarea rows=3 class="form-control" name="v_crt" id="v_crt"><?= htmlentities(trim($v_crt, "'")) ?></textarea>
     </div>
+    <button id="button_v_crt" type="button" class="btn btn-outline-info">Copy SSL Certificate</button>
 </div>
-<button id="button_v_crt" type="button" class="btn btn-outline-info">Copy SSL Certificate</button>
 <br>
 <div>
     <label for="v_key">SSL Key</label>
     <div class="input-group mb-3">
-        <textarea rows=5 class="form-control" name="v_key" id="v_key"><?= htmlentities(trim($v_key, "'")) ?></textarea>
+        <textarea rows=3 class="form-control" name="v_key" id="v_key"><?= htmlentities(trim($v_key, "'")) ?></textarea>
     </div>
     <button id="button_v_key" type="button" class="btn btn-outline-info">Copy SSL Key</button>
 </div>

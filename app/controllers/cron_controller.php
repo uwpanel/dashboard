@@ -299,4 +299,35 @@ class CronController extends AppController
         header("Location: /cron");
         exit;
     }
+
+    public function autoupdate($param_job, $param_token)
+    {
+        // Init
+        error_reporting(NULL);
+        ob_start();
+        session_start();
+        include(APP_PATH . 'libs/inc/main.php');
+
+        // Check token
+        if ((!isset($param_token)) || ($_SESSION['token'] != $param_token)) {
+            header('location: /login');
+            exit();
+        }
+
+        if ($_SESSION['user'] == 'admin' && empty($_SESSION['look'])) {
+            if ($param_job == 'enable') {
+                exec(VESTA_CMD . "v-add-cron-vesta-autoupdate", $output, $return_var);
+                $_SESSION['ok_msg'] = __('Autoupdate has been successfully enabled');
+                unset($output);
+            }
+            if ($param_job == 'disable') {
+                exec(VESTA_CMD . "v-delete-cron-vesta-autoupdate", $output, $return_var);
+                $_SESSION['error_msg'] = __('Autoupdate has been successfully disabled');
+                unset($output);
+            }
+        }
+
+        header("Location: /server/updates/");
+        exit;
+    }
 }

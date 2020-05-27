@@ -3,7 +3,7 @@
 class SslController extends AppController
 {
 
-    public function index($param_domain)
+    public function index($param_domain=NULL)
     {
         error_reporting(NULL);
         
@@ -36,7 +36,7 @@ class SslController extends AppController
         // Main include
         include(APP_PATH . 'libs/inc/main.php');
 
-        
+        $_SESSION['title'] = 'SSL - Generating CSR';
 
         // Check POST
         if (!isset($_POST['generate'])) {
