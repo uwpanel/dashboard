@@ -61,7 +61,7 @@ class ServerController extends AppController
         $_SESSION['back'] = $_SERVER['REQUEST_URI'];
     }
 
-    public function graph()
+    public function graph($param_period = 'daily')
     {
         error_reporting(NULL);
         $_SESSION['title'] = 'Server - Graph';
@@ -82,6 +82,7 @@ class ServerController extends AppController
         $this->data = json_decode(implode('', $output), true);
         unset($output);
 
+        $this->period = $param_period;
         // Back uri
         $_SESSION['back'] = $_SERVER['REQUEST_URI'];
     }

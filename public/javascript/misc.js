@@ -65,6 +65,8 @@ $(document).ready(function () {
         html: true
     });
 
-    $('.overlayscrollbar').overlayScrollbars({className : "os-theme-light"});
+    $('.overlayscrollbar').overlayScrollbars({
+        className: "os-theme-light"
+    });
 
 })

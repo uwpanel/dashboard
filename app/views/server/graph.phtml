@@ -11,16 +11,16 @@
 </div>
 <ul class="nav nav-tabs" id="custom-content-above-tab" role="tablist">
     <li class="nav-item">
-        <a class="nav-link active" id="daily-home-tab" data-toggle="pill" href="#daily-home" role="tab" aria-controls="custom-content-above-home" aria-selected="true">Daily</a>
+        <a class="nav-link <?= ($period == 'daily') ? 'active' : '' ?> " href="https://<?= $_SERVER['HTTP_HOST'] ?>/server/graph/daily" aria-selected="true">Daily</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" id="weekly-tab" data-toggle="pill" href="#weekly" role="tab" aria-controls="weekly" aria-selected="false">Weekly</a>
+        <a class="nav-link <?= ($period == 'weekly') ? 'active' : '' ?>" href="https://<?= $_SERVER['HTTP_HOST'] ?>/server/graph/weekly" aria-selected="true">Weekly</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" id="monthly-tab" data-toggle="pill" href="#monthly" role="tab" aria-controls="monthly" aria-selected="false">Monthly</a>
+        <a class="nav-link <?= ($period == 'monthly') ? 'active' : '' ?>" href="https://<?= $_SERVER['HTTP_HOST'] ?>/server/graph/monthly" aria-selected="true">Monthly</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" id="yearly-tab" data-toggle="pill" href="#yearly" role="tab" aria-controls="yearly" aria-selected="false">Yearly</a>
+        <a class="nav-link <?= ($period == 'yearly') ? 'active' : '' ?>" href="https://<?= $_SERVER['HTTP_HOST'] ?>/server/graph/yearly" aria-selected="true">Yearly</a>
     </li>
 </ul>
 <!-- <table id="table" data-toggle="table" data-toolbar="#toolbar" data-search="false" data-show-refresh="false" data-show-toggle="false" data-show-fullscreen="false" data-show-columns="false" data-show-columns-toggle-all="false" data-show-export="false" data-click-to-select="false" data-minimum-count-columns="2" data-id-field="name" " data-show-footer="false" data-show-export="false" data-response-handler="responseHandler"> -->
@@ -45,7 +45,7 @@
                 <td>
                     <b><?= $each['TITLE'] ?></b>
                     <br>
-                    <p><img src="https://<?= $_SERVER['HTTP_HOST'] ?>/server/graphimage/<?= $each['TYPE'] . "/" . "daily" . "-" . $each['RRD'] ?>"></p>
+                    <p><img src="https://<?= $_SERVER['HTTP_HOST'] ?>/server/graphimage/<?= $each['TYPE'] ?>/<?= $period ?>-<?= $each['RRD'] ?>"></p>
                 </td>
             </tr>
         <?php

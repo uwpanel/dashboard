@@ -34,6 +34,7 @@
             <th data-field="name" data-filter-control="input" data-sortable="true">Name</th>
             <th data-field="action" data-filter-control="input" data-sortable="true">Action</th>
             <th data-field="package" data-filter-control="input" data-sortable="true">Package</th>
+            <th data-field="status" data-filter-control="input" data-sortable="true">Status</th>
             <th data-field="ip" data-filter-control="input" data-sortable="true">IP</th>
             <th data-field="disk" data-filter-control="input" data-sortable="true" title="Disk"><i class="fas fa-hdd"></i></th>
             <th data-field="bandwidth" data-filter-control="input" data-sortable="true" title="Bandwidth"><i class="fas fa-exchange-alt"></i></th>
@@ -50,7 +51,7 @@
         $index = 0;
         foreach ($data as $key => $each) {
         ?>
-            <tr>
+            <tr <?= ($each['SUSPENDED'] == 'yes')? 'class="bg-suspended"':'' ?>>
                 <td></td>
                 <td> <b><? echo $key ?></b><br>Email :&ensp;<? echo $each['CONTACT'] ?></td>
                 <td>
@@ -108,16 +109,17 @@
                         </div>
                     </div>
                 </td>
-                <td><? echo $each['PACKAGE'] ?></td>
-                <td><? echo $each['IP_AVAIL'] ?></td>
-                <td><? echo $each['DISK_QUOTA'] ?> MB</td>
-                <td><? echo $each['U_BANDWIDTH'] ?> MB</td>
-                <td><? echo $each['U_DISK_WEB'] ?></td>
-                <td><? echo $each['U_DISK_MAIL'] ?></td>
-                <td><? echo $each['U_DNS_DOMAINS'] ?></td>
-                <td><? echo $each['U_DATABASES'] ?></td>
-                <td><? echo $each['U_CRON_JOBS'] ?></td>
-                <td><? echo $each['U_BACKUPS'] ?></td>
+                <td><?= $each['PACKAGE'] ?></td>
+                <td><?= ($each['SUSPENDED'] == 'yes')? 'Suspended' : 'Active' ?></td>
+                <td><?= $each['IP_AVAIL'] ?></td>
+                <td><?= $each['DISK_QUOTA'] ?> MB</td>
+                <td><?= $each['U_BANDWIDTH'] ?> MB</td>
+                <td><?= $each['U_DISK_WEB'] ?></td>
+                <td><?= $each['U_DISK_MAIL'] ?></td>
+                <td><?= $each['U_DNS_DOMAINS'] ?></td>
+                <td><?= $each['U_DATABASES'] ?></td>
+                <td><?= $each['U_CRON_JOBS'] ?></td>
+                <td><?= $each['U_BACKUPS'] ?></td>
             </tr>
         <?php
             $index++;
@@ -127,6 +129,5 @@
 </table>
 
 <?php
-// top_panel($panel, 'USER');
-// echo "<pre>", print_r($panel, true);
+// echo "<pre>", print_r($data, true);
 ?>
