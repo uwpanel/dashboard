@@ -367,12 +367,6 @@ class UserController extends AppController
         check_return_code($return_var, $output);
         unset($output);
 
-        $back = $_SESSION['back'];
-        if (!empty($back)) {
-            header("Location: " . $back);
-            exit;
-        }
-
         header("Location: /user");
         exit;
     }
@@ -403,11 +397,6 @@ class UserController extends AppController
         check_return_code($return_var, $output);
         unset($output);
 
-        $back = $_SESSION['back'];
-        if (!empty($back)) {
-            header("Location: " . $back);
-            exit;
-        }
 
         header("Location: /user");
         exit;
@@ -435,12 +424,6 @@ class UserController extends AppController
             check_return_code($return_var, $output);
             unset($_SESSION['look']);
             unset($output);
-        }
-
-        $back = $_SESSION['back'];
-        if (!empty($back)) {
-            header("Location: " . $back);
-            exit;
         }
 
         header("Location: /user");
