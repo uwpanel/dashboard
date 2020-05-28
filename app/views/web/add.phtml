@@ -112,12 +112,12 @@
                                 } ?> ;padding-left:30px;" id="statstable" name="v-add-web-domain-stats-user">
                 <label for="v_stats_user">Username</label>
                 <div class="input-group mb-3">
-                    <input type="text" name="v_stats_user" class="form-control" placeholder="Username" required>
+                    <input type="text" name="v_stats_user" class="form-control" placeholder="Username">
                 </div>
                 <label for="v_stats_password">Password </label>
                 &nbsp; / &nbsp; <a href="javascript:WEBrandom();" class="generate"><?php print __('generate'); ?></a>
                 <div class="input-group mb-3">
-                    <input type="text" name="v_stats_password" class="form-control" placeholder="Password" data-lpignore="true" required>
+                    <input type="text" name="v_stats_password" class="form-control" placeholder="Password" data-lpignore="true">
                 </div>
                 <div class="input-group form-control mb-3 stats-auth">
                     <input type="checkbox" name="v_ftp" id="ftp" <?php if (!empty($v_stats_user)) echo "checked=yes" ?> onclick="App.Actions.WEB.toggle_additional_ftp_accounts(this)">
