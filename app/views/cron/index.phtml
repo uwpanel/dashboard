@@ -28,6 +28,7 @@
             <th data-field="day" data-filter-control="input" data-sortable="true">Day</th>
             <th data-field="month" data-filter-control="input" data-sortable="true">Month</th>
             <th data-field="weekday" data-filter-control="input" data-sortable="true">Day of week</i></th>
+            <th data-field="status" data-filter-control="input" data-sortable="true">Status</th>
         </tr>
     </thead>
     <tbody>
@@ -35,7 +36,7 @@
         $index = 0;
         foreach ($data as $key => $each) {
         ?>
-            <tr>
+            <tr <?= ($each['SUSPENDED'] == 'yes')? 'class="bg-suspended"':'' ?>>
                 <td></td>
                 <td> <b><? echo $each['CMD'] ?></b></td>
                 <td>
@@ -102,6 +103,7 @@
                 <td><? echo $each['DAY'] ?></td>
                 <td><? echo $each['MONTH'] ?></td>
                 <td><? echo $each['WDAY'] ?></td>
+                <td><?= ($each['SUSPENDED'] == 'yes')? 'Suspended' : 'Active' ?></td>
             </tr>
         <?php
             $index++;

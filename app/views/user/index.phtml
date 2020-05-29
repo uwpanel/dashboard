@@ -34,7 +34,6 @@
             <th data-field="name" data-filter-control="input" data-sortable="true">Name</th>
             <th data-field="action" data-filter-control="input" data-sortable="true">Action</th>
             <th data-field="package" data-filter-control="input" data-sortable="true">Package</th>
-            <th data-field="status" data-filter-control="input" data-sortable="true">Status</th>
             <th data-field="ip" data-filter-control="input" data-sortable="true">IP</th>
             <th data-field="disk" data-filter-control="input" data-sortable="true" title="Disk"><i class="fas fa-hdd"></i></th>
             <th data-field="bandwidth" data-filter-control="input" data-sortable="true" title="Bandwidth"><i class="fas fa-exchange-alt"></i></th>
@@ -44,6 +43,7 @@
             <th data-field="db" data-filter-control="input" data-sortable="true" title="Databases"><i class="nav-icon fas fa-database"></i></th>
             <th data-field="cron" data-filter-control="input" data-sortable="true" title="Cron"><i class="nav-icon fas fa-cogs"></i></th>
             <th data-field="backup" data-filter-control="input" data-sortable="true" title="Backup"><i class="nav-icon fas fa-upload"></i></th>
+            <th data-field="status" data-filter-control="input" data-sortable="true">Status</th>
         </tr>
     </thead>
     <tbody>
@@ -110,7 +110,6 @@
                     </div>
                 </td>
                 <td><?= $each['PACKAGE'] ?></td>
-                <td><?= ($each['SUSPENDED'] == 'yes')? 'Suspended' : 'Active' ?></td>
                 <td><?= $each['IP_AVAIL'] ?></td>
                 <td><?= $each['DISK_QUOTA'] ?> MB</td>
                 <td><?= $each['U_BANDWIDTH'] ?> MB</td>
@@ -120,6 +119,7 @@
                 <td><?= $each['U_DATABASES'] ?></td>
                 <td><?= $each['U_CRON_JOBS'] ?></td>
                 <td><?= $each['U_BACKUPS'] ?></td>
+                <td><?= ($each['SUSPENDED'] == 'yes')? 'Suspended' : 'Active' ?></td>
             </tr>
         <?php
             $index++;

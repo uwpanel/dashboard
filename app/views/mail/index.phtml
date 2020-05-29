@@ -28,6 +28,7 @@
             <th data-field="dkim" data-filter-control="input" data-sortable="true" title="SSL">DKIM</th>
             <th data-field="ssl" data-filter-control="input" data-sortable="true">SSL</th>
             <th data-field="catchall" data-filter-control="input" data-sortable="true">Catchall Mail</th>
+            <th data-field="status" data-filter-control="input" data-sortable="true">Status</th>
         </tr>
     </thead>
     <tbody>
@@ -35,7 +36,7 @@
         $index = 0;
         foreach ($data as $key => $each) {
         ?>
-            <tr>
+            <tr <?= ($each['SUSPENDED'] == 'yes')? 'class="bg-suspended"':'' ?>>
                 <td></td>
                 <td> <b><? echo $key ?></b></td>
                 <td>
@@ -105,6 +106,7 @@
                 <td><? echo $each['DKIM'] ?></td>
                 <td><? echo $each['STATS'] ?></td>
                 <td><? echo $each['CATCHALL'] ?></td>
+                <td><?= ($each['SUSPENDED'] == 'yes')? 'Suspended' : 'Active' ?></td>
             </tr>
         <?php
             $index++;

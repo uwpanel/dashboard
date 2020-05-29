@@ -27,6 +27,7 @@
             <th data-field="bandwidth" data-filter-control="input" data-sortable="true" title="Bandwidth"><i class="fas fa-exchange-alt"></i></th>
             <th data-field="web" data-filter-control="input" data-sortable="true" title="SSL"><i class="fas fa-lock"></i></i></th>
             <th data-field="mail" data-filter-control="input" data-sortable="true">Statistics</th>
+            <th data-field="status" data-filter-control="input" data-sortable="true">Status</th>
         </tr>
     </thead>
     <tbody>
@@ -34,7 +35,7 @@
         $index = 0;
         foreach ($data as $key => $each) {
         ?>
-            <tr>
+            <tr <?= ($each['SUSPENDED'] == 'yes')? 'class="bg-suspended"':'' ?>>
                 <td></td>
                 <td> <b><? echo $key ?></b></td>
                 <td>
@@ -111,6 +112,7 @@
                 <td><? echo $each['U_BANDWIDTH'] ?> MB</td>
                 <td><? echo $each['SSL'] ?></td>
                 <td><? echo $each['STATS'] ?></td>
+                <td><?= ($each['SUSPENDED'] == 'yes')? 'Suspended' : 'Active' ?></td>
             </tr>
         <?php
             $index++;
