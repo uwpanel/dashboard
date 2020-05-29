@@ -83,8 +83,6 @@ class ServerController extends AppController
         unset($output);
 
         $this->period = $param_period;
-        // Back uri
-        $_SESSION['back'] = $_SERVER['REQUEST_URI'];
     }
 
     public function graphimage($param_type, $param_img_name)

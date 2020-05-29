@@ -42,34 +42,255 @@ if ($uri[3] == NULL) { ?>
                 </select>
             </div>
 
-            <div>
-                <b><a href="javascript:elementHideShow('web');" style="color:black;">WEB</a></b>
+            <div class="mb-3">
+                <b><a href="javascript:elementHideShow('web');" style="color:black;">WEB</a></b>&nbsp;<i class="fas fa-sort-down"></i>
+                <div class="mt-2" id="web" style="display: <?php if (empty($v_adv)) echo 'none'; ?>;padding-left:30px;">
+                    <?php if (!empty($_SESSION['PROXY_SYSTEM'])) { ?>
+                        <label for="v_proxy_system">Proxy Server / <a class="generate" href="/server/edit/<?= $_SESSION['PROXY_SYSTEM'] ?>/"><?= __('configure') ?></a></label>
+                        <div class="input-group mb-3">
+                            <input type="text" name="v_proxy_system" class="form-control" value="<?= $_SESSION['PROXY_SYSTEM'] ?>" disabled>
+                        </div>
+                    <?php } ?>
+                    <label for="v_web_system">Web Server / <a class="generate" href="/server/edit/<?= $_SESSION['WEB_SYSTEM'] ?>/"><?= __('configure') ?></a></label>
+                    <div class="input-group mb-3">
+                        <input type="text" name="v_web_system" class="form-control" value="<?= $_SESSION['WEB_SYSTEM'] ?>" disabled>
+                    </div>
+                    <?php if (!empty($_SESSION['WEB_BACKEND'])) { ?>
+                        <label for="v_web_backend">Backend Server / <a class="generate" href="/server/edit/<?= $_SESSION['WEB_BACKEND'] ?>/"><?= __('configure') ?></a></label>
+                        <div class="input-group mb-3">
+                            <input type="text" name="v_web_backend" class="form-control" value="<?= $_SESSION['WEB_BACKEND'] ?>" disabled>
+                        </div>
+                        <label for="v_web_backend_pool">Backend Pool Mode / <a class="generate" href="/server/edit/<?= $_SESSION['WEB_BACKEND'] ?>/"><?= __('configure') ?></a></label>
+                        <div class="input-group mb-3">
+                            <input type="text" name="v_web_backend_pool" class="form-control" value="<?= $_SESSION['WEB_BACKEND_POOL'] ?>" disabled>
+                        </div>
+                    <?php } ?>
+                </div>
             </div>
 
-            <div>
-                <b><a href="javascript:elementHideShow('dns');" style="color:black;">DNS</a></b>
+            <div class="mb-3">
+                <b><a href="javascript:elementHideShow('dns');" style="color:black;">DNS</a></b>&nbsp;<i class="fas fa-sort-down"></i>
+                <div class="mt-2" id="dns" style="display: <?php if (empty($v_adv)) echo 'none'; ?>;padding-left:30px;">
+                    <label for="v_dns_system">DNS Server / <a class="generate" href="/server/edit/<?= $_SESSION['DNS_SYSTEM'] ?>/"><?= __('configure') ?></a></label>
+                    <div class="input-group mb-3">
+                        <input type="text" name="v_dns_system" class="form-control" value="<?= $_SESSION['DNS_SYSTEM'] ?>" disabled>
+                    </div>
+                    <label for="v_dns_cluster">DNS Cluster</label>
+                    <div class="input-group mb-3">
+                        <select name="v_dns_cluster" class="form-control" disabled>
+                            <option value='no'><?php print __('no'); ?></option>
+                            <option value='yes' <?php if ($v_dns_cluster == 'yes') echo 'selected' ?>><?php print __('yes'); ?></option>
+                        </select>
+                    </div>
+                    <?php if ($v_dns_cluster = 'yes') {
+                        $i = 0;
+                        foreach ($dns_cluster as $key => $value) {
+                            $i++;
+                    ?>
+                            <label for="v_dns_remote_host">Host <?= '#' . $i ?> </a></label>
+                            <div class="input-group mb-3">
+                                <input type="text" name="v_dns_remote_host" class="form-control" value="<?= $key ?>" disabled>
+                            </div>
+                    <?php }
+                    } ?>
+                </div>
             </div>
 
-            <div>
-                <b><a href="javascript:elementHideShow('mail');" style="color:black;">MAIL</a></b>
+            <div class="mb-3">
+                <b><a href="javascript:elementHideShow('mail');" style="color:black;">MAIL</a></b>&nbsp;<i class="fas fa-sort-down"></i>
+                <div class="mt-2" id="mail" style="display: <?php if (empty($v_mail_adv)) echo 'none'; ?>;padding-left:30px;">
+                    <label for="v_mail_system">MAIL Server / <a class="generate" href="/server/edit/<?= $_SESSION['MAIL_SYSTEM'] ?>/"><?= __('configure') ?></a></label>
+                    <div class="input-group mb-3">
+                        <input type="text" name="v_mail_system" class="form-control" value="<?= $_SESSION['MAIL_SYSTEM'] ?>" disabled>
+                    </div>
+                    <?php if (!empty($_SESSION['ANTIVIRUS_SYSTEM'])) { ?>
+                        <label for="v_antivirus_system">Antivirus / <a class="generate" href="/server/edit/<?= $_SESSION['ANTIVIRUS_SYSTEM'] ?>/"><?= __('configure') ?></a></label>
+                        <div class="input-group mb-3">
+                            <input type="text" name="v_antivirus_system" class="form-control" value="<?= $_SESSION['ANTIVIRUS_SYSTEM'] ?>" disabled>
+                        </div>
+                    <?php } ?>
+                    <?php if (!empty($_SESSION['ANTISPAM_SYSTEM'])) { ?>
+                        <label for="v_antispam_system">AntiSpam / <a class="generate" href="/server/edit/<?= $_SESSION['ANTISPAM_SYSTEM'] ?>/"><?= __('configure') ?></a></label>
+                        <div class="input-group mb-3">
+                            <input type="text" name="v_antispam_system" class="form-control" value="<?= $_SESSION['ANTISPAM_SYSTEM'] ?>" disabled>
+                        </div>
+                    <?php } ?>
+                    <label for="v_mail_url">Webmail URL </label>
+                    <div class="input-group mb-3">
+                        <input type="text" name="v_mail_url" placeholder="Webmail URL" class="form-control" value="<?php echo $_SESSION['MAIL_URL']; ?>">
+                    </div>
+                </div>
             </div>
 
-            <div>
-                <b><a href="javascript:elementHideShow('db');" style="color:black;">DB</a></b>
+            <div class="mb-3">
+                <b><a href="javascript:elementHideShow('db');" style="color:black;">DB</a></b>&nbsp;<i class="fas fa-sort-down"></i>
+                <div class="mt-2" id="db" style="display: <?php if (empty($v_db_adv)) echo 'none'; ?>;padding-left:30px;">
+                    <label for="v_mysql">MySQL Support / <a class="generate" href="/server/edit/mysql/"><?= __('configure') ?></a></label>
+                    <div class="input-group mb-3">
+                        <select name="v_mysql" class="form-control" disabled>
+                            <option value='no'><?php print __('no'); ?></option>
+                            <option value='yes' <?php if ($v_mysql == 'yes') echo 'selected' ?>><?php print __('yes'); ?></option>
+                        </select>
+                    </div>
+                    <?php if ($v_mysql == 'yes') { ?>
+                        <label for="v_mysql_url">phpMyAdmin URL</label>
+                        <div class="input-group mb-3">
+                            <input type="text" name="v_mysql_url" class="form-control" placeholder="phpMyAdmin URL" value="<?= $_SESSION['DB_PMA_URL'] ?>">
+                        </div>
+                    <?php } ?>
+                    <?php if ($v_mysql == 'yes') {
+                        $i = 0;
+                        foreach ($v_mysql_hosts as $value) {
+                            $i++;
+                    ?>
+                            <label for="v_mysql_host">Host #<?= $i ?></label>
+                            <div class="input-group mb-3">
+                                <input type="text" name="v_mysql_host" class="form-control" value="<?= $value['HOST'] ?>" disabled>
+                            </div>
+                            <label for="v_mysql_password">Password</label>
+                            <div class="input-group mb-3">
+                                <input type="text" name="v_mysql_password" class="form-control" placeholder="Password">
+                            </div>
+                            <label for="v_mysql_max">Maximum Number Of Databases</label>
+                            <div class="input-group mb-3">
+                                <input type="text" name="v_mysql_max" class="form-control" value="<?= $value['MAX_DB'] ?>" disabled>
+                            </div>
+                            <label for="v_mysql_max">Current Number Of Databases</label>
+                            <div class="input-group mb-3">
+                                <input type="text" name="v_mysql_max" class="form-control" value="<?= $value['U_DB_BASES'] ?>" disabled>
+                            </div>
+                    <?php }
+                    } ?>
+                    <label for="v_pgsql">PostgreSQL Support / <a class="generate" href="/edit/server/postgresql/"><?= __('configure') ?></a></label>
+                    <div class="input-group mb-3">
+                        <select name="v_pgsql" class="form-control" disabled>
+                            <option value='no'><?php print __('no'); ?></option>
+                            <option value='yes' <?php if ($v_pgsql == 'yes') echo 'selected' ?>><?php print __('yes'); ?></option>
+                        </select>
+                    </div>
+                    <?php if ($v_pgsql == 'yes') { ?>
+                        <label for="v_pgsql_url">phpPgAdmin URL</label>
+                        <div class="input-group mb-3">
+                            <input type="text" name="v_pgsql_url" class="form-control" value="<?= $_SESSION['DB_PGA_URL'] ?>" disabled>
+                        </div>
+                    <?php } ?>
+                    <?php if ($v_pgsql == 'yes') {
+                        $i = 0;
+                        foreach ($v_pgsql_hosts as $value) {
+                            $i++;
+                    ?>
+                            <label for="v_pgsql_host">Host #<?= $i ?> </label>
+                            <div class="input-group mb-3">
+                                <input type="text" name="v_pgsql_host" class="form-control" value="<?= $value['HOST'] ?>" disabled>
+                            </div>
+                            <label for="v_psql_max">Maximum Number Of Databases</label>
+                            <div class="input-group mb-3">
+                                <input type="text" name="v_psql_max" class="form-control" value="<?= $value['MAX_DB'] ?>" disabled>
+                            </div>
+                            <label for="v_pgsql_max">Current Number Of Databases</label>
+                            <div class="input-group mb-3">
+                                <input type="text" name="v_pgsql_max" class="form-control" value="<?= $value['U_DB_BASES'] ?>" disabled>
+                            </div>
+                    <?php }
+                    } ?>
+                </div>
             </div>
 
-            <div>
-                <b><a href="javascript:elementHideShow('backup');" style="color:black;">BACKUP</a></b>
+            <div class="mb-3">
+                <b><a href="javascript:elementHideShow('backup');" style="color:black;">BACKUP</a></b>&nbsp;<i class="fas fa-sort-down"></i>
+                <div class="mt-2" id="backup" style="display: <?php if (empty($v_backup_adv)) echo 'none'; ?>;padding-left:30px;">
+                    <label for="v_backup">Local backup</label>
+                    <div class="input-group mb-3">
+                        <select name="v_backup" class="form-control">
+                            <option value='no'><?php print __('no'); ?></option>
+                            <option value='yes' <?php if ($v_backup == 'yes') echo 'selected' ?>><?php print __('yes'); ?></option>
+                        </select>
+                    </div>
+                    <label for="v_backup_gzip">Compression level</a></label>
+                    <div class="input-group mb-3">
+                        <select name="v_backup_gzip" class="form-control">
+                            <option value='1' <?php if ($v_backup_gzip == '1') echo 'selected' ?>>1</option>
+                            <option value='2' <?php if ($v_backup_gzip == '2') echo 'selected' ?>>2</option>
+                            <option value='3' <?php if ($v_backup_gzip == '3') echo 'selected' ?>>3</option>
+                            <option value='4' <?php if ($v_backup_gzip == '4') echo 'selected' ?>>4</option>
+                            <option value='5' <?php if ($v_backup_gzip == '5') echo 'selected' ?>>5</option>
+                            <option value='6' <?php if ($v_backup_gzip == '6') echo 'selected' ?>>6</option>
+                            <option value='7' <?php if ($v_backup_gzip == '7') echo 'selected' ?>>7</option>
+                            <option value='8' <?php if ($v_backup_gzip == '8') echo 'selected' ?>>8</option>
+                            <option value='9' <?php if ($v_backup_gzip == '9') echo 'selected' ?>>9</option>
+                        </select>
+                    </div>
+                    <label for="v_backup_dir">Directory</label>
+                    <div class="input-group mb-3">
+                        <input type="text" name="v_backup_dir" class="form-control" value="<?= trim($v_backup_dir, "'") ?>">
+                    </div>
+                    <b><a href="javascript:elementHideShow('remote_backup');" style="color:black;">Remote backup</a></b>&nbsp;<i class="fas fa-sort-down"></i>
+                    <div class="mt-2" id="remote_backup" style="display: <?php if (empty($v_backup_remote_adv)) echo 'none'; ?>;padding-left:30px;">
+                        <label for="v_backup_type">Protocol</label>
+                        <div class="input-group mb-3">
+                            <select name="v_backup_type" class="form-control">
+                                <option value='ftp'><?php print __('ftp'); ?></option>
+                                <option value='sftp' <?php if ((!empty($v_backup_type)) && ($v_backup_type  == 'sftp')) echo 'selected' ?>><?php print __('sftp'); ?></option>
+                            </select>
+                        </div>
+                        <label for="v_backup_host">Host</label>
+                        <div class="input-group mb-3">
+                            <input type="text" name="v_backup_host" class="form-control" value="<?trim($v_backup_host, "'")?>">
+                        </div>
+                        <label for="v_backup_username">Username</label>
+                        <div class="input-group mb-3">
+                            <input type="text" name="v_backup_username" class="form-control" value="<?trim($v_backup_username, "'")?>">
+                        </div>
+                        <label for="v_backup_password">Password</label>
+                        <div class="input-group mb-3">
+                            <input type="text" name="v_backup_password" class="form-control" value="<?trim($v_backup_password, "'")?>">
+                        </div>
+                        <label for="v_backup_bpath">Directory</label>
+                        <div class="input-group mb-3">
+                            <input type="text" name="v_backup_bpath" class="form-control" value="<?trim($v_backup_bpath, "'")?>">
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div>
-                <b><a href="javascript:elementHideShow('ssl');" style="color:black;">VESTA SSL</a></b>
+            <div class="mb-3">
+                <b><a href="javascript:elementHideShow(' ssl');" style="color:black;">VESTA SSL</a></b>&nbsp;<i class="fas fa-sort-down"></i>
+                <div class="mt-2" id="ssl" style="display: <?php if (empty($v_adv)) echo 'none'; ?>;padding-left:30px;">
+                    <div class="input-group form-control mb-3">
+                        <input type="checkbox" name="v_web_ssl_domain_checkbox" onclick="javascript:elementHideShow('domain_ssl');">
+                        <label for="v_web_ssl_domain_checkbox"> &nbsp; Use Web Domain SSL Certificate</label>
+                        <div class="mt-2" id="domain_ssl" style="display: <?php if (empty($v_adv)) echo 'none'; ?>;padding-left:30px;">
+                            <select name="v_web_ssl_domain" class="form-control">
+                                <option value='' <?php if (empty($_SESSION['VESTA_CERTIFICATE'])) echo 'selected' ?>></option>
+                                <?php foreach ($v_ssl_domains as $key => $value) { ?>
+                                    <option value="<?= $value ?>" <?php if ((!empty($_SESSION['VESTA_CERTIFICATE'])) && ($value == $_SESSION['VESTA_CERTIFICATE'])) {
+                                                                    ?> selected <?php } ?> <?php if ((!empty($_SESSION['VESTA_CERTIFICATE'])) && ($value == $_POST['v_vesta_certificate'])) { ?> selected <?php } ?>><?= $value ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                    </div>
+                    <label for="v_hostname">Web Server/ Cofigure</label>
+                    <div class="input-group mb-3">
+                        <input type="text" name="v_hostname" class="form-control" placeholder="Hostname" value="<?= htmlentities(trim($v_hostname, "'")) ?>">
+                    </div>
+                </div>
             </div>
 
-            <div>
-                <b><a href="javascript:elementHideShow('vesta');" style="color:black;">VESTA Control Panel Plugins</a></b>
+            <div class="mb-3">
+                <b><a href="javascript:elementHideShow('vesta');" style="color:black;">VESTA Control Panel Plugins</a></b>&nbsp;<i class="fas fa-sort-down"></i>
+                <div class="mt-2" id="vesta" style="display: <?php if (empty($v_adv)) echo 'none'; ?>;padding-left:30px;">
+                    <?php if (!empty($_SESSION['PROXY_SYSTEM'])) { ?>
+                        <label for="v_hostname">Proxy Server / <a class="generate" href="/server/edit/<? echo $_SESSION['PROXY_SYSTEM'] ?>/"><?= __('configure') ?></a></label>
+                        <div class="input-group mb-3">
+                            <input type="text" name="v_hostname" class="form-control" placeholder="Hostname" value="<?= htmlentities(trim($v_hostname, "'")) ?>">
+                        </div>
+                    <?php } ?>
+                    <label for="v_hostname">Web Server/ Cofigure</label>
+                    <div class="input-group mb-3">
+                        <input type="text" name="v_hostname" class="form-control" placeholder="Hostname" value="<?= htmlentities(trim($v_hostname, "'")) ?>">
+                    </div>
+                </div>
             </div>
-
 
             <div class="row">
                 <!-- /.col -->
