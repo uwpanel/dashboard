@@ -19,7 +19,8 @@ function initTable() {
     $table.bootstrapTable('destroy').bootstrapTable({
         height: 600,
         locale: 'en-US',
-        exportTypes: ['csv', 'excel', 'txt']
+        exportTypes: ['csv', 'excel', 'txt'],
+        showRefresh:false
     })
     $table.on('check.bs.table uncheck.bs.table ' +
         'check-all.bs.table uncheck-all.bs.table',
